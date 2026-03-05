@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onam — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+       DESIGN TOKENS — Onam palette
+       Primary: Lush Kerala green + marigold gold
+       (Pookalam colors: greens, yellows, warm orange)
+    ═══════════════════════════════════════════ */
+        :root {
+            --bg: #080e09;
+            --bg-2: #0c1410;
+            --card: #101a12;
+            --card-2: #142018;
+            --card-3: #18261c;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --gold: #c8920a;
+            --gold-lt: #f0ab18;
+            --gold-bright: #fbbf24;
+            --gold-dim: rgba(200, 146, 10, 0.10);
+            --gold-glow: rgba(200, 146, 10, 0.18);
+            --green: #166534;
+            --green-lt: #4ade80;
+            --green-mid: #16a34a;
+            --green-dim: rgba(22, 101, 52, 0.14);
+            --green-bright: #86efac;
+            --flower-pink: #f472b6;
+            --flower-orange: #fb923c;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--green-mid);
+            border-radius: 3px;
+        }
+
+        /* ══════════════════════════════════════
+       PARTICLE CANVAS — flower petals
+    ══════════════════════════════════════ */
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.55;
+        }
+
+        /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(16, 26, 18, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 65% 55% at 50% 0%, rgba(22, 101, 52, 0.14) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(200, 146, 10, 0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 20% 75%, rgba(244, 114, 182, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 3.5s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 28px rgba(200, 146, 10, 0.5));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp 0.7s 0.15s var(--ease) both;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp 0.7s 0.28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--gold-lt);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-lt), var(--green-lt));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn 0.8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp 0.7s 0.4s var(--ease) both;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gold-lt);
+            animation: slideUp 0.7s 0.52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--green-lt);
+            border-radius: 50%;
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 0.7s 0.65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--gold-lt);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════ */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ══════════════════════════════════════
+       ABOUT / TEXT BLOCKS
+    ══════════════════════════════════════ */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--gold-lt);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--gold-lt);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--gold-bright);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       SONG / PRAYER BLOCK
+    ══════════════════════════════════════ */
+        .song-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--gold-lt);
+            border-radius: var(--radius);
+            padding: 24px 26px;
+            margin-top: 16px;
+        }
+
+        .song-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold-lt);
+            margin-bottom: 10px;
+        }
+
+        .song-verse {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--gold-bright);
+            line-height: 2;
+            margin-bottom: 10px;
+        }
+
+        .song-meaning {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       STEP CARDS
+    ══════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-color 0.2s, background 0.2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(200, 146, 10, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gold-lt);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--gold-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-desc strong {
+            color: var(--gold-lt);
+            font-weight: 600;
+        }
+
+        /* ══════════════════════════════════════
+       POOKALAM RINGS — animated demo
+    ══════════════════════════════════════ */
+        .pookalam-demo {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .pookalam-demo.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pookalam-visual {
+            flex-shrink: 0;
+            width: 180px;
+            height: 180px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        /* Concentric rings of Pookalam */
+        .pookalam-visual .ring {
+            position: absolute;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: ringPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes ringPulse {
+
+            0%,
+            100% {
+                opacity: 0.85;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .ring:nth-child(1) {
+            width: 18px;
+            height: 18px;
+            background: #ffffff;
+            animation-delay: 0s;
+        }
+
+        .ring:nth-child(2) {
+            width: 34px;
+            height: 34px;
+            background: #fbbf24;
+            animation-delay: 0.1s;
+        }
+
+        .ring:nth-child(3) {
+            width: 52px;
+            height: 52px;
+            background: #4ade80;
+            animation-delay: 0.2s;
+        }
+
+        .ring:nth-child(4) {
+            width: 68px;
+            height: 68px;
+            background: #fb923c;
+            animation-delay: 0.3s;
+        }
+
+        .ring:nth-child(5) {
+            width: 82px;
+            height: 82px;
+            background: #f472b6;
+            animation-delay: 0.4s;
+        }
+
+        .ring:nth-child(6) {
+            width: 96px;
+            height: 96px;
+            background: #facc15;
+            animation-delay: 0.5s;
+        }
+
+        .ring:nth-child(7) {
+            width: 110px;
+            height: 110px;
+            background: #86efac;
+            animation-delay: 0.6s;
+        }
+
+        .ring:nth-child(8) {
+            width: 124px;
+            height: 124px;
+            background: #fde68a;
+            animation-delay: 0.7s;
+        }
+
+        .ring:nth-child(9) {
+            width: 138px;
+            height: 138px;
+            background: #f9a8d4;
+            animation-delay: 0.8s;
+        }
+
+        .ring:nth-child(10) {
+            width: 152px;
+            height: 152px;
+            background: #a3e635;
+            animation-delay: 0.9s;
+        }
+
+        /* Inner ring renders on top of outer using z-index order */
+        .ring:nth-child(10) {
+            z-index: 1;
+        }
+
+        .ring:nth-child(9) {
+            z-index: 2;
+        }
+
+        .ring:nth-child(8) {
+            z-index: 3;
+        }
+
+        .ring:nth-child(7) {
+            z-index: 4;
+        }
+
+        .ring:nth-child(6) {
+            z-index: 5;
+        }
+
+        .ring:nth-child(5) {
+            z-index: 6;
+        }
+
+        .ring:nth-child(4) {
+            z-index: 7;
+        }
+
+        .ring:nth-child(3) {
+            z-index: 8;
+        }
+
+        .ring:nth-child(2) {
+            z-index: 9;
+        }
+
+        .ring:nth-child(1) {
+            z-index: 10;
+        }
+
+        .pookalam-text {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .pookalam-text h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .pookalam-text p {
+            font-size: 13.5px;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .pookalam-text p+p {
+            margin-top: 10px;
+        }
+
+        .pookalam-text strong {
+            color: var(--gold-lt);
+        }
+
+        /* Day labels */
+        .day-track {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .day-pip {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: var(--card-2);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            letter-spacing: 0.04em;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .day-pip.active {
+            background: var(--gold-dim);
+            border-color: rgba(200, 146, 10, 0.3);
+            color: var(--gold-bright);
+        }
+
+        /* ══════════════════════════════════════
+       SADHYA BANANA LEAF LAYOUT
+    ══════════════════════════════════════ */
+        .sadhya-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px 36px;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .sadhya-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sadhya-intro {
+            font-size: 14.5px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .sadhya-intro strong {
+            color: var(--gold-lt);
+        }
+
+        /* Banana leaf diagram */
+        .leaf-diagram {
+            background: rgba(22, 101, 52, 0.08);
+            border: 1px solid rgba(22, 101, 52, 0.2);
+            border-radius: 60% 60% 60% 60% / 40% 40% 40% 40%;
+            padding: 28px 24px;
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .leaf-tip {
+            position: absolute;
+            right: -18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            background: rgba(22, 101, 52, 0.15);
+            border-radius: 0 50% 50% 0;
+            border: 1px solid rgba(22, 101, 52, 0.2);
+            border-left: none;
+        }
+
+        .leaf-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        .leaf-item {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+
+        .leaf-item.snack {
+            background: rgba(251, 191, 36, 0.08);
+            border-color: rgba(251, 191, 36, 0.25);
+            color: var(--gold-bright);
+        }
+
+        .leaf-item.curry {
+            background: rgba(74, 222, 128, 0.06);
+            border-color: rgba(74, 222, 128, 0.2);
+            color: var(--green-lt);
+        }
+
+        .leaf-item.rice {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            font-size: 13px;
+            padding: 6px 18px;
+            font-weight: 700;
+        }
+
+        .leaf-item.sweet {
+            background: rgba(244, 114, 182, 0.07);
+            border-color: rgba(244, 114, 182, 0.2);
+            color: #f9a8d4;
+        }
+
+        .leaf-item.finish {
+            background: rgba(148, 163, 184, 0.06);
+            border-color: rgba(148, 163, 184, 0.15);
+            color: var(--text-muted);
+        }
+
+        .leaf-label {
+            font-size: 10px;
+            text-align: center;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .sadhya-tip {
+            padding: 14px 18px;
+            background: var(--card-2);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--green-mid);
+            border-radius: 0 10px 10px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .sadhya-tip strong {
+            color: var(--green-lt);
+        }
+
+        /* ══════════════════════════════════════
+       ITEMS GRID
+    ══════════════════════════════════════ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), border-color 0.2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(200, 146, 10, 0.25);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--gold-lt);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       FOOD GRID
+    ══════════════════════════════════════ */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .food-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-color 0.2s;
+        }
+
+        .food-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .food-card:hover {
+            border-color: rgba(200, 146, 10, 0.3);
+            background: var(--card-2);
+        }
+
+        .food-emoji {
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .food-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold-lt);
+            margin-bottom: 6px;
+        }
+
+        .food-desc {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .food-desc strong {
+            color: var(--gold-lt);
+        }
+
+        /* ══════════════════════════════════════
+       ARTS & EVENTS CARDS
+    ══════════════════════════════════════ */
+        .arts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+        }
+
+        .art-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-color 0.2s;
+        }
+
+        .art-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .art-card:hover {
+            border-color: rgba(200, 146, 10, 0.25);
+            background: var(--card-2);
+        }
+
+        .art-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .art-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold-lt);
+            margin-bottom: 6px;
+        }
+
+        .art-desc {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        .art-desc strong {
+            color: var(--gold-lt);
+        }
+
+        /* ══════════════════════════════════════
+       PRAYERS / SONG BLOCK
+    ══════════════════════════════════════ */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-color 0.2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(200, 146, 10, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--gold-lt);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--gold-bright);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+       GALLERY
+    ══════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition: opacity 0.55s var(--ease), transform 0.55s var(--ease), border-color 0.2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.82) saturate(0.88);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.95) saturate(1.05);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(8, 14, 9, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* ══════════════════════════════════════
+       VIDEO CARDS
+    ══════════════════════════════════════ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-color 0.2s, background 0.2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.7);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(200, 146, 10, 0.15);
+            border: 1.5px solid rgba(200, 146, 10, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--gold-lt);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(200, 146, 10, 0.25);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--green-lt);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       DO'S & DON'TS
+    ══════════════════════════════════════ */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: #f87171;
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: #f87171;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+       SIGNIFICANCE BLOCK
+    ══════════════════════════════════════ */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .significance-block strong {
+            color: var(--gold-lt);
+        }
+
+        /* ══════════════════════════════════════
+       CLOSING
+    ══════════════════════════════════════ */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 720px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: var(--gold-lt);
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 14, 9, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn 0.25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block,
+            .sadhya-block,
+            .pookalam-demo {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pookalam-visual {
+                width: 140px;
+                height: 140px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="canvas-bg"></canvas>
+
+    <a class="back-btn" href="festival-card.html">← Back</a>
+
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+
+        <span class="hero-emoji">🌸</span>
+        <p class="hero-eyebrow">Chingam · Malayalam Calendar · Kerala's National Festival · All Religions Welcome</p>
+        <h1 class="hero-title"><span class="accent">Onam</span></h1>
+        <p class="hero-subtitle">Harvest, Homecoming &amp; the Return of King Mahabali — Ten Days of Flowers, Feast
+            &amp; Joy</p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            Aug 26 – Sep 4, 2026 &nbsp;·&nbsp; Thiruvonam on Sep 4
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">10 Days</div>
+                <div class="sl">Festival</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">26+</div>
+                <div class="sl">Sadhya Dishes</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">10 Rings</div>
+                <div class="sl">Pookalam</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">∞</div>
+                <div class="sl">Flowers</div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PAGE BODY
+  ══════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── ABOUT ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Onam celebrates the annual homecoming of the beloved demon king <strong>Mahabali (Maveli)</strong> —
+                    the most just and generous ruler Kerala has ever known — who comes back once a year to visit his
+                    people.</p>
+                <p><strong>The Story:</strong> King Mahabali ruled a golden age — no poverty, no inequality, no
+                    dishonesty, no disease. Everyone was equal and happy. His greatness threatened the Gods, who asked
+                    Lord Vishnu to intervene. Vishnu came as <strong>Vamana</strong> — a tiny brahmin dwarf — and asked
+                    Mahabali for three paces of land. The generous king agreed. Vamana grew to cosmic proportions and
+                    covered the earth and sky in two steps. With the third, he pushed Mahabali into the netherworld. But
+                    so moved was Vishnu by Mahabali's virtue that he granted him one boon — to visit his beloved people
+                    once a year.</p>
+                <p>That annual visit is Onam. Every year Kerala prepares for Mahabali's arrival with flowers, feasts,
+                    and festivities — showing him that his people are still happy and prosperous.</p>
+                <div class="myth-quote">
+                    "Onam is Kerala's most beautiful answer to the question — what does a just and happy society look
+                    like? It looks like Mahabali's kingdom. And every year, for ten days, Kerala tries to become that
+                    kingdom again — with flowers at every door, food for everyone, and the belief that a good king
+                    always comes home to his people."
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SIGNIFICANCE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Onam is Kerala's <strong>national festival</strong> — celebrated by Hindus, Christians, and Muslims
+                alike. It belongs to every Keralite regardless of religion. The story of Mahabali is not just mythology
+                — it is a political and moral ideal. A king so good, so just, so equal in his treatment of all people,
+                that even a God had to trick him to remove him. <strong>Every year, Onam asks: are we still living up to
+                    the standard Mahabali set?</strong> The flowers, the feast, and the joy are Kerala's annual answer —
+                yes, we still try.
+            </div>
+        </div>
+
+        <!-- ── POOKALAM ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🌺</span> Pookalam — The Flower Carpet</h2>
+                <div class="sec-divider"></div>
+            </div>
+
+            <div class="pookalam-demo">
+                <!-- Animated pookalam rings -->
+                <div class="pookalam-visual">
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                </div>
+
+                <div class="pookalam-text">
+                    <h3>10 Rings · 10 Days · One for Each Day</h3>
+                    <p>Start with a small circle of flowers on Day 1 (Atham). Each day add one more ring outward — by
+                        <strong>Thiruvonam</strong> (Day 10) you have 10 concentric rings of different colored flowers:
+                        a magnificent living carpet at your door.</p>
+                    <p>Place the <strong>Thrikkakara Appan</strong> clay idol at the center — the small pyramid
+                        representing Vamana/Mahabali — and perform daily puja around it. The flowers are the offering.
+                        The beauty of the Pookalam is the prayer.</p>
+
+                    <div class="day-track">
+                        <span class="day-pip">1 Atham</span>
+                        <span class="day-pip">2 Chithira</span>
+                        <span class="day-pip">3 Chodhi</span>
+                        <span class="day-pip">4 Vishakam</span>
+                        <span class="day-pip">5 Anizham</span>
+                        <span class="day-pip">6 Thriketa</span>
+                        <span class="day-pip">7 Moolam</span>
+                        <span class="day-pip">8 Pooradam</span>
+                        <span class="day-pip">9 Uthradom</span>
+                        <span class="day-pip active">10 Thiruvonam ✦</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── THIRUVONAM DAY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎊</span> Thiruvonam — The 10th and Greatest Day</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Dawn</div>
+                    <div class="step-title">Wake Early &amp; Wear Kasavu</div>
+                    <p class="step-desc">Wake before sunrise. Bathe. Wear <strong>Kasavu</strong> — Kerala's traditional
+                        white with gold border. Kasavu saree for women, Mundu and shirt for men. This is non-negotiable
+                        on Thiruvonam. <strong>Every Keralite wears Kasavu on this day — it is the most beautiful
+                            regional dress tradition in India.</strong></p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Morning</div>
+                    <div class="step-title">The Grand Pookalam</div>
+                    <p class="step-desc">Make the grandest Pookalam of all — add the 10th ring, completing the full
+                        circular carpet. Decorate the entrance with <strong>banana leaves and mango leaf
+                            torans.</strong> Perform the Thrikkakara Appan puja with special devotion — this is the day
+                        Mahabali himself is believed to arrive.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Heart</div>
+                    <div class="step-title">Onam Sadhya — The Grand Feast</div>
+                    <p class="step-desc">The <strong>Sadhya</strong> is the most magnificent vegetarian feast in all of
+                        Indian cuisine. Served on a fresh banana leaf, sitting on the floor, with <strong>26 or more
+                            dishes</strong> in a specific centuries-old arrangement. Eaten with the right hand only — no
+                        cutlery. Begin cooking at 4–5 AM.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Tradition</div>
+                    <div class="step-title">The Banana Leaf — Fold Toward You</div>
+                    <p class="step-desc">After eating, <strong>always fold the top half of the banana leaf toward
+                            you.</strong> Folding away signals dissatisfaction — a serious social signal you do not want
+                        to give your host. The folding toward you is a gesture of gratitude and joy for the meal.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Community</div>
+                    <div class="step-title">Visit Family &amp; Give Onakkodi</div>
+                    <p class="step-desc">Thiruvonam is a day of family reunion — people travel from across India and the
+                        world to be in Kerala. Give <strong>Onakkodi</strong> (new clothes, traditionally Kasavu) to
+                        children and younger family members. The eldest gives to all younger members. Keep your home
+                        open — every visitor is welcomed and fed.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Remember</div>
+                    <div class="step-title">Sing the Maveli Song</div>
+                    <p class="step-desc">Sing — or at least know — the Maveli folk song. It is the soul of Onam. It
+                        describes Mahabali's golden age of equality and justice. <em>"Maveli Nadu Vaneedum Kalam,
+                            Manusharellarum Onnu Pole"</em> — when Maveli ruled, all people were equal. That longing is
+                        what Onam truly celebrates.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── ONAM SADHYA ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🍌</span> Onam Sadhya — 26 Dishes on a Banana Leaf</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="sadhya-block">
+                <p class="sadhya-intro">The Sadhya is served on a <strong>fresh banana leaf</strong> placed with the tip
+                    pointing left. Every dish has a specific position — centuries of tradition encoded in the
+                    arrangement. Here is the order of service, from first to last.</p>
+
+                <div class="leaf-diagram">
+                    <div class="leaf-tip"></div>
+                    <div class="leaf-label">Before rice — placed first</div>
+                    <div class="leaf-row">
+                        <span class="leaf-item snack">Pappadum</span>
+                        <span class="leaf-item snack">Ripe Banana</span>
+                        <span class="leaf-item snack">Sharkaravaretti</span>
+                        <span class="leaf-item snack">Upperi (Chips)</span>
+                        <span class="leaf-item snack">Naranga Achar</span>
+                        <span class="leaf-item snack">Puli Inji</span>
+                    </div>
+                    <div class="leaf-label" style="margin-top:14px">Rice served — then curries come around</div>
+                    <div class="leaf-row">
+                        <span class="leaf-item rice">Kerala Red Rice</span>
+                        <span class="leaf-item curry">Sambar</span>
+                        <span class="leaf-item curry">Avial ✦</span>
+                        <span class="leaf-item curry">Thoran</span>
+                        <span class="leaf-item curry">Olan</span>
+                    </div>
+                    <div class="leaf-row">
+                        <span class="leaf-item curry">Kalan</span>
+                        <span class="leaf-item curry">Pulissery</span>
+                        <span class="leaf-item curry">Pachadi</span>
+                        <span class="leaf-item curry">Erissery</span>
+                        <span class="leaf-item curry">Koottukari</span>
+                        <span class="leaf-item curry">Rasam</span>
+                        <span class="leaf-item snack">Ghee</span>
+                    </div>
+                    <div class="leaf-label" style="margin-top:14px">Payasam — served last, one by one</div>
+                    <div class="leaf-row">
+                        <span class="leaf-item sweet">Palada Payasam ✦</span>
+                        <span class="leaf-item sweet">Parippu Payasam</span>
+                        <span class="leaf-item sweet">Semiya Payasam</span>
+                    </div>
+                    <div class="leaf-row">
+                        <span class="leaf-item finish">Moru (Buttermilk) — to finish</span>
+                    </div>
+                </div>
+
+                <div class="sadhya-tip">
+                    <strong>Can't cook all 26?</strong> Make at minimum: <strong>Avial, Sambar, Thoran, Olan, Pulissery,
+                        and Palada Payasam.</strong> These five constitute the essential Sadhya. If cooking at home is
+                    not possible — every Kerala restaurant across India serves full Onam Sadhya on Thiruvonam.
+                    <strong>Eating Sadhya on a banana leaf on Thiruvonam is the one non-negotiable celebration of the
+                        day.</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── KEY FOODS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🍽️</span> Key Foods of Onam</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="food-grid">
+                <div class="food-card">
+                    <span class="food-emoji">🥘</span>
+                    <div class="food-name">Avial — The Signature Dish</div>
+                    <div class="food-desc">Mixed vegetables (raw banana, drumstick, yam, beans, raw mango) in ground
+                        coconut and curd with coconut oil and curry leaves. <strong>Every Kerala family has its own
+                            treasured Avial recipe.</strong> No Sadhya is complete without it.</div>
+                </div>
+                <div class="food-card">
+                    <span class="food-emoji">🍮</span>
+                    <div class="food-name">Palada Payasam</div>
+                    <div class="food-desc">The most sacred Onam sweet — thin rice flakes cooked slowly in full-fat milk
+                        with sugar for hours until thick and fragrant. <strong>The patience of the cooking is itself
+                            part of the tradition.</strong></div>
+                </div>
+                <div class="food-card">
+                    <span class="food-emoji">🫙</span>
+                    <div class="food-name">Puli Inji</div>
+                    <div class="food-desc">Ginger-tamarind-jaggery chutney — served first on the banana leaf before
+                        anything else. Its sharp, complex flavors prepare the palate for the entire feast that follows.
+                    </div>
+                </div>
+                <div class="food-card">
+                    <span class="food-emoji">🫘</span>
+                    <div class="food-name">Olan</div>
+                    <div class="food-desc">Ash gourd and cowpeas in delicate coconut milk — subtle, pale, and gentle.
+                        The quiet dish of the Sadhya. Its simplicity is deceptive — it is many people's favorite.</div>
+                </div>
+                <div class="food-card">
+                    <span class="food-emoji">🍌</span>
+                    <div class="food-name">Upperi (Banana Chips)</div>
+                    <div class="food-desc">Kerala's famous thick banana chips fried in coconut oil — the evergreen Onam
+                        snack. The best ones are made at home. Ubiquitous across the 10-day festival season.</div>
+                </div>
+                <div class="food-card">
+                    <span class="food-emoji">🥛</span>
+                    <div class="food-name">Pulissery</div>
+                    <div class="food-desc">Ripe mango or pineapple in sweetened curd and coconut — sweet, sour, and
+                        cooling. The perfect counter to the richer dishes of the Sadhya.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── WHAT YOU NEED ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🛒</span> What You Need</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="items-grid">
+                <div class="item-chip"><span class="ic-dot"></span>Fresh flowers — Thumba, Mukkutti, Chethi, marigold
+                    (daily for 10 days)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Thrikkakara Appan clay idol (from puja shop)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Kasavu saree (women) or Mundu &amp; shirt (men)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Fresh banana leaves for Sadhya</div>
+                <div class="item-chip"><span class="ic-dot"></span>Kerala red rice (Rosematta / Palakkadan Matta)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Vegetables: raw banana, yam, ash gourd, drumstick,
+                    beans, raw mango</div>
+                <div class="item-chip"><span class="ic-dot"></span>Coconut, coconut oil, coconut milk</div>
+                <div class="item-chip"><span class="ic-dot"></span>Jaggery, tamarind, dal, mustard, curry leaves</div>
+                <div class="item-chip"><span class="ic-dot"></span>Palada rice flakes and full-fat milk for Payasam
+                </div>
+                <div class="item-chip"><span class="ic-dot"></span>Banana chips (Upperi) — bought or made fresh</div>
+                <div class="item-chip"><span class="ic-dot"></span>Mango leaf torans for door decoration</div>
+                <div class="item-chip"><span class="ic-dot"></span>Onakkodi — new Kasavu clothes to gift children</div>
+                <div class="item-chip"><span class="ic-dot"></span>Incense, camphor, diyas for Thrikkakara Appan puja
+                </div>
+            </div>
+        </div>
+
+        <!-- ── ARTS & EVENTS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🐘</span> Traditional Arts &amp; Events</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="arts-grid">
+                <div class="art-card">
+                    <span class="art-icon">🚣</span>
+                    <div class="art-name">Vallamkali — Snake Boat Race</div>
+                    <div class="art-desc">100-foot-long snake boats (Chundan Vallam) carrying 100+ rowers racing on
+                        Kerala's backwaters. The <strong>Nehru Trophy Boat Race at Punnamada Lake, Alappuzha</strong> is
+                        the most famous — watching it live is one of the greatest spectacles in Indian sporting and
+                        cultural life.</div>
+                </div>
+                <div class="art-card">
+                    <span class="art-icon">💃</span>
+                    <div class="art-name">Kaikottikali — Clapping Dance</div>
+                    <div class="art-desc">Women in Kasavu sarees dance in gentle circles with clapping, singing Onam
+                        folk songs. A graceful, joyful expression of the festival's communal spirit — performed in
+                        homes, schools, and public spaces across Kerala.</div>
+                </div>
+                <div class="art-card">
+                    <span class="art-icon">🐯</span>
+                    <div class="art-name">Pulikali — Tiger Play</div>
+                    <div class="art-desc">Men painted elaborately as tigers and leopards dance through the streets on
+                        Thiruvonam in Thrissur. One of the most visually stunning and joyful folk art performances of
+                        Kerala — impossible to watch without laughing and marveling.</div>
+                </div>
+                <div class="art-card">
+                    <span class="art-icon">🎭</span>
+                    <div class="art-name">Kathakali Performances</div>
+                    <div class="art-desc">Classical Kerala dance-drama performances are held across the state during
+                        Onam season — elaborate costumes, codified gestures, and stories from the Mahabharata and
+                        Ramayana performed through the night.</div>
+                </div>
+                <div class="art-card">
+                    <span class="art-icon">🌸</span>
+                    <div class="art-name">Pookalam Competitions</div>
+                    <div class="art-desc">Schools, offices, apartment complexes, and communities hold Pookalam
+                        competitions with prizes for the most beautiful, most creative, and largest designs. Even
+                        outside Kerala, wherever Keralites live, Pookalam competitions on Onam are a beloved tradition.
+                    </div>
+                </div>
+                <div class="art-card">
+                    <span class="art-icon">🛍️</span>
+                    <div class="art-name">Onam Shopping Season</div>
+                    <div class="art-desc">The 10 days of Onam are <strong>Kerala's biggest shopping season</strong> —
+                        new clothes, gold jewelry, household items. Kerala's markets transform completely. The gifting
+                        of Kasavu to family members is itself a cherished tradition.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── PRAYERS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🙏</span> Prayers &amp; Song of Onam</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="mantra-list">
+                <div class="mantra-card">
+                    <div class="mantra-icon">🎵</div>
+                    <div>
+                        <div class="mantra-label">The Maveli Song — Soul of Onam · Sing This on Thiruvonam</div>
+                        <div class="mantra-text">
+                            "Maveli Nadu Vaneedum Kalam<br>
+                            Manusharellarum Onnu Pole<br>
+                            Amodhathode Vasikkum Kalam<br>
+                            Aapathangarkkum Ottum Kale"
+                        </div>
+                        <div class="mantra-meaning">When Maveli (Mahabali) ruled the land, all people were equal. They
+                            lived with joy — there was no sorrow for anyone. This folk song is the anthem of Onam, sung
+                            by every Keralite. It is a description of Mahabali's golden age — and a longing for that
+                            justice and equality to return.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <div class="mantra-icon">🌺</div>
+                    <div>
+                        <div class="mantra-label">Pookalam Puja — Daily Morning Prayer</div>
+                        <div class="mantra-text">"The flowers themselves are the prayer. The beauty of the Pookalam is
+                            the offering."</div>
+                        <div class="mantra-meaning">Light a diya and incense. Offer fresh flowers to the Thrikkakara
+                            Appan idol. Apply kumkum. Fold hands and pray — thanking Mahabali for his goodness, and
+                            asking that his spirit of justice and generosity continue to inspire your home. No fixed
+                            mantra — sincerity is enough.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <div class="mantra-icon">🍌</div>
+                    <div>
+                        <div class="mantra-label">Before Sadhya — Simple Gratitude</div>
+                        <div class="mantra-text">"Fold hands before the banana leaf. Close your eyes. Offer thanks."
+                        </div>
+                        <div class="mantra-meaning">Thank God, thank Mahabali, thank the hands that cooked, thank the
+                            harvest, thank the family gathered together. No fixed words are required — only sincerity.
+                            Then eat together with joy.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── GALLERY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Onam_pookalam_2011.jpg/1280px-Onam_pookalam_2011.jpg"
+                        alt="Onam Pookalam flower carpet Kerala"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🌺</span><span>Onam Pookalam</span></div>'">
+                    <div class="g-label">Onam Pookalam — the circular flower carpet made fresh every morning for 10 days
+                    </div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Onam_sadhya.jpg/640px-Onam_sadhya.jpg"
+                        alt="Onam Sadhya banana leaf feast Kerala"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🍌</span><span>Onam Sadhya</span></div>'">
+                    <div class="g-label">Onam Sadhya — 26 dishes served on a banana leaf, the greatest vegetarian feast
+                        in India</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Nehru_Trophy_Boat_Race.jpg/640px-Nehru_Trophy_Boat_Race.jpg"
+                        alt="Vallamkali snake boat race Kerala Nehru Trophy"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🚣</span><span>Vallamkali</span></div>'">
+                    <div class="g-label">Vallamkali — 100-foot snake boats racing on Kerala's backwaters during Onam
+                    </div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Kerala_woman_kasavu.jpg/640px-Kerala_woman_kasavu.jpg"
+                        alt="Kerala woman Kasavu saree traditional white gold"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>👘</span><span>Kasavu</span></div>'">
+                    <div class="g-label">Kasavu — Kerala's traditional white and gold dress, worn by all on Thiruvonam
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── VIDEOS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card" href="https://www.youtube.com/watch?v=LNsRKGXJpDU" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/LNsRKGXJpDU/maxresdefault.jpg"
+                            alt="Onam Sadhya full preparation at home">
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Sadhya Guide</p>
+                        <p class="v-title">Full Onam Sadhya — All 26 Dishes</p>
+                        <p class="v-sub">Step-by-step home cooking of the complete feast</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=vf6OYqt6U58" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/vf6OYqt6U58/maxresdefault.jpg"
+                            alt="Onam story Mahabali Vamana legend Kerala">
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Story &amp; Meaning</p>
+                        <p class="v-title">The Story of Mahabali &amp; Vamana</p>
+                        <p class="v-sub">Why Kerala's greatest king was sent underground — and comes back every year</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=9oOvSn_HVKU" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/9oOvSn_HVKU/maxresdefault.jpg"
+                            alt="Nehru Trophy Boat Race Onam vallamkali">
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Vallamkali</p>
+                        <p class="v-title">Nehru Trophy Snake Boat Race</p>
+                        <p class="v-sub">The greatest sporting spectacle of Onam — 100 rowers, one heart</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── DO'S & DON'TS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li>Make Pookalam every single day — even a small one. Don't skip a day.</li>
+                        <li>Wear Kasavu (white and gold Kerala traditional dress) on Thiruvonam without fail</li>
+                        <li>Eat Onam Sadhya on a banana leaf, sitting on the floor — this is the heart of the festival
+                        </li>
+                        <li>Fold the banana leaf toward you after eating — always</li>
+                        <li>Cook or participate in cooking the Sadhya — the labor of love is part of the celebration
+                        </li>
+                        <li>Sing the Maveli song — it is the soul of Onam</li>
+                        <li>Give Onakkodi (new clothes) to children and younger family members</li>
+                        <li>Watch or attend Vallamkali (snake boat race) if you are in Kerala</li>
+                        <li>Visit family — Thiruvonam is Kerala's great homecoming</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li>Do not skip the Pookalam — it is the daily ritual that holds all 10 days together</li>
+                        <li>Do not eat Sadhya with cutlery — use your right hand, as tradition demands</li>
+                        <li>Do not fold the banana leaf away from you after eating — it signals dissatisfaction</li>
+                        <li>Do not wear any color other than Kasavu on Thiruvonam if you wish to observe fully</li>
+                        <li>Do not treat Onam as just a food festival — understand Mahabali's story and what it means
+                            about justice, equality, and good governance</li>
+                        <li>Do not let the day pass without at least singing the Maveli song — even once</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CLOSING ── -->
+        <div class="closing">
+            <p class="closing-text">
+                Every year, for ten days, Kerala tries to become Mahabali's kingdom again — with flowers at every door,
+                food for everyone, and the belief that
+                <em>a good king always comes home to his people.</em>
+            </p>
+            <p class="closing-sub">🌸 &nbsp; Onam Ashamsakal &nbsp; · &nbsp; Happy Onam &nbsp; 🌺</p>
+        </div>
+
+    </div>
+
+    <script>
+        /* ══════════════════════════════════════
+           PARTICLE CANVAS — flower petals falling
+           Colors: pookalam palette (multi-color)
+        ══════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+
+            // Pookalam flower colors
+            const COLORS = ['#fbbf24', '#4ade80', '#fb923c', '#f472b6', '#facc15', '#86efac', '#fde68a', '#f9a8d4', '#a3e635', '#ffffff', '#34d399'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = Array.from({ length: 55 }, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 3 + 1,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: Math.random() * 0.4 + 0.15, // petals fall DOWN (unlike other pages)
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.4 + 0.1,
+                    life: Math.random(),
+                    rotation: Math.random() * Math.PI * 2,
+                    rotSpeed: (Math.random() - 0.5) * 0.04,
+                    isPetal: Math.random() > 0.4
+                }));
+            }
+
+            function drawPetal(cx, cy, r, color, alpha, rotation) {
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = color;
+                ctx.translate(cx, cy);
+                ctx.rotate(rotation);
+                ctx.beginPath();
+                ctx.ellipse(0, -r * 1.5, r * 0.7, r * 1.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.rotation += p.rotSpeed;
+                    p.life += 0.002;
+                    // Reset when petal falls below screen
+                    if (p.y > H + 15 || p.life > 1) {
+                        p.x = Math.random() * W;
+                        p.y = -15;
+                        p.life = 0;
+                    }
+                    const a = p.alpha * Math.sin(Math.min(p.life, 1) * Math.PI);
+                    if (p.isPetal) {
+                        drawPetal(p.x, p.y, p.r, p.color, a, p.rotation);
+                    } else {
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.r * 0.6, 0, Math.PI * 2);
+                        ctx.fillStyle = p.color;
+                        ctx.globalAlpha = a;
+                        ctx.fill();
+                        ctx.globalAlpha = 1;
+                    }
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize(); initParticles(); draw();
+        })();
+
+        /* ══════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════ */
+        (function () {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(
+                '.about-block, .significance-block, .step-card, .item-chip, ' +
+                '.g-item, .v-card, .mantra-card, .dos-col, .closing, .sec-divider, ' +
+                '.food-card, .art-card, .sadhya-block, .pookalam-demo'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        /* Stagger delays */
+        ['.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card', '.food-card', '.art-card']
+            .forEach(sel => {
+                document.querySelectorAll(sel).forEach((el, i) => {
+                    el.style.transitionDelay = `${i * 0.07}s`;
+                });
+            });
+
+        /* ══════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        function openLb(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        /* ══════════════════════════════════════
+           HERO TITLE — letter-by-letter stagger
+        ══════════════════════════════════════ */
+        (function () {
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) {
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `
+              display:inline-block;
+              opacity:0;
+              transform:translateY(18px);
+              animation: slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;
+            `;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

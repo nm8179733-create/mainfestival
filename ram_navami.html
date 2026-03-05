@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ram Navami — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+       DESIGN TOKENS — your website's palette
+    ═══════════════════════════════════════════ */
+        :root {
+            --bg: #0d1117;
+            --bg-2: #111827;
+            --card: #161d2e;
+            --card-2: #1b2338;
+            --card-3: #1e2a40;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --yellow: #b45309;
+            /* Rama saffron — dharma's warmth */
+            --yellow-lt: #fbbf24;
+            --yellow-dim: rgba(180, 83, 9, 0.10);
+            --yellow-glow: rgba(180, 83, 9, 0.22);
+            --pink: #0e7490;
+            /* sacred turquoise — Vishnu's ocean */
+            --pink-dim: rgba(14, 116, 144, 0.12);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ─── SCROLLBAR — matches your pink accent ─── */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 3px;
+        }
+
+        /* ══════════════════════════════════════
+       FLOATING PARTICLE BACKGROUND
+    ══════════════════════════════════════ */
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(22, 29, 46, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        /* Gradient mesh background on hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(244, 63, 94, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(245, 158, 11, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 20% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Animated grid lines */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 3.5s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 32px rgba(245, 158, 11, 0.35));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp 0.7s 0.15s var(--ease) both;
+        }
+
+        /* Split-text reveal for the title */
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp 0.7s 0.28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--yellow);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Underline swipe on accent word */
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--yellow), var(--pink));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn 0.8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp 0.7s 0.4s var(--ease) both;
+        }
+
+        /* Date pill */
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--yellow-lt);
+            animation: slideUp 0.7s 0.52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--pink);
+            border-radius: 50%;
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Hero quick-stats row */
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 0.7s 0.65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--yellow);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════ */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        /* ─── SECTION HEADING — identical to your site ─── */
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--pink) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ══════════════════════════════════════
+       ABOUT BLOCK
+    ══════════════════════════════════════ */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        /* Myth quote */
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--yellow);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--yellow-lt);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       REGION CARDS — matches your site layout
+    ══════════════════════════════════════ */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .region-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+            cursor: default;
+        }
+
+        .region-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .region-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: var(--card-2);
+        }
+
+        .region-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .region-also {
+            font-size: 11px;
+            color: var(--pink);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .region-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       CEREMONY STEPS — activities style
+    ══════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* Shimmer sweep */
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--yellow-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-mantra {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: var(--card-3);
+            border-left: 2px solid var(--yellow);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 12.5px;
+            color: var(--yellow-lt);
+            line-height: 1.65;
+            font-family: var(--font-serif);
+        }
+
+        /* ══════════════════════════════════════
+       WHAT YOU NEED — chip list
+    ══════════════════════════════════════ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition:
+                opacity 0.4s var(--ease),
+                transform 0.4s var(--ease),
+                border-color 0.2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--yellow);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       PHOTO GALLERY
+    ══════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition:
+                opacity 0.55s var(--ease),
+                transform 0.55s var(--ease),
+                border-color 0.2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.82) saturate(0.88);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.95) saturate(1.05);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(13, 17, 23, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Placeholder when no image */
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* ══════════════════════════════════════
+       VIDEO CARDS
+    ══════════════════════════════════════ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.7);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--yellow-lt);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(245, 158, 11, 0.25);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--pink);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       MANTRAS / PRAYERS BLOCK
+    ══════════════════════════════════════ */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--yellow-lt);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+       DO'S & DON'TS
+    ══════════════════════════════════════ */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: var(--pink);
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+       SIGNIFICANCE BLOCK — like your site
+    ══════════════════════════════════════ */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════════════
+       CLOSING QUOTE
+    ══════════════════════════════════════ */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: var(--yellow-lt);
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 17, 23, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn 0.25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Dharma quote block */
+        .dharma-block {
+            background: linear-gradient(135deg, rgba(180, 83, 9, 0.06), rgba(14, 116, 144, 0.06));
+            border: 1px solid rgba(180, 83, 9, 0.18);
+            border-left: 4px solid var(--yellow-lt);
+            border-radius: var(--radius);
+            padding: 22px 26px;
+            margin-top: 16px;
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .dharma-block strong {
+            color: var(--yellow-lt);
+            font-style: normal;
+        }
+
+        /* Janmotsav highlight card */
+        .janmotsav-card {
+            background: var(--card);
+            border: 2px solid var(--yellow-lt);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .janmotsav-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--yellow-lt);
+            margin-bottom: 10px;
+        }
+
+        .janmotsav-body {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.75;
+        }
+
+        .janmotsav-mantra {
+            margin-top: 12px;
+            font-weight: 700;
+            color: var(--text);
+            font-size: 13px;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Particle canvas -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Back button -->
+    <a class="back-btn" href="festival-card.html">← Back</a>
+
+    <!-- Lightbox -->
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <span class="hero-emoji">🪷</span>
+        <p class="hero-eyebrow">Chaitra · Shukla Navami · Last Day of Chaitra Navratri</p>
+        <h1 class="hero-title">Ram <span class="accent">Navami</span></h1>
+        <p class="hero-subtitle">The Birthday of Lord Rama — Dharma, the Midday Janmotsav &amp; the Ideal Human</p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            March 28, 2026 &nbsp;·&nbsp; Chaitra Shukla 9
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">12 PM</div>
+                <div class="sl">Madhyahna — Birth Hour</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">7th</div>
+                <div class="sl">Avatar of Vishnu</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">🪷</div>
+                <div class="sl">Lotus Offering</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">∞</div>
+                <div class="sl">Jai Shri Ram</div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PAGE BODY
+  ══════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── ABOUT ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Ram Navami celebrates the birth of <strong>Lord Rama</strong> — the seventh avatar of Lord Vishnu and
+                    the hero of the Ramayana. He was born to King Dasharatha and Queen Kaushalya in
+                    <strong>Ayodhya</strong> at exactly <strong>midday (Madhyahna)</strong> on Chaitra Shukla Navami.
+                    This is why noon is the most sacred moment of Ram Navami — the main puja and the birth celebration
+                    happen at this precise hour.</p>
+                <p>Ram Navami is also the final day of <strong>Chaitra Navratri</strong> — nine days of fasting and
+                    worship of Goddess Durga in her nine forms leading to this morning.</p>
+            </div>
+            <div class="dharma-block">
+                Rama is not just a deity — he is the blueprint of the ideal human being. He is called <strong>"Maryada
+                    Purushottam"</strong> — the perfect upholder of righteousness and moral boundaries. Every role he
+                played — son, husband, brother, king, warrior — he played with absolute integrity, even at enormous
+                personal cost. He shows that <strong>dharma is possible in a human life</strong> — that a person can
+                face every kind of loss, exile, and injustice without losing their goodness.
+            </div>
+        </div>
+
+        <!-- ── SIGNIFICANCE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Ram Navami is ultimately not just a birthday. It is a reminder that the highest human ideal — a person
+                who never compromises on truth, never abandons duty, never lets personal pain become an excuse for
+                wrongdoing — <strong>actually lived.</strong> And on this day, was born. The celebration of Rama's birth
+                is simultaneously the celebration of what a human being can be.
+            </div>
+        </div>
+
+        <!-- ── PUJA STEPS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎭</span> The Complete Ram Navami Puja — 11 Steps</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 1</div>
+                    <div class="step-title">Set Up the Altar</div>
+                    <p class="step-desc">Place the Rama idol or photo at the center of an altar draped with yellow
+                        cloth. If you have a <strong>Bal Rama idol</strong>, place it in a small decorated cradle
+                        (jhula/palana — available at puja shops before Ram Navami). Arrange alongside: Sita, Lakshmana,
+                        and Hanuman — Rama is never worshipped alone without his divine family. Set out the puja thali
+                        with kumkum, turmeric, chandan, akshat, flowers, Tulsi, diya, incense, camphor, coconut, and
+                        fruits.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 2</div>
+                    <div class="step-title">Light Diya and Incense</div>
+                    <p class="step-desc">Light a ghee diya on the right side of the altar. Light jasmine or sandalwood
+                        incense. The light represents Rama's divine radiance — the light of dharma entering a world that
+                        needed it. The incense fills the space with the fragrance of devotion, preparing the room and
+                        the mind for worship.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 3</div>
+                    <div class="step-title">Panchamritam Abhishekam</div>
+                    <p class="step-desc">If you have a Bal Rama idol, bathe it with Panchamritam — pour milk, curd,
+                        ghee, honey, and sugar one by one gently over the idol while chanting <em>"Om Shri Ramaya
+                            Namaha."</em> Then bathe with clean water or Gangajal. Dry gently. Apply chandan tilak on
+                        the idol's forehead — a <strong>vertical mark</strong> (unlike Shiva's horizontal vibhuti). If
+                        you have only a photo, offer the Panchamritam in a small vessel before it.</p>
+                    <div class="step-mantra">"Om Shri Ramaya Namaha" — chanted throughout</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 4 — Essential</div>
+                    <div class="step-title">Offer Tulsi Leaves</div>
+                    <p class="step-desc"><strong>Tulsi is the most sacred offering to Lord Vishnu and all his avatars,
+                            including Rama.</strong> Place fresh Tulsi leaves at the feet of the idol with the mantra.
+                        Never worship Rama without Tulsi if it is available. Place several sprigs — Tulsi's fragrance
+                        itself is a form of worship. This is the single most important plant offering of any Vaishnava
+                        puja.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 5</div>
+                    <div class="step-title">Offer Flowers &amp; Akshat</div>
+                    <p class="step-desc">Offer lotus flowers, marigold, and rose petals at the feet of the idol — lotus
+                        is the most sacred flower to Vishnu and Rama (lotus eyes, lotus feet, lotus hands — the Ramayana
+                        describes Rama in lotus metaphors throughout). Sprinkle akshat (raw rice mixed with turmeric) on
+                        the idol and around the altar. Offer a garland of yellow or orange flowers.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 6 — THE MOMENT</div>
+                    <div class="step-title">Janmotsav — The Birth Celebration at Noon</div>
+                    <p class="step-desc">This is the climax of the entire day. At the exact Madhyahna (midday) moment —
+                        check drikpanchang.com for your city's timing — everything happens at once.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 7</div>
+                    <div class="step-title">Chant Rama Mantras — 108 Times</div>
+                    <p class="step-desc">After the birth celebration, sit before the altar and chant <em>"Om Shri Ramaya
+                            Namaha"</em> 108 times on your mala. Then chant simply <em>"Ram Ram Ram"</em> continuously —
+                        Tulsidas wrote that the name Ram alone equals all 1000 names of Vishnu. Also recite the Hanuman
+                        Chalisa — on Ram Navami it is simultaneously devotion to Hanuman and to Rama whom Hanuman loves.
+                    </p>
+                    <div class="step-mantra">"Shri Rama Rama Rameti, Rame Raame Manorame — Sahasranama Tattulyam, Rama
+                        Nama Varanane"</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 8</div>
+                    <div class="step-title">Ramcharitmanas Reading</div>
+                    <p class="step-desc">Read or listen to any portion of the <strong>Ramcharitmanas or Valmiki
+                            Ramayana.</strong> On Ram Navami, the <strong>Bal Kanda</strong> — describing Rama's birth
+                        and early life in Ayodhya — is the most fitting reading. In many homes, an <strong>Akhand
+                            Path</strong> runs from the previous night, completing the entire Ramcharitmanas at noon
+                        today. Even attending the final portion carries deep merit.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 9</div>
+                    <div class="step-title">Aarti — Jai Jai Raghunandan</div>
+                    <p class="step-desc">Light camphor and perform Aarti waving clockwise before the idol. Sing the most
+                        beloved Rama aarti: <em>"Jai Jai Raghunandan, Jai Siya Ram — Jai Jai Raghunandan, Jai Siya
+                            Ram..."</em> After Aarti, receive the camphor flame's warmth on both palms and bring to
+                        forehead.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 10</div>
+                    <div class="step-title">Naivedyam — Food Offering</div>
+                    <p class="step-desc">Offer before Rama: Panchamritam, fruits (especially banana, mango), coconut,
+                        mishri, and most importantly <strong>Panjeeri</strong> — roasted whole wheat flour with ghee,
+                        sugar, dry fruits, and cardamom — the most traditional Ram Navami prasad, distributed at temples
+                        across India. After offering, this all becomes prasad and is distributed to family and
+                        neighbors.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 11</div>
+                    <div class="step-title">Pradakshina &amp; Personal Prayer</div>
+                    <p class="step-desc">Walk around the altar clockwise 3 or 7 times. Then bow completely before Lord
+                        Rama and pray personally — thank him, ask for the strength to live with integrity as he did, ask
+                        for his blessings for your family. Ram Navami is the day to ask not just for material blessings
+                        but for the quality that made Rama who he was: <strong>the courage to do what is right even when
+                            it is hard.</strong></p>
+                </div>
+            </div>
+
+            <!-- Janmotsav highlighted card -->
+            <div class="janmotsav-card">
+                <div class="janmotsav-title">🎉 The Janmotsav — Noon Birth Celebration</div>
+                <div class="janmotsav-body">
+                    <strong>Ring a bell</strong> — the sound announces the divine birth.<br><br>
+                    <strong>Rock the cradle gently</strong> — if you have a Bal Rama idol in the jhula, rock it back and
+                    forth. Every family member takes a turn rocking the newborn Lord. This is the most intimate and
+                    joyful act of Ram Navami.<br><br>
+                    <strong>Shower the idol with flower petals</strong> — take handfuls of rose and marigold petals and
+                    shower them gently over the Rama idol. Everyone participates. The room should be full of petals and
+                    joy.<br><br>
+                    <strong>Blow the conch (Shankh)</strong> — if you have one, the sound announces divine victory and
+                    auspicious arrival. If not, the bell is sufficient.<br><br>
+                    Treat this as a genuine birthday celebration — because that is exactly what it is.
+                </div>
+                <div class="janmotsav-mantra">"Jai Shri Ram — Jai Siya Ram — Jai Jai Raghunandan Jai Siya Ram"</div>
+            </div>
+        </div>
+
+        <!-- ── CHAITRA NAVRATRI ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🌙</span> Fasting — Chaitra Navratri &amp; Ram Navami</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="region-grid">
+                <div class="region-card">
+                    <div class="region-name">Chaitra Navratri Fast</div>
+                    <div class="region-also">9 days before Ram Navami</div>
+                    <p class="region-desc">Many devotees fast all nine days of Chaitra Navratri (the nine days of
+                        Goddess Durga's spring worship) leading to Ram Navami, breaking the fast only on Ram Navami
+                        evening after the puja. The 9-day fast culminates in Rama's birth — the arrival of divine grace
+                        after nine days of preparation.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Ram Navami Day Fast</div>
+                    <div class="region-also">Phalahar / Fruit fast</div>
+                    <p class="region-desc">Fruits, milk, dry fruits, sabudana, kuttu roti, sendha namak only. No grains,
+                        no regular salt, no onion, garlic, or non-vegetarian food. Fast broken after the evening puja.
+                        Fasting on Rama's birthday is an act of making yourself light and receptive to receive his grace
+                        — the same spirit Rama himself embodied.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Akhand Ramayan Path</div>
+                    <div class="region-also">Continuous 24-hour reading</div>
+                    <p class="region-desc">Many homes and temples read the entire Ramcharitmanas continuously from the
+                        previous night, completing at noon on Ram Navami. Even being present for the conclusion of this
+                        reading carries deep merit. If you cannot do the full Akhand Path, reading any portion on Ram
+                        Navami morning is meaningful.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── REGIONS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🗺️</span> Where &amp; How It Is Celebrated</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="region-grid">
+                <div class="region-card">
+                    <div class="region-name">Ayodhya, Uttar Pradesh</div>
+                    <div class="region-also">The Birthplace — Ram Lalla Temple</div>
+                    <p class="region-desc">The newly consecrated Ram Lalla Temple stands on the birthplace of Rama
+                        itself. On Ram Navami, lakhs descend on Ayodhya — the entire city becomes one continuous
+                        celebration. The noon Janmotsav at the temple — with the ringing of thousands of bells, the
+                        showering of flowers, and the chanting of Jai Shri Ram — is an experience of absolute
+                        transcendence.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Varanasi &amp; Prayagraj</div>
+                    <div class="region-also">Ram Naam Kirtan &amp; Ganga Snan</div>
+                    <p class="region-desc">The Ganga ghats transform on Ram Navami with Kirtan, Ganga snan (ritual
+                        bathing), and grand Aarti. Tulsidas — who wrote the Ramcharitmanas — was from this region,
+                        making it especially significant. The Sankat Mochan Hanuman temple in Varanasi sees
+                        extraordinary celebrations.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Bhadrachalam, Telangana</div>
+                    <div class="region-also">South India's Ayodhya</div>
+                    <p class="region-desc">The Bhadrachalam Rama temple on the banks of the Godavari is considered the
+                        Ayodhya of South India. The Ram Navami celebrations here — called <em>Kalyanotsavam</em>
+                        (celestial wedding of Rama and Sita) — last multiple days and draw devotees from across South
+                        India.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Ram Navami Shobha Yatra</div>
+                    <div class="region-also">Processions Across India</div>
+                    <p class="region-desc">Across virtually every city and town — decorated floats depicting scenes from
+                        the Ramayana, devotees dressed as Rama, Sita, Lakshmana, and Hanuman, and continuous Ram Nam
+                        Kirtan. The procession brings Rama's story into the streets and makes the celebration communal
+                        and visible.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Jal Seva</div>
+                    <div class="region-also">Serving Water in Rama's Name</div>
+                    <p class="region-desc">On Ram Navami — often falling in the heat of March/April — communities set up
+                        stalls distributing chilled water, sharbat, and charanamrit to all passersby as seva in Rama's
+                        name. Organizing or serving at a Jal Seva stall on this day is one of the most beautiful acts of
+                        the festival — it embodies Rama's own dharma of service.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── WHAT YOU NEED ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🛒</span> What You Need</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="items-grid">
+                <div class="item-chip"><span class="ic-dot"></span>Rama idol or photo (with Sita, Lakshmana, Hanuman)
+                </div>
+                <div class="item-chip"><span class="ic-dot"></span>Small cradle / jhula for Bal Rama idol</div>
+                <div class="item-chip"><span class="ic-dot"></span>Tulsi leaves (mandatory)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Lotus flowers and marigold</div>
+                <div class="item-chip"><span class="ic-dot"></span>Milk, curd, ghee, honey, sugar (Panchamritam)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Gangajal</div>
+                <div class="item-chip"><span class="ic-dot"></span>Chandan / sandalwood paste (vertical tilak)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Kumkum, turmeric, akshat</div>
+                <div class="item-chip"><span class="ic-dot"></span>Camphor, ghee diyas, incense</div>
+                <div class="item-chip"><span class="ic-dot"></span>Panjeeri ingredients (wheat flour, ghee, sugar, dry
+                    fruits)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Ramcharitmanas (for Bal Kanda reading)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Yellow or saffron clothes — Rama's color</div>
+            </div>
+        </div>
+
+        <!-- ── GALLERY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Ram_Navami_Ayodhya_celebrations.jpg/1280px-Ram_Navami_Ayodhya_celebrations.jpg"
+                        alt="Ram Navami Ayodhya celebrations Ram Lalla Temple"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🪷</span><span>Ram Navami</span></div>'">
+                    <div class="g-label">Ram Navami in Ayodhya — the birthplace of Rama lit with devotion</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Ram_Navami_Shobha_Yatra_procession.jpg/640px-Ram_Navami_Shobha_Yatra_procession.jpg"
+                        alt="Ram Navami Shobha Yatra procession devotees"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🎉</span><span>Shobha Yatra</span></div>'">
+                    <div class="g-label">Ram Navami Shobha Yatra — Rama, Sita, Lakshmana and Hanuman moving through the
+                        streets</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Bal_Rama_Cradle_Janmotsav.jpg/640px-Bal_Rama_Cradle_Janmotsav.jpg"
+                        alt="Bal Rama idol cradle Janmotsav celebration"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🛏️</span><span>Janmotsav</span></div>'">
+                    <div class="g-label">Bal Rama in the jhula — rocking the cradle at noon is the most intimate act of
+                        Ram Navami</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Panjeeri_Ram_Navami_prasad.jpg/640px-Panjeeri_Ram_Navami_prasad.jpg"
+                        alt="Panjeeri Ram Navami prasad sweet"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🍮</span><span>Panjeeri</span></div>'">
+                    <div class="g-label">Panjeeri — roasted wheat, ghee, sugar and dry fruits — Ram Navami's sacred
+                        prasad</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── VIDEOS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card" href="https://www.youtube.com/watch?v=OZGchXBCXXo" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/OZGchXBCXXo/maxresdefault.jpg"
+                            alt="Ram Navami puja vidhi complete guide"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🪷</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Puja Guide</p>
+                        <p class="v-title">Ram Navami Puja — Complete Vidhi</p>
+                        <p class="v-sub">Janmotsav, Abhishekam &amp; all 11 steps</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=CnR6KcH9zL8" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/CnR6KcH9zL8/maxresdefault.jpg"
+                            alt="Hanuman Chalisa Ram Navami recitation"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🙏</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Devotional</p>
+                        <p class="v-title">Hanuman Chalisa — Ram Navami</p>
+                        <p class="v-sub">Devotion to Hanuman is devotion to Rama</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=DsKHk7AmlTs" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/DsKHk7AmlTs/maxresdefault.jpg"
+                            alt="Ayodhya Ram Navami celebrations Ram Lalla"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🏛️</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Ayodhya</p>
+                        <p class="v-title">Ayodhya Ram Navami — Ram Lalla Temple</p>
+                        <p class="v-sub">The birthplace celebration at the sacred site</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── PRAYERS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🙏</span> Key Mantras &amp; Prayers</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="mantra-list">
+                <div class="mantra-card">
+                    <span class="mantra-icon">🪷</span>
+                    <div>
+                        <div class="mantra-label">The Name Itself — Most Powerful Rama Mantra</div>
+                        <div class="mantra-text">"Ram Ram Ram..." — continuous repetition</div>
+                        <div class="mantra-meaning">Tulsidas wrote: "Ram naam mani deep dhar, jeebh dehari dwar" — Keep
+                            the jewel of Ram's name on the lamp of your tongue at the doorway of your mouth. Simply
+                            repeating "Ram Ram Ram" is a complete spiritual practice. Shiva himself is said to
+                            continuously repeat this name. On Ram Navami, let it run beneath every other activity of the
+                            day.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">✨</span>
+                    <div>
+                        <div class="mantra-label">Rama Ashtakam — Shiva's Declaration to Parvati (108×)</div>
+                        <div class="mantra-text">"Shri Rama Rama Rameti, Rame Raame Manorame — Sahasranama Tattulyam,
+                            Rama Nama Varanane"</div>
+                        <div class="mantra-meaning">Rama Rama Rama — meditating on the beautiful Rama. This one name
+                            Rama equals the thousand names of Vishnu. Said by Lord Shiva himself to Goddess Parvati.
+                            Chanting this verse 108 times equals chanting all 1000 names of Vishnu. The most efficient
+                            mantra in all of Vaishnavism.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🌅</span>
+                    <div>
+                        <div class="mantra-label">Mangal Bhavan — Tulsidas's Ram Stuti (Said throughout the day)</div>
+                        <div class="mantra-text">"Mangal Bhavan Amangal Haari — Dravau Su Dasharath Ajir Bihari"</div>
+                        <div class="mantra-meaning">He who brings auspiciousness and removes all inauspiciousness — may
+                            that Lord Rama, who plays in Dasharatha's courtyard, be gracious to us. From the
+                            Ramcharitmanas by Tulsidas. Said at the beginning and end of every Ram puja and throughout
+                            the day as a greeting and blessing.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🙌</span>
+                    <div>
+                        <div class="mantra-label">Taraka Mantra — During Pradakshina &amp; All Day</div>
+                        <div class="mantra-text">"Om Ramaya Namaha — Om Dasharathaya Namaha — Om Sitapataye Namaha"
+                        </div>
+                        <div class="mantra-meaning">I bow to Rama — I bow to the son of Dasharatha — I bow to the
+                            husband of Sita. Three names, three aspects of the same divine presence. Chanted during
+                            pradakshina, during Janmotsav celebrations, and throughout the day whenever the mind has a
+                            free moment to turn toward the divine.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── DO'S & DON'TS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li>Observe the fast — Phalahar (fruit fast) is standard for Ram Navami</li>
+                        <li>Wear yellow or saffron clothes</li>
+                        <li>Apply chandan tilak <em>vertically</em> on forehead — Vaishnava tilak, not Shaiva</li>
+                        <li>Perform the main puja at exact Madhyahna (midday) — Rama's birth moment</li>
+                        <li>Rock the cradle and shower flower petals at the Janmotsav — celebrate it as a real birthday
+                        </li>
+                        <li>Offer Tulsi leaves — essential for any Vishnu/Rama puja</li>
+                        <li>Chant Ram Naam continuously throughout the day</li>
+                        <li>Read or listen to Ramcharitmanas — especially Bal Kanda</li>
+                        <li>Participate in or organize Jal Seva — distributing water to passersby in Rama's name</li>
+                        <li>Visit Rama temple — especially any Jyotirlinga-equivalent Rama temple in your city</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li>Do not skip the midday Janmotsav — it is the entire point of Ram Navami</li>
+                        <li>Do not worship Rama without Tulsi if available — it is essential, not optional</li>
+                        <li>Do not eat grains, onion, garlic, or non-vegetarian food during the fast</li>
+                        <li>Do not offer Tulsi to Lord Shiva (Shiva does not accept Tulsi — keep this distinction)</li>
+                        <li>Do not be merely ritualistic — reflect on Rama's values: truth, integrity, selfless service,
+                            dharma even under duress</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CLOSING ── -->
+        <div class="closing">
+            <p class="closing-text">
+                At noon on this day — bells ring, flower petals shower, the cradle rocks.
+                And somewhere in that moment of communal joy, the story of a perfect man
+                becomes more than story.
+                <em>It becomes a standard. It becomes a question: what kind of person will you be?</em>
+            </p>
+            <p class="closing-sub">🪷 &nbsp; Jai Shri Ram &nbsp; 🙏</p>
+        </div>
+
+    </div><!-- /page-body -->
+
+    <script>
+        /* ══════════════════════════════════════
+           PARTICLE CANVAS
+        ══════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+
+            const COLORS = ['#b45309', '#fbbf24', '#f59e0b', '#0e7490', '#22d3ee', '#fde68a', '#ffffff'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = Array.from({ length: 40 }, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: -(Math.random() * 0.4 + 0.1),
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.5 + 0.1,
+                    life: Math.random()
+                }));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life += 0.002;
+                    if (p.y < -10 || p.life > 1) {
+                        p.x = Math.random() * W;
+                        p.y = H + 10;
+                        p.life = 0;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha * Math.sin(p.life * Math.PI);
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize();
+            initParticles();
+            draw();
+        })();
+
+        /* ══════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════ */
+        (function () {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(
+                '.about-block, .significance-block, .region-card, .step-card, ' +
+                '.item-chip, .g-item, .v-card, .mantra-card, .dos-col, .closing, .sec-divider'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        /* ── Stagger delays on repeated elements ── */
+        ['.region-card', '.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card']
+            .forEach(sel => {
+                document.querySelectorAll(sel).forEach((el, i) => {
+                    el.style.transitionDelay = `${i * 0.07}s`;
+                });
+            });
+
+        /* ══════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        function openLb(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        /* ══════════════════════════════════════
+           ANIMATED TEXT — letter-by-letter on hero title
+        ══════════════════════════════════════ */
+        (function () {
+            // Split hero title into character spans for a staggered reveal
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            // Only animate plain text nodes
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) { // text node
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `
+              display:inline-block;
+              opacity:0;
+              transform:translateY(18px);
+              animation: slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;
+            `;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

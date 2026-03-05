@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dussehra / Vijayadashami — Festivals of India</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+        :root {
+            --bg: #0d1117;
+            --bg2: #111520;
+            --card: #161b27;
+            --card2: #1c2335;
+            --accent: #ff4d6d;
+            --accent2: #ff8c42;
+            --gold: #f5c842;
+            --gold-soft: rgba(245, 200, 66, 0.12);
+            --ember: #ff6b35;
+            --text: #e8eaf0;
+            --muted: #8892a4;
+            --border: rgba(255, 255, 255, 0.07);
+            --radius: 18px;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ============================================================
+       GLOBAL ANIMATIONS
+    ============================================================ */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(32px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 77, 109, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(255, 77, 109, 0.5);
+            }
+        }
+
+        @keyframes spin-slow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes ember-rise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-120px) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slide-in-left {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes text-glow {
+
+            0%,
+            100% {
+                text-shadow: 0 0 20px rgba(245, 200, 66, 0.4);
+            }
+
+            50% {
+                text-shadow: 0 0 40px rgba(245, 200, 66, 0.8), 0 0 80px rgba(255, 107, 53, 0.3);
+            }
+        }
+
+        /* ============================================================
+       BACK NAVIGATION
+    ============================================================ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(22, 27, 39, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 18px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            transition: all 0.25s var(--ease);
+        }
+
+        .back-btn:hover {
+            background: var(--card2);
+            border-color: rgba(255, 77, 109, 0.4);
+            color: var(--accent);
+        }
+
+        /* ============================================================
+       HERO SECTION
+    ============================================================ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            overflow: hidden;
+        }
+
+        /* Animated background */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 107, 53, 0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(255, 77, 109, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse 40% 40% at 20% 70%, rgba(245, 200, 66, 0.08) 0%, transparent 50%),
+                var(--bg);
+            z-index: 0;
+        }
+
+        /* Floating embers */
+        .embers {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .ember {
+            position: absolute;
+            bottom: -10px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: ember-rise linear infinite;
+        }
+
+        .ember:nth-child(1) {
+            left: 10%;
+            animation-duration: 4s;
+            animation-delay: 0s;
+            width: 3px;
+            height: 3px;
+            background: var(--ember);
+        }
+
+        .ember:nth-child(2) {
+            left: 25%;
+            animation-duration: 5.5s;
+            animation-delay: 1s;
+            width: 2px;
+            height: 2px;
+        }
+
+        .ember:nth-child(3) {
+            left: 40%;
+            animation-duration: 3.5s;
+            animation-delay: 2s;
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+        }
+
+        .ember:nth-child(4) {
+            left: 60%;
+            animation-duration: 6s;
+            animation-delay: 0.5s;
+        }
+
+        .ember:nth-child(5) {
+            left: 75%;
+            animation-duration: 4.5s;
+            animation-delay: 3s;
+            width: 3px;
+            height: 3px;
+            background: var(--ember);
+        }
+
+        .ember:nth-child(6) {
+            left: 88%;
+            animation-duration: 5s;
+            animation-delay: 1.5s;
+            width: 2px;
+            height: 2px;
+        }
+
+        .ember:nth-child(7) {
+            left: 50%;
+            animation-duration: 7s;
+            animation-delay: 2.5s;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+        }
+
+        .ember:nth-child(8) {
+            left: 33%;
+            animation-duration: 3.8s;
+            animation-delay: 4s;
+            width: 3px;
+            height: 3px;
+        }
+
+        /* Hero content */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeUp 0.9s var(--ease) both;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            animation: fadeUp 0.8s var(--ease) 0.1s both;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 30%, var(--gold) 60%, var(--ember) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeUp 0.8s var(--ease) 0.2s both, text-glow 4s ease-in-out 1s infinite;
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--gold);
+            margin-bottom: 24px;
+            opacity: 0.85;
+            animation: fadeUp 0.8s var(--ease) 0.3s both;
+        }
+
+        .hero-date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gold-soft);
+            border: 1px solid rgba(245, 200, 66, 0.25);
+            border-radius: 50px;
+            padding: 10px 22px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 36px;
+            animation: fadeUp 0.8s var(--ease) 0.4s both;
+        }
+
+        .hero-desc {
+            max-width: 640px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--muted);
+            animation: fadeUp 0.8s var(--ease) 0.5s both;
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--muted);
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.5s both;
+        }
+
+        .scroll-hint .line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--muted), transparent);
+            animation: float 2s ease-in-out infinite;
+        }
+
+        /* ============================================================
+       CONTAINER
+    ============================================================ */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================================
+       SECTION BASE
+    ============================================================ */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .section-label .icon {
+            font-size: 1.3rem;
+        }
+
+        .section-label h2 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, var(--accent) 0%, transparent 80%);
+            margin-bottom: 36px;
+        }
+
+        /* Reveal on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-28px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ============================================================
+       SIGNIFICANCE CARD (About)
+    ============================================================ */
+        .significance-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        .significance-text strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ============================================================
+       REGIONS GRID
+    ============================================================ */
+        .regions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .region-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 18px;
+            transition: background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+        }
+
+        .region-card:hover {
+            background: var(--card2);
+            border-color: rgba(255, 77, 109, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .region-card h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .region-card p {
+            font-size: 0.83rem;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        /* ============================================================
+       ACTIVITIES GRID
+    ============================================================ */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        .activity-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 26px 22px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.25s var(--ease);
+        }
+
+        .activity-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .activity-card:hover {
+            background: var(--card2);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+        }
+
+        .activity-card:hover::after {
+            opacity: 1;
+        }
+
+        .activity-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .activity-card p {
+            font-size: 0.875rem;
+            line-height: 1.65;
+            color: var(--muted);
+        }
+
+        /* ============================================================
+       RAVANA VICES TABLE — styled
+    ============================================================ */
+        .vices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .vice-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.25s var(--ease);
+        }
+
+        .vice-item:hover {
+            background: var(--card2);
+            border-color: rgba(255, 77, 109, 0.3);
+            transform: scale(1.03);
+        }
+
+        .vice-num {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: var(--accent);
+            min-width: 32px;
+        }
+
+        .vice-text {
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .vice-text span {
+            display: block;
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+       ECONOMY / SIGNIFICANCE
+    ============================================================ */
+        .significance-box {
+            background: linear-gradient(135deg, rgba(245, 200, 66, 0.08) 0%, rgba(255, 77, 109, 0.05) 100%);
+            border: 1px solid rgba(245, 200, 66, 0.2);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-top: 32px;
+        }
+
+        .significance-box p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        .significance-box strong {
+            color: var(--gold);
+        }
+
+        /* ============================================================
+       MANTRAS SECTION
+    ============================================================ */
+        .mantra-block {
+            background: var(--card);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 12px 12px 0;
+            padding: 22px 24px;
+            margin-bottom: 16px;
+            transition: background 0.25s var(--ease);
+        }
+
+        .mantra-block:hover {
+            background: var(--card2);
+        }
+
+        .mantra-block h4 {
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .mantra-block .mantra-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .mantra-block .mantra-meaning {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-top: 8px;
+            font-style: normal;
+        }
+
+        /* ============================================================
+       PHOTO GALLERY
+    ============================================================ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .gallery-item {
+            border-radius: 14px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: var(--card);
+            border: 1px solid var(--border);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+        }
+
+        .gallery-item:first-child {
+            grid-column: span 2;
+            aspect-ratio: 16/9;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 20px 14px 12px;
+            font-size: 0.78rem;
+            color: var(--text);
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        /* ============================================================
+       VIDEO SECTION
+    ============================================================ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        .video-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all 0.25s var(--ease);
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .video-card:hover {
+            border-color: rgba(255, 77, 109, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-thumb iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-thumb .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.25s;
+        }
+
+        .video-card:hover .play-overlay {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(255, 77, 109, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse-glow 2s ease-in-out infinite;
+            transition: transform 0.2s;
+        }
+
+        .video-card:hover .play-btn {
+            transform: scale(1.12);
+        }
+
+        .play-btn svg {
+            margin-left: 3px;
+        }
+
+        .video-info {
+            padding: 16px;
+        }
+
+        .video-info h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .video-info p {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        /* ============================================================
+       FOOTER BANNER
+    ============================================================ */
+        .footer-banner {
+            padding: 80px 24px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg) 0%, rgba(255, 107, 53, 0.06) 50%, var(--bg) 100%);
+        }
+
+        .footer-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            line-height: 1.7;
+            color: var(--gold);
+            max-width: 700px;
+            margin: 0 auto 16px;
+            animation: text-glow 5s ease-in-out infinite;
+        }
+
+        .footer-attr {
+            font-size: 0.8rem;
+            color: var(--muted);
+            letter-spacing: 0.06em;
+        }
+
+        /* ============================================================
+       FOOD SECTION
+    ============================================================ */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .food-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all 0.28s var(--ease);
+            position: relative;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(245, 200, 66, 0.35);
+            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        .food-card-img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s var(--ease);
+        }
+
+        .food-card:hover .food-card-img {
+            transform: scale(1.07);
+        }
+
+        .food-card-img-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .food-region-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(245, 200, 66, 0.25);
+            border-radius: 50px;
+            padding: 4px 12px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.04em;
+        }
+
+        .food-card-body {
+            padding: 18px 18px 20px;
+        }
+
+        .food-emoji {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .food-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .food-desc {
+            font-size: 0.82rem;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        .food-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--ember));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s var(--ease);
+        }
+
+        .food-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* ============================================================
+       DO / DON'T SECTION
+    ============================================================ */
+        .dos-donts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 700px) {
+            .dos-donts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .do-column,
+        .dont-column {
+            background: var(--card);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .col-header {
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .do-column .col-header {
+            background: rgba(34, 197, 94, 0.12);
+            border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        .dont-column .col-header {
+            background: rgba(255, 77, 109, 0.1);
+            border-bottom: 1px solid rgba(255, 77, 109, 0.2);
+            color: var(--accent);
+        }
+
+        .col-items {
+            padding: 10px 0;
+        }
+
+        .col-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 13px 20px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+
+        .col-item:last-child {
+            border-bottom: none;
+        }
+
+        .col-item:hover {
+            background: var(--card2);
+        }
+
+        .col-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.75rem;
+            margin-top: 1px;
+        }
+
+        .do-column .col-dot {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            font-weight: 700;
+        }
+
+        .dont-column .col-dot {
+            background: rgba(255, 77, 109, 0.15);
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .col-item-text {
+            font-size: 0.855rem;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        .col-item-text strong {
+            color: var(--text);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-item:first-child {
+                grid-column: span 2;
+            }
+
+            .vices-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .regions-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item:first-child {
+                grid-column: span 1;
+                aspect-ratio: 4/3;
+            }
+
+            .regions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vices-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Back button -->
+    <a href="festival-card.html" class="back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        All Festivals
+    </a>
+
+    <!-- ======================================================
+       HERO
+  ====================================================== -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="embers">
+            <div class="ember"></div>
+            <div class="ember"></div>
+            <div class="ember"></div>
+            <div class="ember"></div>
+            <div class="ember"></div>
+            <div class="ember"></div>
+            <div class="ember"></div>
+            <div class="ember"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">🏹 Hindu Festival · India</div>
+            <h1 class="hero-title">Dussehra</h1>
+            <div class="hero-subtitle">Vijayadashami — The Tenth Day of Victory</div>
+            <div class="hero-date-badge">
+                📅 October 19, 2026 · 10th Ashwin Shukla Paksha
+            </div>
+            <p class="hero-desc">
+                The day truth wins. Dharma conquers adharma. Rama defeats Ravana.
+                Durga defeats Mahishasura. The most auspicious day in the Hindu calendar.
+            </p>
+        </div>
+        <div class="scroll-hint">
+            <div class="line"></div>
+            Scroll to explore
+        </div>
+    </section>
+
+    <!-- ======================================================
+       ABOUT
+  ====================================================== -->
+    <section class="section">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">
+                    <span class="icon">📖</span>
+                    <h2>About</h2>
+                </div>
+                <div class="section-divider"></div>
+            </div>
+            <p class="significance-text reveal">
+                Dussehra celebrates <strong>two simultaneous victories of good over evil.</strong>
+                Lord Rama killed the ten-headed demon king <strong>Ravana</strong> on this day after a nine-day
+                battle — rescuing Goddess Sita and destroying adharma. Simultaneously, <strong>Goddess Durga</strong>
+                completed her nine-day battle and slew the buffalo demon <strong>Mahishasura</strong> on this tenth day.
+                The name "Dussehra" comes from <strong>"Dasha-Hara"</strong> — the destruction of the ten heads of
+                Ravana,
+                representing the ten vices within each of us.
+            </p>
+
+            <div class="significance-box reveal">
+                <p>
+                    <strong>Both victories carry the same eternal message:</strong> dharma always ultimately defeats
+                    adharma.
+                    No matter how powerful evil becomes — Ravana was brilliant, powerful, and learned —
+                    truth endures. And on the tenth morning, it always stands.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+       REGIONS
+  ====================================================== -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">
+                    <span class="icon">🗺️</span>
+                    <h2>How It's Celebrated Across India</h2>
+                </div>
+                <div class="section-divider"></div>
+            </div>
+            <div class="regions-grid">
+                <div class="region-card reveal" style="transition-delay:0.05s">
+                    <h3>North India</h3>
+                    <p>Massive Ramlila performances and Ravana Dahan — effigies up to 200 ft tall burned with
+                        firecrackers. Ramleela Maidan, Delhi hosts the grandest spectacle.</p>
+                </div>
+                <div class="region-card reveal" style="transition-delay:0.1s">
+                    <h3>West Bengal</h3>
+                    <p>Durga Visarjan — the immersion of Durga idols with Sindoor Khela and emotional farewell
+                        processions to the Hooghly river.</p>
+                </div>
+                <div class="region-card reveal" style="transition-delay:0.15s">
+                    <h3>Maharashtra</h3>
+                    <p>Apta leaf exchange as symbolic gold — "Sonachi Ahe, Sona Ghya." A uniquely beautiful tradition
+                        rooted in the story of Kautsa and King Raghu.</p>
+                </div>
+                <div class="region-card reveal" style="transition-delay:0.2s">
+                    <h3>Karnataka / Tamil Nadu</h3>
+                    <p>Ayudha Puja — elaborate worship of vehicles, tools, and instruments. Mysore Dussehra is a
+                        UNESCO-recognized cultural heritage event.</p>
+                </div>
+                <div class="region-card reveal" style="transition-delay:0.25s">
+                    <h3>Gujarat</h3>
+                    <p>Jalebi and Fafda for breakfast — a cultural institution. Then Garba and Dandiya Raas all night
+                        during the preceding Navratri.</p>
+                </div>
+                <div class="region-card reveal" style="transition-delay:0.3s">
+                    <h3>Himachal Pradesh</h3>
+                    <p>Kullu Dussehra — a week-long fair where deities from 200+ temples are brought together in
+                        magnificent procession. Runs 7 days after Dussehra.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+       ACTIVITIES
+  ====================================================== -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">
+                    <span class="icon">🎭</span>
+                    <h2>Rituals & Activities</h2>
+                </div>
+                <div class="section-divider"></div>
+            </div>
+            <div class="activities-grid">
+                <div class="activity-card reveal" style="transition-delay:0.05s">
+                    <h3>🪔 Aparajita Puja</h3>
+                    <p>The closing ritual of Navratri — performed at the northeast corner of the home or at a Shami
+                        tree. Offer kumkum, marigold, and chant "Om Aparajitayai Namaha" 108 times.</p>
+                </div>
+                <div class="activity-card reveal" style="transition-delay:0.1s">
+                    <h3>🌿 Shami Tree Worship</h3>
+                    <p>The Shami tree is the sacred center of Vijayadashami. The Pandavas hid their weapons here; Rama
+                        worshipped it before battle. Performing puja here destroys accumulated sin.</p>
+                </div>
+                <div class="activity-card reveal" style="transition-delay:0.15s">
+                    <h3>⚔️ Ayudha Puja</h3>
+                    <p>Worship your tools, vehicles, instruments, and professional equipment. Clean them, apply kumkum
+                        and turmeric, offer flowers, and pray that they serve you with integrity all year.</p>
+                </div>
+                <div class="activity-card reveal" style="transition-delay:0.2s">
+                    <h3>🔥 Ravana Dahan</h3>
+                    <p>Watch effigies of Ravana, Kumbhakarna, and Meghnad burn. More than a spectacle — stand before the
+                        fire and choose which inner vice you are consciously burning today.</p>
+                </div>
+                <div class="activity-card reveal" style="transition-delay:0.25s">
+                    <h3>🎭 Ramlila</h3>
+                    <p>Nine-day dramatic enactment of the Ramayana culminating on Dussehra. Ramnagar, Varanasi hosts the
+                        most traditional — spread over 4 km, performed for 200+ years.</p>
+                </div>
+                <div class="activity-card reveal" style="transition-delay:0.3s">
+                    <h3>🏹 Begin New Endeavors</h3>
+                    <p>Vijayadashami is the single most auspicious day to start anything new. Do one concrete first step
+                        at the Vijay Muhurta — the energy of victory carries your beginning forward.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+       RAVANA'S 10 HEADS
+  ====================================================== -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">
+                    <span class="icon">🔥</span>
+                    <h2>The Ten Heads of Ravana — Ten Vices to Destroy</h2>
+                </div>
+                <div class="section-divider"></div>
+                <p class="significance-text" style="margin-bottom:28px;">As each head burns, reflect on which vice you
+                    will destroy within yourself this year.</p>
+            </div>
+            <div class="vices-grid">
+                <div class="vice-item reveal" style="transition-delay:0.03s">
+                    <div class="vice-num">1</div>
+                    <div class="vice-text">Ahankara<span>Ego</span></div>
+                </div>
+                <div class="vice-item reveal" style="transition-delay:0.06s">
+                    <div class="vice-num">2</div>
+                    <div class="vice-text">Kama<span>Lust</span></div>
+                </div>
+                <div class="vice-item reveal" style="transition-delay:0.09s">
+                    <div class="vice-num">3</div>
+                    <div class="vice-text">Krodha<span>Anger</span></div>
+                </div>
+                <div class="vice-item reveal" style="transition-delay:0.12s">
+                    <div class="vice-num">4</div>
+                    <div class="vice-text">Moha<span>Attachment</span></div>
+                </div>
+                <div class="vice-item reveal" style="transition-delay:0.15s">
+                    <div class="vice-num">5</div>
+                    <div class="vice-text">Lobha<span>Greed</span></div>
+                </div>
+                <div class="vice-item reveal" style="transition-delay:0.18s">
+                    <div class="vice-num">6</div>
+                    <div class="vice-text">Mada<span>Pride / Arrogance</span></div>
+                </div>
+                <div class="vice-item reveal" style="transition-delay:0.21s">
+                    <div class="vice-num">7</div>
+                    <div class="vice-text">Matsarya<span>Jealousy</span></div>
+                </div>
+                <div class="vice-item reveal" style="transition-delay:0.24s">
+                    <div class="vice-num">8</div>
+                    <div class="vice-text">Swartha<span>Selfishness</span></div>
+                </div>
+                <div class="vice-item reveal" style="transition-delay:0.27s">
+                    <div class="vice-num">9</div>
+                    <div class="vice-text">Anyaaya<span>Injustice</span></div>
+                </div>
+                <div class="vice-item reveal" style="transition-delay:0.30s">
+                    <div class="vice-num">10</div>
+                    <div class="vice-text">Amanavata<span>Cruelty</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+       MANTRAS
+  ====================================================== -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">
+                    <span class="icon">🙏</span>
+                    <h2>Key Mantras & Prayers</h2>
+                </div>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="mantra-block reveal" style="transition-delay:0.05s">
+                <h4>Aparajita Puja Mantra</h4>
+                <div class="mantra-text">"Om Aparajitayai Namaha"</div>
+                <div class="mantra-meaning">Chant 108 times at the Shami tree or northeast corner of your home.</div>
+            </div>
+
+            <div class="mantra-block reveal" style="transition-delay:0.1s">
+                <h4>Shami Tree Prayer</h4>
+                <div class="mantra-text">
+                    "Shami Shamayate Papam, Shami Shatro Vinashinee<br>
+                    Arjunasya Dhanur Dhaarini, Raamasya Priya Darshini<br>
+                    Tava Patra Grahanena Mama Paapam Vinashyatu"
+                </div>
+                <div class="mantra-meaning">Shami destroys sin, Shami destroys enemies. She held Arjuna's bow, she is
+                    beloved by Rama. May my sins be destroyed by taking your leaves.</div>
+            </div>
+
+            <div class="mantra-block reveal" style="transition-delay:0.15s">
+                <h4>Prayer During Ravana Dahan</h4>
+                <div class="mantra-text">
+                    "Om Asato Ma Sad Gamaya<br>
+                    Tamaso Ma Jyotir Gamaya<br>
+                    Mrityor Ma Amritam Gamaya<br>
+                    Om Shanti Shanti Shantihi"
+                </div>
+                <div class="mantra-meaning">Lead me from untruth to truth. Lead me from darkness to light. Lead me from
+                    death to immortality. Om peace peace peace.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+       PHOTO GALLERY
+  ====================================================== -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">
+                    <span class="icon">🖼️</span>
+                    <h2>Gallery</h2>
+                </div>
+                <div class="section-divider"></div>
+            </div>
+            <!-- Real images loaded via Unsplash (free to use) -->
+            <div class="gallery-grid reveal">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1567610977053-c0fc7a226d79?w=800&auto=format&fit=crop"
+                        alt="Ravana Dahan" loading="lazy" />
+                    <div class="gallery-caption">🔥 Ravana Dahan — The Burning of Evil</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1602214023060-9bded3e80b46?w=400&auto=format&fit=crop"
+                        alt="Durga Puja idol" loading="lazy" />
+                    <div class="gallery-caption">🌺 Durga Visarjan — Bengal</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1588075592405-d3b8f55fde0b?w=400&auto=format&fit=crop"
+                        alt="Temple festival lights" loading="lazy" />
+                    <div class="gallery-caption">🪔 Festival of Lights</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1630580272538-e48bd5ed5eb5?w=400&auto=format&fit=crop"
+                        alt="Marigold offerings" loading="lazy" />
+                    <div class="gallery-caption">🌻 Marigold Offerings at the Temple</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1665416374453-36a5ac80a665?w=400&auto=format&fit=crop"
+                        alt="Diya lights" loading="lazy" />
+                    <div class="gallery-caption">🪔 Diyas Lit on Vijayadashami</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+       VIDEO SECTION
+  ====================================================== -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">
+                    <span class="icon">🎬</span>
+                    <h2>Watch & Learn</h2>
+                </div>
+                <div class="section-divider"></div>
+            </div>
+            <div class="video-grid">
+                <!-- YouTube embeds — replace video IDs with your preferred videos -->
+                <div class="video-card reveal" style="transition-delay:0.05s">
+                    <div class="video-thumb">
+                        <iframe src="https://www.youtube.com/embed/Z5GXFQH08IU?rel=0&modestbranding=1"
+                            title="Dussehra Ravana Dahan"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen loading="lazy">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h4>Ravana Dahan — Dussehra Celebration</h4>
+                        <p>The spectacular burning of Ravana's effigy</p>
+                    </div>
+                </div>
+                <div class="video-card reveal" style="transition-delay:0.1s">
+                    <div class="video-thumb">
+                        <iframe src="https://www.youtube.com/embed/6hQCi8E9aKQ?rel=0&modestbranding=1"
+                            title="Dussehra rituals explained"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen loading="lazy">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h4>Dussehra — Rituals & Significance</h4>
+                        <p>Why this festival matters spiritually</p>
+                    </div>
+                </div>
+                <div class="video-card reveal" style="transition-delay:0.15s">
+                    <div class="video-thumb">
+                        <iframe src="https://www.youtube.com/embed/4d_JdkFBBCg?rel=0&modestbranding=1"
+                            title="Mysore Dussehra"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen loading="lazy">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h4>Mysore Dussehra Procession</h4>
+                        <p>UNESCO-recognized grand celebration</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+       ECONOMY SECTION
+  ====================================================== -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">
+                    <span class="icon">💰</span>
+                    <h2>Economy & Scale</h2>
+                </div>
+                <div class="section-divider"></div>
+            </div>
+            <div class="regions-grid">
+                <div class="region-card reveal" style="transition-delay:0.05s">
+                    <h3>Market Impact</h3>
+                    <p>The festival generates ₹10,000+ crore through firecrackers, traditional clothing, sweets,
+                        idol-making, and decorative materials.</p>
+                </div>
+                <div class="region-card reveal" style="transition-delay:0.1s">
+                    <h3>Employment</h3>
+                    <p>Seasonal employment for thousands — effigy makers, firework manufacturers, artisans, performers,
+                        and event organizers.</p>
+                </div>
+                <div class="region-card reveal" style="transition-delay:0.15s">
+                    <h3>Tourism</h3>
+                    <p>Mysore Dussehra and Ramnagar Ramlila draw hundreds of thousands of domestic and international
+                        tourists every year.</p>
+                </div>
+                <div class="region-card reveal" style="transition-delay:0.2s">
+                    <h3>Cultural Heritage</h3>
+                    <p>Ramnagar Ramlila is on UNESCO's Intangible Cultural Heritage list. Mysore Dussehra has been
+                        celebrated continuously for over 400 years.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+       TRADITIONAL FOODS
+  ====================================================== -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">
+                    <span class="icon">🍽️</span>
+                    <h2>Traditional Foods to Eat</h2>
+                </div>
+                <div class="section-divider"></div>
+                <p class="significance-text" style="margin-bottom:32px;">
+                    Every region celebrates Dussehra with its own signature food. Some are sacred prasad, some mark the
+                    breaking of the Navratri fast — all are deeply tied to the festival's spirit of abundance and
+                    victory.
+                </p>
+            </div>
+            <div class="food-grid">
+
+                <div class="food-card reveal" style="transition-delay:0.04s">
+                    <div class="food-card-img-wrap">
+                        <img class="food-card-img"
+                            src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500&auto=format&fit=crop"
+                            alt="Jalebi" loading="lazy" />
+                        <span class="food-region-tag">Gujarat</span>
+                    </div>
+                    <div class="food-card-body">
+                        <span class="food-emoji">🍯</span>
+                        <div class="food-name">Jalebi & Fafda</div>
+                        <p class="food-desc">The iconic Dussehra breakfast in Gujarat — crispy chickpea flour fafda
+                            dunked alongside spirals of syrupy hot jalebi. So specific to this day it has become a
+                            cultural institution.</p>
+                    </div>
+                </div>
+
+                <div class="food-card reveal" style="transition-delay:0.08s">
+                    <div class="food-card-img-wrap">
+                        <img class="food-card-img"
+                            src="https://images.unsplash.com/photo-1631515242808-497c3fbd3972?w=500&auto=format&fit=crop"
+                            alt="Kheer" loading="lazy" />
+                        <span class="food-region-tag">Pan-India</span>
+                    </div>
+                    <div class="food-card-body">
+                        <span class="food-emoji">🍚</span>
+                        <div class="food-name">Kheer (Rice Pudding)</div>
+                        <p class="food-desc">Creamy, slow-cooked rice pudding with saffron, cardamom, and nuts — offered
+                            as prasad and eaten to break the Navratri fast. The sweetness symbolises the sweetness of
+                            victory.</p>
+                    </div>
+                </div>
+
+                <div class="food-card reveal" style="transition-delay:0.12s">
+                    <div class="food-card-img-wrap">
+                        <img class="food-card-img"
+                            src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=500&auto=format&fit=crop"
+                            alt="Halwa Puri" loading="lazy" />
+                        <span class="food-region-tag">North India</span>
+                    </div>
+                    <div class="food-card-body">
+                        <span class="food-emoji">🫓</span>
+                        <div class="food-name">Halwa-Puri & Chana</div>
+                        <p class="food-desc">The beloved North Indian fast-breaking feast — fluffy deep-fried puris with
+                            sooji halwa and spiced chickpeas. Eaten after Navratri Ashtami or Navami kanya puja, carried
+                            into Dussehra feasting.</p>
+                    </div>
+                </div>
+
+                <div class="food-card reveal" style="transition-delay:0.16s">
+                    <div class="food-card-img-wrap">
+                        <img class="food-card-img"
+                            src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500&auto=format&fit=crop"
+                            alt="Panakam drink" loading="lazy" />
+                        <span class="food-region-tag">South India</span>
+                    </div>
+                    <div class="food-card-body">
+                        <span class="food-emoji">🥤</span>
+                        <div class="food-name">Panakam</div>
+                        <p class="food-desc">A traditional temple drink of jaggery, water, cardamom, ginger, and black
+                            pepper — offered as prasad at Andhra Pradesh and Tamil Nadu temples on Vijayadashami.
+                            Cooling, fragrant, sacred.</p>
+                    </div>
+                </div>
+
+                <div class="food-card reveal" style="transition-delay:0.20s">
+                    <div class="food-card-img-wrap">
+                        <img class="food-card-img"
+                            src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500&auto=format&fit=crop&sat=-80&hue=40"
+                            alt="Apta leaf sweets" loading="lazy" />
+                        <span class="food-region-tag">Maharashtra</span>
+                    </div>
+                    <div class="food-card-body">
+                        <span class="food-emoji">🍬</span>
+                        <div class="food-name">Apta Leaf Sweets</div>
+                        <p class="food-desc">In Maharashtra, sweets are distributed alongside the Apta leaf exchange —
+                            mithai boxes passed between families, neighbours, and friends as a gesture of sharing
+                            abundance and goodwill.</p>
+                    </div>
+                </div>
+
+                <div class="food-card reveal" style="transition-delay:0.24s">
+                    <div class="food-card-img-wrap">
+                        <img class="food-card-img"
+                            src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=500&auto=format&fit=crop"
+                            alt="Sandesh Bengali sweet" loading="lazy" />
+                        <span class="food-region-tag">West Bengal</span>
+                    </div>
+                    <div class="food-card-body">
+                        <span class="food-emoji">🧁</span>
+                        <div class="food-name">Sandesh & Mishti Doi</div>
+                        <p class="food-desc">Bengal's Durga Visarjan on Dussehra is followed by an elaborate feast —
+                            fresh chenna Sandesh and thick sweet Mishti Doi (yogurt) are non-negotiable parts of the
+                            farewell celebration.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+       DO'S AND DON'TS
+  ====================================================== -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-label">
+                    <span class="icon">📋</span>
+                    <h2>Do's &amp; Don'ts</h2>
+                </div>
+                <div class="section-divider"></div>
+                <p class="significance-text" style="margin-bottom:32px;">
+                    Dussehra is not just a public spectacle — it is a personal spiritual ceremony. How you observe it
+                    determines what you take from it.
+                </p>
+            </div>
+
+            <div class="dos-donts-grid reveal">
+
+                <!-- DO'S -->
+                <div class="do-column">
+                    <div class="col-header">
+                        <span>✅</span> Do's — Observe These
+                    </div>
+                    <div class="col-items">
+                        <div class="col-item">
+                            <div class="col-dot">✓</div>
+                            <div class="col-item-text"><strong>Perform Aparajita Puja first</strong>Always begin the day
+                                with Aparajita Puja at the northeast corner of your home or at a Shami tree — this
+                                properly closes Navratri.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✓</div>
+                            <div class="col-item-text"><strong>Mark the Vijay Muhurta</strong>Check drikpanchang.com for
+                                the exact window. Do at least one new, meaningful action during this time — it is the
+                                single most auspicious slot in the entire Hindu year.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✓</div>
+                            <div class="col-item-text"><strong>Worship the Shami tree</strong>Pour water at its roots,
+                                apply kumkum, offer marigolds, chant the Shami prayer. Collect a few leaves to take home
+                                as a blessed offering.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✓</div>
+                            <div class="col-item-text"><strong>Do Ayudha Puja properly</strong>Clean your vehicle,
+                                laptop, instruments, or tools before the puja — do not worship them in a dirty or
+                                disorganised state. The cleaning is part of the ritual.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✓</div>
+                            <div class="col-item-text"><strong>Attend Ravana Dahan consciously</strong>Stand before the
+                                burning effigy and consciously name which inner vice — anger, ego, jealousy — you are
+                                choosing to work on this year. Make it a personal commitment, not a spectacle.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✓</div>
+                            <div class="col-item-text"><strong>Exchange Shami / Apta leaves</strong>In Maharashtra and
+                                South India, exchange Shami or Apta leaves with family, neighbours, and friends as
+                                symbolic gold — carry the spirit of generosity forward.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✓</div>
+                            <div class="col-item-text"><strong>Wear bright auspicious colours</strong>Saffron, red,
+                                yellow, or orange — traditional dress is preferred. The brightness of your clothing
+                                matches the brightness of the day's energy.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✓</div>
+                            <div class="col-item-text"><strong>Visit a Rama or Durga temple</strong>Seek special
+                                Vijayadashami darshan — both Rama temples and Durga temples are equally appropriate on
+                                this day for prayers and blessings.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✓</div>
+                            <div class="col-item-text"><strong>Break the Navratri fast joyfully</strong>If you fasted
+                                for 9 days, Dussehra is the day to celebrate with a full traditional meal — the
+                                fast-breaking is itself part of the victory celebration.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✓</div>
+                            <div class="col-item-text"><strong>Begin something new today</strong>Start the first line of
+                                a new project, sign a document, strike a first note, take a first step — even small
+                                beginnings made on Dussehra carry forward with the day's victorious energy.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DON'TS -->
+                <div class="dont-column">
+                    <div class="col-header">
+                        <span>🚫</span> Don'ts — Avoid These
+                    </div>
+                    <div class="col-items">
+                        <div class="col-item">
+                            <div class="col-dot">✗</div>
+                            <div class="col-item-text"><strong>Don't miss the Vijay Muhurta</strong>This is the single
+                                most critical observance of the day. Missing it entirely — sleeping through or ignoring
+                                it — wastes the most auspicious window in the entire year.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✗</div>
+                            <div class="col-item-text"><strong>Don't watch Ravana Dahan passively</strong>Attending only
+                                for the fireworks spectacle, without any inner engagement, misses the entire spiritual
+                                purpose of the ceremony. It is an inner ritual as much as an outer one.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✗</div>
+                            <div class="col-item-text"><strong>Don't skip Aparajita Puja</strong>Starting Dussehra
+                                without this morning puja leaves Navratri improperly closed. It is the formal conclusion
+                                of 10 days of spiritual work — don't neglect it.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✗</div>
+                            <div class="col-item-text"><strong>Don't do Ayudha Puja carelessly</strong>Worshipping a
+                                dirty car or a dusty instrument defeats the purpose. The act of thorough cleaning before
+                                the puja is non-negotiable — it signals respect and intentionality.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✗</div>
+                            <div class="col-item-text"><strong>Don't treat Dussehra as just a holiday</strong>It is the
+                                culmination of 10 days of inner work done during Navratri. Treating it as a day off
+                                without any observance breaks the spiritual continuity of the entire period.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✗</div>
+                            <div class="col-item-text"><strong>Don't harm or cut the Shami tree</strong>The Shami tree
+                                is sacred. Take only a few leaves with reverence — never break branches or damage the
+                                tree in any way during your worship.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✗</div>
+                            <div class="col-item-text"><strong>Don't use Ayudha Puja weapons
+                                    carelessly</strong>Worshipping weapons or sharp tools also means committing to use
+                                them with care and integrity. Don't misuse tools that have been blessed on this day.
+                            </div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✗</div>
+                            <div class="col-item-text"><strong>Don't delay starting new projects</strong>Procrastinating
+                                specifically past the Vijay Muhurta on this day means postponing until the next
+                                Vijayadashami — a full year away. Begin now, however small the first step.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✗</div>
+                            <div class="col-item-text"><strong>Don't quarrel or engage in conflict</strong>Dussehra is a
+                                day of dharma's triumph — picking fights, harsh words, or disputes on this day is deeply
+                                inauspicious and goes against the spirit of the occasion.</div>
+                        </div>
+                        <div class="col-item">
+                            <div class="col-dot">✗</div>
+                            <div class="col-item-text"><strong>Don't consume alcohol or non-veg (during
+                                    puja)</strong>Especially if performing formal puja rituals during the Vijay Muhurta
+                                — remain sattvic, clean, and clear-headed throughout the morning and afternoon
+                                observances.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================
+       FOOTER QUOTE
+  ====================================================== -->
+    <div class="footer-banner">
+        <div class="footer-quote">
+            "Dharma always ultimately defeats adharma.<br>Not because evil is weak — but because truth endures."
+        </div>
+        <div class="footer-attr">— The message of Vijayadashami · 🏹</div>
+    </div>
+
+    <!-- ======================================================
+       SCROLL REVEAL SCRIPT
+  ====================================================== -->
+    <script>
+        // Intersection Observer for scroll-triggered animations
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            },
+            { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        document.querySelectorAll('.reveal, .reveal-left').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+
+</html>

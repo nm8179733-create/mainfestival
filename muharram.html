@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muharram — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-2: #111827;
+            --card: #161d2e;
+            --card-2: #1b2338;
+            --card-3: #1e2a40;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --accent: #94a3b8;
+            --accent-lt: #e2e8f0;
+            --accent-dim: rgba(100, 116, 139, 0.12);
+            --water: #38bdf8;
+            --water-dim: rgba(56, 189, 248, 0.10);
+            --steel: #64748b;
+            --steel-lt: #cbd5e1;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--steel);
+            border-radius: 3px;
+        }
+
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.35;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(22, 29, 46, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color .2s, border-color .2s, background .2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(100, 116, 139, 0.09) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 80% 60%, rgba(56, 189, 248, 0.04) 0%, transparent 60%), radial-gradient(ellipse 30% 30% at 20% 80%, rgba(71, 85, 105, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 4s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 28px rgba(100, 116, 139, 0.4));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp .7s .15s var(--ease) both;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp .7s .28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--accent-lt);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-lt), var(--water));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn .8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp .7s .4s var(--ease) both;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-lt);
+            animation: slideUp .7s .52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--water);
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp .7s .65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--accent-lt);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: .4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* LAYOUT */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--steel) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ABOUT */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .7s var(--ease), transform .7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--accent-lt);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--accent-lt);
+            line-height: 1.7;
+        }
+
+        /* SIGNIFICANCE */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s var(--ease), transform .7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .significance-block strong {
+            color: var(--accent-lt);
+        }
+
+        .significance-block em {
+            color: #7dd3fc;
+            font-style: italic;
+        }
+
+        /* TWO-COLUMN OBSERVANCE */
+        .obs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media(max-width:640px) {
+            .obs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .obs-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .6s var(--ease), transform .6s var(--ease);
+        }
+
+        .obs-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .obs-col h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .obs-col.sunni-col h3 {
+            color: #86efac;
+        }
+
+        .obs-col.shia-col h3 {
+            color: var(--accent-lt);
+        }
+
+        .obs-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .obs-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .obs-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .sunni-col li::before {
+            content: '◆';
+            color: #86efac;
+            font-size: 8px;
+        }
+
+        .shia-col li::before {
+            content: '◆';
+            color: var(--accent);
+            font-size: 8px;
+        }
+
+        /* STEPS */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .5s var(--ease), transform .5s var(--ease), border-color .2s, background .2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(100, 116, 139, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform .6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-lt);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--accent-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-mantra {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: var(--card-3);
+            border-left: 2px solid var(--water);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 12.5px;
+            color: #7dd3fc;
+            line-height: 1.65;
+            font-family: var(--font-serif);
+        }
+
+        /* ITEMS */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity .4s var(--ease), transform .4s var(--ease), border-color .2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(100, 116, 139, 0.3);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* KARBALA STORY */
+        .karbala-card {
+            background: linear-gradient(135deg, rgba(100, 116, 139, 0.07), rgba(56, 189, 248, 0.04));
+            border: 2px solid rgba(148, 163, 184, 0.20);
+            border-radius: var(--radius);
+            padding: 28px 30px;
+        }
+
+        .karbala-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--accent-lt);
+            margin-bottom: 14px;
+        }
+
+        .karbala-body {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.85;
+        }
+
+        .karbala-body strong {
+            color: var(--accent-lt);
+        }
+
+        .karbala-body p+p {
+            margin-top: 14px;
+        }
+
+        .karbala-quote {
+            margin-top: 20px;
+            padding: 16px 20px;
+            background: var(--card-2);
+            border-left: 3px solid var(--water);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.02rem;
+            color: #7dd3fc;
+            line-height: 1.7;
+        }
+
+        /* SABIL */
+        .sabil-card {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(100, 116, 139, 0.05));
+            border: 2px solid rgba(56, 189, 248, 0.28);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            margin-top: 14px;
+        }
+
+        .sabil-title {
+            font-size: 17px;
+            font-weight: 900;
+            color: #7dd3fc;
+            margin-bottom: 10px;
+        }
+
+        .sabil-desc {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .sabil-desc strong {
+            color: #7dd3fc;
+        }
+
+        /* FOOD */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .food-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            transition: border-color .2s, transform .2s;
+        }
+
+        .food-chip:hover {
+            border-color: rgba(148, 163, 184, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .food-name {
+            font-weight: 700;
+            color: var(--accent-lt);
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .food-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* MANTRAS */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity .5s var(--ease), transform .5s var(--ease), border-color .2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(100, 116, 139, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            color: var(--accent-lt);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--accent-lt);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* GALLERY */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition: opacity .55s var(--ease), transform .55s var(--ease), border-color .2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s var(--ease), filter .4s;
+            filter: brightness(0.72) saturate(0.65);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.88) saturate(0.8);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(13, 17, 23, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity .3s, transform .3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* VIDEOS */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .5s var(--ease), transform .5s var(--ease), border-color .2s, background .2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s var(--ease), filter .4s;
+            filter: brightness(0.62) saturate(0.55);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.78) saturate(0.75);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(100, 116, 139, 0.18);
+            border: 1.5px solid rgba(148, 163, 184, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--accent-lt);
+            transition: transform .3s, background .3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(100, 116, 139, 0.3);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            color: var(--text-dim);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* DOS DONTS */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media(max-width:600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .6s var(--ease), transform .6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: #f87171;
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: #f87171;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* CLOSING */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity .8s var(--ease), transform .8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: #7dd3fc;
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        /* LIGHTBOX */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 17, 23, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn .25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s, color .2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media(max-width:640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block,
+            .karbala-card {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas-bg"></canvas>
+    <a class="back-btn" href="festival-card.html">← Back</a>
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <span class="hero-emoji">🖤</span>
+        <p class="hero-eyebrow">1st Month of the Islamic Calendar · Ashura — 10th Muharram</p>
+        <h1 class="hero-title">Muharram &amp; <span class="accent">Ashura</span></h1>
+        <p class="hero-subtitle">The Islamic New Year &amp; The Martyrdom of Imam Husain (AS) at Karbala</p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            Ashura — July 16, 2026 &nbsp;·&nbsp; 10th Muharram 1448H
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">10</div>
+                <div class="sl">Days of Mourning</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">72</div>
+                <div class="sl">Martyrs of Karbala</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">💧</div>
+                <div class="sl">Sabil — Free Water</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">680</div>
+                <div class="sl">CE — Year of Karbala</div>
+            </div>
+        </div>
+        <div class="scroll-hint"><span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <div class="page-body">
+
+        <!-- ABOUT -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Muharram is the <strong>first month of the Islamic lunar calendar</strong> — making its first day the
+                    Islamic New Year. It commemorates the <strong>Hijra</strong> — Prophet Muhammad's (PBUH) migration
+                    from Mecca to Medina in 622 CE — the founding event from which all Islamic history is dated. The
+                    most significant day within it is <strong>Ashura — the 10th of Muharram</strong> — one of the
+                    holiest days in the Islamic calendar.</p>
+                <p>Muharram carries two deeply distinct layers of meaning. For all Muslims, it is the sacred new year
+                    and the day of Prophet Musa's (AS) salvation from Pharaoh. For Shia Muslims, it is the month of
+                    <strong>Azadari</strong> — mourning — for the martyrdom of <strong>Imam Husain (AS),</strong>
+                    grandson of the Prophet (PBUH), at the plains of Karbala in 680 CE. Both meanings are honored.</p>
+            </div>
+            <div class="myth-quote">
+                "The Prophet (PBUH) arrived in Medina and found the Jews fasting on Ashura. He asked why. They said:
+                this is the day Allah saved Musa and his people from Pharaoh — so we fast in gratitude. The Prophet
+                said: we have more right to Musa than you — and fasted, and encouraged all Muslims to fast on this day."
+            </div>
+        </div>
+
+        <!-- SIGNIFICANCE -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Muharram is the reminder that the most powerful thing a human being can do is <strong>stand for truth
+                    when standing costs everything.</strong> Imam Husain had every chance to compromise, to submit, to
+                survive. He chose Karbala instead — <em>dignity over survival.</em> For Sunni Muslims, Ashura is a day
+                of fasting and gratitude for divine rescue. For Shia Muslims it is the deepest grief in the calendar.
+                Both are, at their core, about the same thing: <strong>a God who sees. A people who remember. A
+                    sacrifice that must never be forgotten.</strong>
+            </div>
+        </div>
+
+        <!-- TWO TRADITIONS -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🕌</span> Two Traditions — How Muslims Observe Muharram</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="obs-grid">
+                <div class="obs-col sunni-col">
+                    <h3>☾ Sunni Observances</h3>
+                    <ul>
+                        <li>Fast on the <strong>9th AND 10th of Muharram together</strong> — fasting only the 10th alone
+                            is discouraged</li>
+                        <li>The Prophet (PBUH) said fasting on Ashura <em>expiates the sins of the previous year</em>
+                        </li>
+                        <li>Increase voluntary prayers, Quran recitation, and dhikr throughout the month</li>
+                        <li>Muharram is one of Islam's <strong>four sacred months</strong> — sin is especially
+                            prohibited</li>
+                        <li>Give generously in charity — the month carries immense spiritual weight</li>
+                        <li>No special processions or ceremonies — Sunni observance is primarily personal worship</li>
+                    </ul>
+                </div>
+                <div class="obs-col shia-col">
+                    <h3>🖤 Shia Observances — Azadari</h3>
+                    <ul>
+                        <li>Wear <strong>black clothes</strong> for the first 10 days as a sign of mourning</li>
+                        <li>No weddings, music, or celebrations during the mourning period</li>
+                        <li>Attend <strong>Majlis</strong> — nightly mourning gatherings at Imambargahs or homes</li>
+                        <li>Recite <strong>Nauha</strong> — mournful elegies for the martyrs of Karbala</li>
+                        <li>Perform <strong>Matam</strong> — rhythmic chest-beating as sincere expression of grief</li>
+                        <li>Recite <strong>Ziyarat Ashura</strong> on the 10th — salutation to Imam Husain (AS)</li>
+                        <li>Participate in the <strong>Ashura Juloos</strong> — the mourning procession</li>
+                        <li>Set up <strong>Sabil</strong> stalls — distribute water and food freely to all</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- KARBALA STORY -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📜</span> The Story of Karbala — Understand It Fully</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="karbala-card">
+                <div class="karbala-title">🖤 What Happened at Karbala — 680 CE</div>
+                <div class="karbala-body">
+                    <p>After the Prophet Muhammad (PBUH) passed away, leadership eventually passed to <strong>Yazid ibn
+                            Muawiyah</strong> — a man known for corruption and oppressive rule. Yazid demanded that
+                        <strong>Imam Husain (AS)</strong> — the Prophet's own grandson — publicly pledge allegiance to
+                        legitimize his rule.</p>
+                    <p>Imam Husain refused. He said: "A person like me cannot pledge allegiance to a person like him."
+                        He knew refusal meant death. He left Medina with his family — women, children, and <strong>72
+                            companions</strong> — heading toward Kufa in Iraq. At Karbala, Yazid's army of thousands
+                        surrounded them and <strong>cut off their access to the Euphrates river.</strong> For three days
+                        in the desert heat, Imam Husain's camp had no water. Children cried of thirst.</p>
+                    <p>On the morning of Ashura, Imam Husain offered his companions the chance to leave — he turned off
+                        the lamps at night so they could slip away without shame. <strong>Every single one
+                            stayed.</strong></p>
+                    <p>In the battle that followed, all 72 companions fell — including his teenage son <strong>Ali
+                            Akbar,</strong> his nephew <strong>Qasim,</strong> and his infant son <strong>Ali
+                            Asghar,</strong> brought to the battlefield to beg for water and killed by an arrow. Imam
+                        Husain was the last to fall — exhausted, wounded, thirsty. He was beheaded. The women and
+                        children were taken captive to Damascus.</p>
+                    <p>It was <strong>Sayyida Zainab (AS),</strong> Imam Husain's sister, who despite captivity and
+                        grief delivered one of the most powerful speeches in human history before Yazid's court —
+                        declaring that Husain's sacrifice would never be forgotten. She was right. 1,400 years later —
+                        it has not been.</p>
+                </div>
+                <div class="karbala-quote">"Death with dignity is better than life with humiliation." — Imam Husain
+                    (AS), before the battle of Karbala</div>
+            </div>
+        </div>
+
+        <!-- ASHURA DAY -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🕯️</span> Ashura — The 10th of Muharram</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">🌙 Morning</div>
+                    <div class="step-title">Wake Early — Bathe &amp; Pray</div>
+                    <p class="step-desc">Wake before Fajr. Bathe. For <strong>Sunni Muslims:</strong> begin the two-day
+                        fast (9th and 10th). Spend the day in extra prayers, Quran recitation, and dhikr. For
+                        <strong>Shia Muslims:</strong> wear black, go to the Imambargah for morning prayers and
+                        recitation. The day is set apart from all other days — treat it as such from the first moment.
+                    </p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">📿 Shia — Core Practice</div>
+                    <div class="step-title">Ziyarat Ashura</div>
+                    <p class="step-desc">Recite <strong>Ziyarat Ashura</strong> — one of the most sacred Shia prayers —
+                        on this day. A direct salutation to Imam Husain (AS) and his companions, expressing love, grief,
+                        and solidarity with their sacrifice. It includes 100 salutations and is considered to carry
+                        immense spiritual merit when recited specifically on Ashura.</p>
+                    <div class="step-mantra">"Assalamu alayka ya Aba Abdillah, Assalamu alayka wa rahmatullahi wa
+                        barakatuh"<br><br>Peace be upon you O Aba Abdillah (Imam Husain), peace be upon you and Allah's
+                        mercy and blessings.</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">🖤 Every Evening — Days 1–10</div>
+                    <div class="step-title">Majlis — The Mourning Gathering</div>
+                    <p class="step-desc">Every evening of the first 10 days, <strong>Majlis</strong> gatherings are held
+                        at Imambargahs, mosques, and homes. A <strong>Zakir</strong> recounts the events of Karbala in
+                        deeply moving detail — building to an intense climax of the martyrdom. The congregation responds
+                        with <strong>Nauha</strong> (mournful elegies) and <strong>Matam</strong> (rhythmic
+                        chest-beating). Anyone — Muslim or non-Muslim — may attend with respectful presence.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">🚶 10th Muharram</div>
+                    <div class="step-title">Ashura Juloos — The Procession</div>
+                    <p class="step-desc">The most visible public expression of Muharram — a massive mourning procession
+                        on the 10th. Led by <strong>Alams</strong> (battle standards on decorated horses), participants
+                        walk chanting "Ya Husain" with Matam throughout. A <strong>Taboot</strong> (symbolic coffin) is
+                        often carried. The procession concludes where final prayers are offered for the martyrs of
+                        Karbala.</p>
+                    <div class="step-mantra">"Ya Husain, Ya Husain" · "Labbaik Ya Husain" — We are here for you, O
+                        Husain · "Nara-e-Haideri — Ya Ali"</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SABIL -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">💧</span> Sabil — The Tradition of Free Water</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>One of the most beautiful Muharram traditions is <strong>Sabil</strong> — the free distribution of
+                    water, sherbat, and food to all passersby throughout the 10 days. This directly commemorates the
+                    <strong>three days Imam Husain's camp was denied access to the Euphrates river</strong> before the
+                    battle of Karbala. Every cup of water given freely on Muharram is a cup given in the name of those
+                    who died thirsty at Karbala.</p>
+            </div>
+            <div class="sabil-card">
+                <div class="sabil-title">💧 Every Cup is an Act of Solidarity</div>
+                <div class="sabil-desc">Shia families and communities set up <strong>Sabil stalls</strong> outside their
+                    homes and along procession routes — distributing cold water, rose sherbat, milk, and food to
+                    <strong>absolutely everyone who passes — regardless of religion, caste, or background.</strong> This
+                    is considered one of the highest acts of Muharram seva. Participating — either setting up a Sabil or
+                    simply accepting the water given with gratitude — is a deeply moving act of community on this day.
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOD -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🍽️</span> Food of Muharram — Nazr</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Muharram is a period of mourning — food is simple and minimal, never festive. The primary food
+                    tradition is <strong>Nazr</strong> — simple cooked food prepared with the intention of offering in
+                    memory of the martyrs, then distributed freely to all — neighbors, the poor, and passersby of any
+                    religion. <strong>Accepting Nazr food is considered a blessing.</strong></p>
+            </div>
+            <div class="food-grid">
+                <div class="food-chip">
+                    <div class="food-name">🍲 Haleem</div>
+                    <div class="food-desc">Slow-cooked meat and lentil stew — the most specifically associated Muharram
+                        Nazr food in Hyderabad and South Asian Shia communities. Cooked in large quantities and
+                        distributed freely.</div>
+                </div>
+                <div class="food-chip">
+                    <div class="food-name">🍛 Dal &amp; Khichdi</div>
+                    <div class="food-desc">Simple lentil and rice preparations — traditional Nazr food offered in memory
+                        of the martyrs. Simple and nourishing, befitting a period of mourning.</div>
+                </div>
+                <div class="food-chip">
+                    <div class="food-name">🍚 Biryani (Nazr)</div>
+                    <div class="food-desc">In many communities, biryani is prepared as Nazr and distributed — especially
+                        at Imambargahs feeding hundreds throughout the 10 days.</div>
+                </div>
+                <div class="food-chip">
+                    <div class="food-name">💧 Sharbat &amp; Water</div>
+                    <div class="food-desc">Distributed at Sabil stalls — cold water, rose sherbat, milk — in direct
+                        memory of the thirst of Karbala.</div>
+                </div>
+                <div class="food-chip">
+                    <div class="food-name">🌙 Suhoor &amp; Iftar</div>
+                    <div class="food-desc">For those observing the Ashura fast — standard Islamic fasting rules apply.
+                        Eat at Suhoor before Fajr. Break at Maghrib with dates and water.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRAYERS -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🙏</span> Key Prayers &amp; Chants</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="mantra-list">
+                <div class="mantra-card">
+                    <span class="mantra-icon">🖤</span>
+                    <div>
+                        <div class="mantra-label">Ziyarat Ashura — Shia · 100 Salutations on Ashura</div>
+                        <div class="mantra-text">"Assalamu alayka ya Aba Abdillah, Assalamu alayka wa rahmatullahi wa
+                            barakatuh"</div>
+                        <div class="mantra-meaning">Peace be upon you O Aba Abdillah (Imam Husain), peace be upon you
+                            and Allah's mercy and blessings. One of the most sacred prayers in Shia Islam — recited 100
+                            times on Ashura along with specific salutations. It is believed to carry immense spiritual
+                            merit when recited on this day specifically. Read the full Ziyarat with translation — let
+                            every word land.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">☾</span>
+                    <div>
+                        <div class="mantra-label">Dua on Ashura Fast — Sunni · Throughout the Fasting Day</div>
+                        <div class="mantra-text">"Allahumma inni as'aluka an tarzuqani tawbatan nasuha qabla al-mawt"
+                        </div>
+                        <div class="mantra-meaning">O Allah, I ask You to grant me sincere repentance before death.
+                            Entirely appropriate for the gravity of Ashura — the fast of this day expiates the sins of
+                            the previous year according to Hadith. Accompany the fast with this dua throughout the day
+                            alongside extra Quran recitation.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">💧</span>
+                    <div>
+                        <div class="mantra-label">The Chant of the Procession — Said with Full Voice Throughout the
+                            Juloos</div>
+                        <div class="mantra-text">"Ya Husain, Ya Husain" — "Labbaik Ya Husain" — "Nara-e-Haideri — Ya
+                            Ali"</div>
+                        <div class="mantra-meaning">O Husain, O Husain — We are here for you, O Husain — The call of
+                            Haider, O Ali. These chants fill the Ashura procession — said in unison by thousands, they
+                            become a declaration across 1,400 years: we remember. We have not forgotten. We are still
+                            here.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">📿</span>
+                    <div>
+                        <div class="mantra-label">Dhikr Throughout Muharram — All Muslims</div>
+                        <div class="mantra-text">"Subhanallah · Alhamdulillah · Allahu Akbar"</div>
+                        <div class="mantra-meaning">Glory be to Allah · All praise is to Allah · Allah is the Greatest.
+                            The foundational dhikr of Islam — repeated throughout this sacred month. Muharram is one of
+                            the four sacred months in Islam — the weight of the month calls for increased worship, Quran
+                            recitation, and this dhikr throughout every day.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GALLERY -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Muharram_procession_Hyderabad.jpg/1280px-Muharram_procession_Hyderabad.jpg"
+                        alt="Ashura Muharram mourning procession India"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🖤</span><span>Ashura Procession</span></div>'">
+                    <div class="g-label">The Ashura Juloos — thousands mourning together, chanting Ya Husain through the
+                        streets</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Imam_Hussein_Shrine.jpg/640px-Imam_Hussein_Shrine.jpg"
+                        alt="Karbala shrine Imam Husain Iraq"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🕌</span><span>Karbala</span></div>'">
+                    <div class="g-label">The shrine of Imam Husain (AS) at Karbala, Iraq — where millions gather on
+                        Ashura</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Muharram_water_distribution.jpg/640px-Muharram_water_distribution.jpg"
+                        alt="Sabil free water distribution Muharram"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>💧</span><span>Sabil</span></div>'">
+                    <div class="g-label">Sabil — free water and sherbat distributed to all, in memory of the thirst of
+                        Karbala</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Alam_Muharram_procession.jpg/640px-Alam_Muharram_procession.jpg"
+                        alt="Alam standards Muharram battle flags of Karbala"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🏴</span><span>Alams</span></div>'">
+                    <div class="g-label">Alams — decorated battle standards representing each martyr of Karbala, carried
+                        in procession</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIDEOS -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card" href="https://www.youtube.com/watch?v=K2poo-bNFRE" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/K2poo-bNFRE/maxresdefault.jpg" alt="Story of Karbala"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">📜</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">History</p>
+                        <p class="v-title">The Story of Karbala — Full Documentary</p>
+                        <p class="v-sub">Imam Husain, Yazid, and the battle of Ashura</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=RzCqeA_0BCA" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/RzCqeA_0BCA/maxresdefault.jpg" alt="Ziyarat Ashura"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🙏</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Prayer</p>
+                        <p class="v-title">Ziyarat Ashura — Full Recitation with Translation</p>
+                        <p class="v-sub">The most sacred Shia prayer of Ashura</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=2AErFuf7bWo" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/2AErFuf7bWo/maxresdefault.jpg" alt="Ashura fast Sunni"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">☾</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Observance</p>
+                        <p class="v-title">Ashura Fast — Sunni Observance &amp; Significance</p>
+                        <p class="v-sub">Why Muslims fast on the 9th and 10th of Muharram</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- DO'S & DON'TS -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li><strong>Sunni:</strong> Fast on the 9th AND 10th of Muharram together</li>
+                        <li><strong>Shia:</strong> Wear black, attend Majlis every evening of the first 10 days</li>
+                        <li>Recite Ziyarat Ashura on the 10th — with full attention to its meaning</li>
+                        <li>Attend the Ashura procession with respect and sincerity</li>
+                        <li>Set up or support a Sabil stall — distribute water and food freely to all</li>
+                        <li>Give charity generously throughout Muharram</li>
+                        <li>Distribute Nazr food to neighbors of all faiths</li>
+                        <li>Read and understand the full story of Karbala — its lessons of standing against injustice
+                            are universal</li>
+                        <li>If attending a Majlis as a visitor — sit quietly; silent respectful presence is entirely
+                            appropriate</li>
+                        <li>Increase Quran recitation and personal worship throughout the month</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li>Do not hold weddings, celebrations, or joyful events in the first 10 days — this is a period
+                            of mourning</li>
+                        <li>Do not fast only on the 10th alone (Sunni) — fast the 9th and 10th together</li>
+                        <li>Do not photograph mourners or procession participants intrusively — the grief is sincere and
+                            sacred</li>
+                        <li>Do not mock or trivialize Matam — it is a profound expression of genuine grief</li>
+                        <li>Do not treat Muharram as merely a cultural event — understand Karbala and let it move you
+                        </li>
+                        <li>Do not refuse Nazr food or Sabil water — accepting it respectfully honors the tradition</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CLOSING -->
+        <div class="closing">
+            <p class="closing-text">
+                He had every chance to survive.
+                He chose truth instead — knowing exactly what it would cost.
+                <em>And 1,400 years later, the world still says his name.</em>
+            </p>
+            <p class="closing-sub">🖤 &nbsp; Ya Husain &nbsp; 💧</p>
+        </div>
+
+    </div>
+
+    <script>
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+            const COLORS = ['#475569', '#64748b', '#94a3b8', '#38bdf8', '#cbd5e1', '#1e293b', '#334155'];
+            function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+            function initParticles() {
+                particles = Array.from({ length: 28 }, () => ({
+                    x: Math.random() * W, y: Math.random() * H,
+                    r: Math.random() * 1.8 + 0.3,
+                    vx: (Math.random() - 0.5) * 0.18, vy: -(Math.random() * 0.28 + 0.05),
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.35 + 0.07, life: Math.random()
+                }));
+            }
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy; p.life += 0.0012;
+                    if (p.y < -10 || p.life > 1) { p.x = Math.random() * W; p.y = H + 10; p.life = 0; }
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color; ctx.globalAlpha = p.alpha * Math.sin(p.life * Math.PI); ctx.fill();
+                });
+                ctx.globalAlpha = 1; requestAnimationFrame(draw);
+            }
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize(); initParticles(); draw();
+        })();
+
+        (function () {
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.08 });
+            document.querySelectorAll(
+                '.about-block,.significance-block,.obs-col,.step-card,.item-chip,.g-item,.v-card,.mantra-card,.dos-col,.closing,.sec-divider'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        ['.obs-col', '.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card'].forEach(sel => {
+            document.querySelectorAll(sel).forEach((el, i) => { el.style.transitionDelay = `${i * 0.07}s`; });
+        });
+
+        function openLb(el) {
+            const img = el.querySelector('img'); if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        (function () {
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) {
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `display:inline-block;opacity:0;transform:translateY(18px);animation:slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;`;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

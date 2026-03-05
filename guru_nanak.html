@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guru Nanak Jayanti — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+       DESIGN TOKENS — your website's palette
+    ═══════════════════════════════════════════ */
+        :root {
+            --bg: #0d1117;
+            --bg-2: #111827;
+            --card: #161d2e;
+            --card-2: #1b2338;
+            --card-3: #1e2a40;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --yellow: #f97316;
+            /* Sikh saffron-orange */
+            --yellow-lt: #fb923c;
+            --yellow-dim: rgba(249, 115, 22, 0.10);
+            --yellow-glow: rgba(249, 115, 22, 0.20);
+            --pink: #1d4ed8;
+            /* Khalsa navy blue */
+            --pink-dim: rgba(29, 78, 216, 0.12);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ─── SCROLLBAR — matches your pink accent ─── */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 3px;
+        }
+
+        /* ══════════════════════════════════════
+       FLOATING PARTICLE BACKGROUND
+    ══════════════════════════════════════ */
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(22, 29, 46, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        /* Gradient mesh background on hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(244, 63, 94, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(245, 158, 11, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 20% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Animated grid lines */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 3.5s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 32px rgba(245, 158, 11, 0.35));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp 0.7s 0.15s var(--ease) both;
+        }
+
+        /* Split-text reveal for the title */
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp 0.7s 0.28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--yellow);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Underline swipe on accent word */
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--yellow), var(--pink));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn 0.8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp 0.7s 0.4s var(--ease) both;
+        }
+
+        /* Date pill */
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--yellow-lt);
+            animation: slideUp 0.7s 0.52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--pink);
+            border-radius: 50%;
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Hero quick-stats row */
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 0.7s 0.65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--yellow);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════ */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        /* ─── SECTION HEADING — identical to your site ─── */
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--pink) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ══════════════════════════════════════
+       ABOUT BLOCK
+    ══════════════════════════════════════ */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        /* Myth quote */
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--yellow);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--yellow-lt);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       REGION CARDS — matches your site layout
+    ══════════════════════════════════════ */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .region-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+            cursor: default;
+        }
+
+        .region-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .region-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: var(--card-2);
+        }
+
+        .region-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .region-also {
+            font-size: 11px;
+            color: var(--pink);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .region-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       CEREMONY STEPS — activities style
+    ══════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* Shimmer sweep */
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--yellow-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-mantra {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: var(--card-3);
+            border-left: 2px solid var(--yellow);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 12.5px;
+            color: var(--yellow-lt);
+            line-height: 1.65;
+            font-family: var(--font-serif);
+        }
+
+        /* ══════════════════════════════════════
+       WHAT YOU NEED — chip list
+    ══════════════════════════════════════ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition:
+                opacity 0.4s var(--ease),
+                transform 0.4s var(--ease),
+                border-color 0.2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--yellow);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       PHOTO GALLERY
+    ══════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition:
+                opacity 0.55s var(--ease),
+                transform 0.55s var(--ease),
+                border-color 0.2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.82) saturate(0.88);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.95) saturate(1.05);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(13, 17, 23, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Placeholder when no image */
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* ══════════════════════════════════════
+       VIDEO CARDS
+    ══════════════════════════════════════ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.7);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--yellow-lt);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(245, 158, 11, 0.25);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--pink);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       MANTRAS / PRAYERS BLOCK
+    ══════════════════════════════════════ */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--yellow-lt);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+       DO'S & DON'TS
+    ══════════════════════════════════════ */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: var(--pink);
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+       SIGNIFICANCE BLOCK — like your site
+    ══════════════════════════════════════ */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════════════
+       CLOSING QUOTE
+    ══════════════════════════════════════ */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: var(--yellow-lt);
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 17, 23, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn 0.25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Particle canvas -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Back button -->
+    <a class="back-btn" href="festival-card.html">← Back</a>
+
+    <!-- Lightbox -->
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <span class="hero-emoji">🪯</span>
+        <p class="hero-eyebrow">Kartika · Purnima · Full Moon — October / November</p>
+        <h1 class="hero-title">Guru Nanak <span class="accent">Jayanti</span></h1>
+        <p class="hero-subtitle">The Birthday of Guru Nanak Dev Ji — Light, Equality &amp; the Divine Name</p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            November 2, 2026 &nbsp;·&nbsp; Kartika Purnima
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">1469</div>
+                <div class="sl">Birth Year</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">48 hrs</div>
+                <div class="sl">Akhand Path</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">3</div>
+                <div class="sl">Core Teachings</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">∞</div>
+                <div class="sl">Waheguru</div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PAGE BODY
+  ══════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── ABOUT ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Guru Nanak Jayanti — also called <strong>Gurpurab</strong> — celebrates the birth of <strong>Guru
+                        Nanak Dev Ji</strong>, the founder of Sikhism and the first of the ten Sikh Gurus, born on
+                    <strong>April 15, 1469</strong> in <strong>Nankana Sahib (present-day Pakistan).</strong></p>
+                <p>Born into a Hindu family, he showed signs of extraordinary spiritual depth from childhood. At age 30
+                    he disappeared into a river for three days — emerging with a declaration that would change India
+                    forever:</p>
+                <div class="myth-quote">
+                    "There is no Hindu, there is no Muslim."
+                </div>
+                <p style="margin-top:16px;">Meaning — beyond all religious labels, there is only one God and one
+                    humanity. He spent the next 24 years traveling across India, Arabia, Persia, and Tibet — on foot —
+                    spreading three core teachings. He established the institution of <strong>Langar</strong> — the free
+                    community kitchen where everyone sits together on the floor and eats the same food regardless of
+                    caste, religion, or status. This single institution was the most radical social reform of 15th
+                    century India.</p>
+            </div>
+        </div>
+
+        <!-- ── SIGNIFICANCE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Guru Nanak Jayanti is the birthday of the man who walked into a river and came out saying there is no
+                Hindu and no Muslim — only God and humanity. Everything else he taught — the Langar, the Kirtan, the
+                equality — flows from that one moment of clarity. On this day we don't just remember him. We ask:
+                <strong>do I see humanity the way he did?</strong>
+            </div>
+        </div>
+
+        <!-- ── THREE CORE TEACHINGS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">💡</span> The Three Core Teachings</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="region-grid">
+                <div class="region-card">
+                    <div class="region-name">Naam Japo</div>
+                    <div class="region-also">Meditate on God's Name</div>
+                    <p class="region-desc">Repeat "Waheguru" continuously throughout the day — inhale "Wahe," exhale
+                        "Guru." Keep the divine name alive in every breath, not just in prayer time.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Kirat Karo</div>
+                    <div class="region-also">Earn Honestly</div>
+                    <p class="region-desc">Earn your livelihood through honest work, giving full effort. Reflect today:
+                        am I earning honestly? Am I giving my full effort to what I do?</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Vand Chhako</div>
+                    <div class="region-also">Share With Others</div>
+                    <p class="region-desc">Share what you earn with others. Give something today — food, money, time —
+                        to someone who needs it. Even feeding one hungry person is Guru Nanak's teaching made real.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── AKHAND PATH ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📜</span> Akhand Path — 48 Hours of Recitation</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p><strong>48 hours before Gurpurab,</strong> Gurudwaras begin the <strong>Akhand Path</strong> —
+                    continuous, uninterrupted recitation of the entire Sri Guru Granth Sahib Ji (1430 pages). Teams of
+                    Granthis rotate throughout — it never stops, concluding on Gurpurab morning.</p>
+                <p>The Akhand Path is not background recitation — it is the Guru's own voice speaking continuously for
+                    two full days and nights. The Sangat comes and goes, listening, sitting in the presence of the
+                    eternal word.</p>
+                <div class="myth-quote">"Attend the <strong>Bhog (conclusion ceremony)</strong> on Gurpurab morning —
+                    this is the single most important event of the day. The final pages of Guru Granth Sahib Ji are
+                    recited, Ardas is performed, Hukamnama is taken, and Karah Prasad is distributed."</div>
+            </div>
+        </div>
+
+        <!-- ── CEREMONY STEPS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎭</span> Activities &amp; Ceremony</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Amrit Vela</div>
+                    <div class="step-title">Wake Before Dawn</div>
+                    <p class="step-desc">Rise at Amrit Vela — 2 to 6 AM. Take full bath (Ishnaan). Wear white or blue
+                        clothes. Cover head. This early rising is not optional — it is the beginning of Gurpurab.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Nitnem</div>
+                    <div class="step-title">Recite the Five Daily Prayers</div>
+                    <p class="step-desc">Japji Sahib · Jaap Sahib · Tav Prasad Savaiye · Chaupai Sahib · Anand Sahib.
+                        Then perform Ardas — stand with folded hands and offer your morning prayer specifically
+                        remembering Guru Nanak Dev Ji.</p>
+                    <div class="step-mantra">"Waheguru Ji Ka Khalsa, Waheguru Ji Ki Fateh"</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Gurudwara</div>
+                    <div class="step-title">Enter with Full Protocol</div>
+                    <p class="step-desc">Remove shoes. Remove all leather. Wash hands and feet. Cover head completely.
+                        Enter quietly. Perform Matha Tekna — go on both knees and touch forehead to the floor before
+                        Guru Granth Sahib Ji.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Bhog</div>
+                    <div class="step-title">Akhand Path Conclusion</div>
+                    <p class="step-desc">Attend the Bhog ceremony — the conclusion of the 48-hour recitation. Final
+                        pages read, Ardas performed, Hukamnama taken. The Guru's divine word for the day is declared to
+                        the entire Sangat.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Prasad</div>
+                    <div class="step-title">Receive Karah Prasad</div>
+                    <p class="step-desc">Cup both hands together. Receive warm Karah Prasad — wheat halwa made from
+                        equal parts flour, ghee, and sugar. Eating it is a sacred act of receiving the Guru's blessing
+                        without distinction of caste or status.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Kirtan</div>
+                    <div class="step-title">Sit in Gurbani Kirtan</div>
+                    <p class="step-desc">Sit in the Sangat and absorb devotional singing of Gurbani in classical Ragas.
+                        On Gurpurab, Shabads composed by or about Guru Nanak Dev Ji are sung. Even sitting quietly is a
+                        complete act of worship.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Nagar Kirtan</div>
+                    <div class="step-title">The Grand Procession</div>
+                    <p class="step-desc">Led by the Panj Pyare in blue Khalsa attire. Guru Granth Sahib Ji carried on a
+                        decorated Palki Sahib. Gatka (Sikh martial art) performed. Thousands chant Gurbani through city
+                        streets.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Langar Seva</div>
+                    <div class="step-title">Volunteer in the Community Kitchen</div>
+                    <p class="step-desc">Chop vegetables, make rotis, serve food, wash dishes. This seva is the most
+                        direct honoring of Guru Nanak's teaching of Vand Chhako. Every person who sits on that floor and
+                        eats is an equal — Guru Nanak's revolution in action.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── WHAT YOU NEED ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🛒</span> What You Need</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="items-grid">
+                <div class="item-chip"><span class="ic-dot"></span>White or blue clothes</div>
+                <div class="item-chip"><span class="ic-dot"></span>White head covering (mandatory)</div>
+                <div class="item-chip"><span class="ic-dot"></span>No leather items</div>
+                <div class="item-chip"><span class="ic-dot"></span>Wheat flour (for Karah Prasad)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Pure ghee</div>
+                <div class="item-chip"><span class="ic-dot"></span>Sugar</div>
+                <div class="item-chip"><span class="ic-dot"></span>Marigold &amp; roses for offering</div>
+                <div class="item-chip"><span class="ic-dot"></span>Gutka Sahib (Sikh prayer book)</div>
+                <div class="item-chip"><span class="ic-dot"></span>iGurbani app (download)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Clean socks (floor is barefoot)</div>
+            </div>
+        </div>
+
+        <!-- ── GALLERY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Nagar_Kirtan_procession.jpg/1280px-Nagar_Kirtan_procession.jpg"
+                        alt="Nagar Kirtan procession Guru Nanak Jayanti"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🪯</span><span>Nagar Kirtan</span></div>'">
+                    <div class="g-label">Nagar Kirtan — thousands chanting Gurbani through city streets</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Golden_Temple_Amritsar.jpg/640px-Golden_Temple_Amritsar.jpg"
+                        alt="Golden Temple Amritsar"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🛕</span><span>Harmandir Sahib</span></div>'">
+                    <div class="g-label">Harmandir Sahib — the Golden Temple, Amritsar</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Langar_Sikh_community_kitchen.jpg/640px-Langar_Sikh_community_kitchen.jpg"
+                        alt="Langar community kitchen"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🍽️</span><span>Langar</span></div>'">
+                    <div class="g-label">Langar — everyone sits equal on the floor</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Karah_prasad.jpg/640px-Karah_prasad.jpg"
+                        alt="Karah Prasad"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🙏</span><span>Karah Prasad</span></div>'">
+                    <div class="g-label">Karah Prasad — received with both hands cupped</div>
+                </div>
+            </div>
+            <p style="font-size:11px;color:var(--text-dim);margin-top:10px;">
+                Replace <code>src</code> values with your own photos for best results.
+            </p>
+        </div>
+
+        <!-- ── VIDEOS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card"
+                    href="https://www.youtube.com/results?search_query=guru+nanak+jayanti+nagar+kirtan+2026"
+                    target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <div class="g-ph" style="height:100%"><span class="ph-e">🎬</span><span>Watch on YouTube</span>
+                        </div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Gurpurab</p>
+                        <p class="v-title">Nagar Kirtan — Full Procession</p>
+                        <p class="v-sub">The grand march of Gurpurab</p>
+                    </div>
+                </a>
+                <a class="v-card"
+                    href="https://www.youtube.com/results?search_query=japji+sahib+full+recitation+gurbani"
+                    target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <div class="g-ph" style="height:100%"><span class="ph-e">📿</span><span>Watch on YouTube</span>
+                        </div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Nitnem</p>
+                        <p class="v-title">Japji Sahib — Full Recitation</p>
+                        <p class="v-sub">Guru Nanak's foundational prayer</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/results?search_query=guru+nanak+life+story+documentary"
+                    target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <div class="g-ph" style="height:100%"><span class="ph-e">📖</span><span>Watch on YouTube</span>
+                        </div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Biography</p>
+                        <p class="v-title">Life of Guru Nanak Dev Ji</p>
+                        <p class="v-sub">The journeys that changed India</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── PRAYERS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🙏</span> Key Prayers &amp; Mantras</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="mantra-list">
+                <div class="mantra-card">
+                    <span class="mantra-icon">🪯</span>
+                    <div>
+                        <div class="mantra-label">Mool Mantar — The Root of All Sikh Prayer</div>
+                        <div class="mantra-text">
+                            "Ik Onkar, Sat Naam, Karta Purakh, Nirbhau, Nirvair<br>
+                            Akaal Moorat, Ajooni Saibhang, Gur Prasad. Jap."
+                        </div>
+                        <div class="mantra-meaning">One God exists. Truth is His name. He is the Creator. Without fear.
+                            Without enmity. Timeless. Beyond birth and death. Self-illuminated. Realized by Guru's
+                            grace. Meditate.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">✨</span>
+                    <div>
+                        <div class="mantra-label">Simran — Repeat Continuously All Day</div>
+                        <div class="mantra-text">"Waheguru, Waheguru, Waheguru..."</div>
+                        <div class="mantra-meaning">Inhale "Wahe" — exhale "Guru." The wondrous Lord. Not a ritual — a
+                            way of breathing. Guru Nanak taught that God's name should be woven into every breath, not
+                            reserved for prayer time.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🤝</span>
+                    <div>
+                        <div class="mantra-label">Sikh Greeting — Say to Everyone Today</div>
+                        <div class="mantra-text">"Waheguru Ji Ka Khalsa, Waheguru Ji Ki Fateh"</div>
+                        <div class="mantra-meaning">The Khalsa belongs to the Wondrous Lord. Victory belongs to the
+                            Wondrous Lord. Not a greeting of rank or status — a declaration that everyone you meet
+                            belongs to God.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🌍</span>
+                    <div>
+                        <div class="mantra-label">Guru Nanak's Most Famous Verse — Closing Line of Every Ardas</div>
+                        <div class="mantra-text">"Nanak Naam Chardi Kala, Tere Bhane Sarbat Da Bhala"</div>
+                        <div class="mantra-meaning">Nanak — with God's name and high spirits — may Your will bring
+                            goodness to all of humanity. This ends every Sikh prayer. Not a prayer for personal blessing
+                            — a prayer for all of humanity. This is who Guru Nanak was.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── DO'S & DON'TS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li>Wake at Amrit Vela and recite full Nitnem</li>
+                        <li>Cover head at all times in the Gurudwara</li>
+                        <li>Attend Akhand Path Bhog — the most important event of the day</li>
+                        <li>Perform Matha Tekna before Guru Granth Sahib Ji</li>
+                        <li>Do Langar Seva — volunteer without fail</li>
+                        <li>Walk in or respectfully observe the Nagar Kirtan</li>
+                        <li>Greet all Sikhs with Waheguru Ji Ka Khalsa, Waheguru Ji Ki Fateh</li>
+                        <li>Practice Naam Japo, Kirat Karo, Vand Chhako consciously today</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li>No leather items anywhere in the Gurudwara</li>
+                        <li>Never sit with feet pointing toward Guru Granth Sahib Ji</li>
+                        <li>Never turn your back to Guru Granth Sahib Ji when leaving</li>
+                        <li>Do not enter without covering your head</li>
+                        <li>Do not treat Gurpurab as only a religious holiday — it is a call to live differently</li>
+                        <li>Do not skip Langar Seva — Guru Nanak's teaching requires action, not just attendance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CLOSING ── -->
+        <div class="closing">
+            <p class="closing-text">
+                Guru Nanak walked into a river and came out saying there is no Hindu, there is no Muslim — only God and
+                humanity.
+                <em>On this day we don't just remember him. We ask: do I see humanity the way he did?</em>
+            </p>
+            <p class="closing-sub">🪯 &nbsp; Waheguru Ji Ka Khalsa, Waheguru Ji Ki Fateh &nbsp; ✨</p>
+        </div>
+
+    </div><!-- /page-body -->
+
+    <script>
+        /* ══════════════════════════════════════
+           PARTICLE CANVAS
+        ══════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+
+            const COLORS = ['#f97316', '#fb923c', '#1d4ed8', '#ffffff', '#fcd34d'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = Array.from({ length: 40 }, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: -(Math.random() * 0.4 + 0.1),
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.5 + 0.1,
+                    life: Math.random()
+                }));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life += 0.002;
+                    if (p.y < -10 || p.life > 1) {
+                        p.x = Math.random() * W;
+                        p.y = H + 10;
+                        p.life = 0;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha * Math.sin(p.life * Math.PI);
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize();
+            initParticles();
+            draw();
+        })();
+
+        /* ══════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════ */
+        (function () {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(
+                '.about-block, .significance-block, .region-card, .step-card, ' +
+                '.item-chip, .g-item, .v-card, .mantra-card, .dos-col, .closing, .sec-divider'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        /* ── Stagger delays on repeated elements ── */
+        ['.region-card', '.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card']
+            .forEach(sel => {
+                document.querySelectorAll(sel).forEach((el, i) => {
+                    el.style.transitionDelay = `${i * 0.07}s`;
+                });
+            });
+
+        /* ══════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        function openLb(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        /* ══════════════════════════════════════
+           ANIMATED TEXT — letter-by-letter on hero title
+        ══════════════════════════════════════ */
+        (function () {
+            // Split hero title into character spans for a staggered reveal
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            // Only animate plain text nodes
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) { // text node
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `
+              display:inline-block;
+              opacity:0;
+              transform:translateY(18px);
+              animation: slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;
+            `;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

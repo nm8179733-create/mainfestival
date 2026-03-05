@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lohri — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+       DESIGN TOKENS — your website's palette
+    ═══════════════════════════════════════════ */
+        :root {
+            --bg: #0d1117;
+            --bg-2: #111827;
+            --card: #161d2e;
+            --card-2: #1b2338;
+            --card-3: #1e2a40;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --yellow: #c2410c;
+            /* bonfire deep orange */
+            --yellow-lt: #fb923c;
+            --yellow-dim: rgba(194, 65, 12, 0.10);
+            --yellow-glow: rgba(194, 65, 12, 0.22);
+            --pink: #a16207;
+            /* mustard harvest gold */
+            --pink-dim: rgba(161, 98, 7, 0.12);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ─── SCROLLBAR — matches your pink accent ─── */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 3px;
+        }
+
+        /* ══════════════════════════════════════
+       FLOATING PARTICLE BACKGROUND
+    ══════════════════════════════════════ */
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(22, 29, 46, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        /* Gradient mesh background on hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(244, 63, 94, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(245, 158, 11, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 20% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Animated grid lines */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 3.5s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 32px rgba(245, 158, 11, 0.35));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp 0.7s 0.15s var(--ease) both;
+        }
+
+        /* Split-text reveal for the title */
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp 0.7s 0.28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--yellow);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Underline swipe on accent word */
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--yellow), var(--pink));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn 0.8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp 0.7s 0.4s var(--ease) both;
+        }
+
+        /* Date pill */
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--yellow-lt);
+            animation: slideUp 0.7s 0.52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--pink);
+            border-radius: 50%;
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Hero quick-stats row */
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 0.7s 0.65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--yellow);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════ */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        /* ─── SECTION HEADING — identical to your site ─── */
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--pink) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ══════════════════════════════════════
+       ABOUT BLOCK
+    ══════════════════════════════════════ */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        /* Myth quote */
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--yellow);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--yellow-lt);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       REGION CARDS — matches your site layout
+    ══════════════════════════════════════ */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .region-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+            cursor: default;
+        }
+
+        .region-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .region-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: var(--card-2);
+        }
+
+        .region-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .region-also {
+            font-size: 11px;
+            color: var(--pink);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .region-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       CEREMONY STEPS — activities style
+    ══════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* Shimmer sweep */
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--yellow-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-mantra {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: var(--card-3);
+            border-left: 2px solid var(--yellow);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 12.5px;
+            color: var(--yellow-lt);
+            line-height: 1.65;
+            font-family: var(--font-serif);
+        }
+
+        /* ══════════════════════════════════════
+       WHAT YOU NEED — chip list
+    ══════════════════════════════════════ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition:
+                opacity 0.4s var(--ease),
+                transform 0.4s var(--ease),
+                border-color 0.2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--yellow);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       PHOTO GALLERY
+    ══════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition:
+                opacity 0.55s var(--ease),
+                transform 0.55s var(--ease),
+                border-color 0.2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.82) saturate(0.88);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.95) saturate(1.05);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(13, 17, 23, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Placeholder when no image */
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* ══════════════════════════════════════
+       VIDEO CARDS
+    ══════════════════════════════════════ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.7);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--yellow-lt);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(245, 158, 11, 0.25);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--pink);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       MANTRAS / PRAYERS BLOCK
+    ══════════════════════════════════════ */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--yellow-lt);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+       DO'S & DON'TS
+    ══════════════════════════════════════ */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: var(--pink);
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+       SIGNIFICANCE BLOCK — like your site
+    ══════════════════════════════════════ */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════════════
+       CLOSING QUOTE
+    ══════════════════════════════════════ */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: var(--yellow-lt);
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 17, 23, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn 0.25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Folk song card */
+        .folk-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--yellow-lt);
+            border-radius: var(--radius);
+            padding: 20px 22px;
+            margin-top: 14px;
+        }
+
+        .folk-title {
+            font-weight: 700;
+            color: var(--yellow-lt);
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .folk-lyrics {
+            font-style: italic;
+            color: var(--text-dim);
+            font-size: 13px;
+            line-height: 1.85;
+            margin-bottom: 12px;
+        }
+
+        .folk-meaning {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Offerings grid */
+        .offerings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .offering-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 12px 14px;
+            font-size: 12px;
+        }
+
+        .offering-item {
+            font-weight: 700;
+            color: var(--yellow-lt);
+            margin-bottom: 4px;
+        }
+
+        .offering-why {
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Particle canvas -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Back button -->
+    <a class="back-btn" href="festival-card.html">← Back</a>
+
+    <!-- Lightbox -->
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <span class="hero-emoji">🔥</span>
+        <p class="hero-eyebrow">January 13 · Solar Calendar · Fixed Date Every Year · Punjab &amp; Haryana</p>
+        <h1 class="hero-title">Lo<span class="accent">hri</span></h1>
+        <p class="hero-subtitle">Farewell to Winter — Fire, Harvest, Bhangra &amp; the Legend of Dulla Bhatti</p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            January 13, 2027 &nbsp;·&nbsp; Last night of Paush
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">4</div>
+                <div class="sl">Circles Around Fire</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">7</div>
+                <div class="sl">Offerings to Agni</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">🌾</div>
+                <div class="sl">Rabi Harvest</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">∞</div>
+                <div class="sl">Bhangra Energy</div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PAGE BODY
+  ══════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── ABOUT ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Lohri is celebrated every year on the fixed date of <strong>January 13th</strong> — the last night of
+                    the coldest month of the year, the night before Makar Sankranti. It is primarily the festival of
+                    <strong>Punjab, Haryana, Himachal Pradesh, and Delhi</strong>, and wherever Punjabi communities have
+                    settled across India and the world. Unlike most Hindu festivals, it follows the solar calendar — the
+                    date never changes.</p>
+                <p>It marks the <strong>end of winter</strong> and the imminent return of the sun's warmth (Uttarayana),
+                    and is deeply connected to the <strong>Rabi harvest</strong> — the winter crop of sugarcane and
+                    mustard that reaches maturity around this time. Farmers celebrate the culmination of months of labor
+                    with gratitude, fire, music, and dance.</p>
+                <div class="myth-quote">
+                    "Dulla Bhatti was a Robin Hood of Emperor Akbar's Punjab — he robbed the rich, gave to the poor, and
+                    most famously rescued girls from being sold into slavery and arranged their marriages with dignity.
+                    Almost every Lohri folk song is about him. His story is why Lohri is especially celebrated for
+                    newborns and newly married couples."
+                </div>
+                <p style="margin-top:16px;">The first Lohri after a <strong>wedding</strong> or the <strong>birth of a
+                        child</strong> is considered especially auspicious and is celebrated with exceptional grandeur —
+                    the community pouring revdi and peanuts over the new bride or newborn like a confetti shower.</p>
+            </div>
+        </div>
+
+        <!-- ── SIGNIFICANCE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Lohri is perhaps the most viscerally joyful festival in India's calendar — where fire, food, dance,
+                community, and the pure relief of winter ending all come together in one magnificent evening. It is a
+                festival that says: <strong>we survived the cold, the harvest is in, our family is blessed, and tomorrow
+                    the sun comes back. Let's dance.</strong>
+            </div>
+        </div>
+
+        <!-- ── DULLA BHATTI FOLK SONG ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎵</span> The Dulla Bhatti Song — Heart of Lohri</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Children go door to door on Lohri day — <strong>Lohri Maangna</strong> — singing this folk song and
+                    collecting revdi, gajak, and peanuts. The same song is sung by everyone around the bonfire while
+                    circling. It is the cultural soul of Lohri — not optional entertainment but the actual ritual.</p>
+            </div>
+            <div class="folk-card">
+                <div class="folk-title">🎶 Dulla Bhatti Song — Sung Door to Door &amp; Around the Bonfire</div>
+                <div class="folk-lyrics">
+                    Sunder mundriye ho! · Tera kaun vichara ho!<br>
+                    Dulla Bhatti walla ho! · Dulle di dhee vyaahi ho!<br>
+                    Ser shakar paai ho! · Kudi da laal pathaka ho!<br>
+                    Kudi da saalu paata ho! · Salu kaun samete ho!<br>
+                    Chacha gali dese ho! · Chacha nu dena ho!<br>
+                    Munde nu laat maar ke! · Ik cup chaiye ho!
+                </div>
+                <div class="folk-meaning"><strong>Meaning:</strong> "O beautiful girl! Who will think about you? Dulla
+                    Bhatti will! Dulla married off his daughter! He gave her a measure of sugar! The girl had a red
+                    shawl! The shawl slipped away! Who will gather the shawl? The uncle gives from the alley! Give
+                    something to the uncle! Kick the boy! I want one cup of tea!" — A playful folk narrative about Dulla
+                    Bhatti's generous act of marrying off a poor girl with dignity.</div>
+            </div>
+        </div>
+
+        <!-- ── REGIONS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🗺️</span> Regions</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="region-grid">
+                <div class="region-card">
+                    <div class="region-name">Punjab</div>
+                    <div class="region-also">The Heart of Lohri</div>
+                    <p class="region-desc">The fullest, grandest celebration — community bonfires in every mohalla,
+                        village-wide gatherings, Bhangra and Gidda danced with full fervor, Sarson ka Saag served from
+                        large degchis (pots), and the Dulla Bhatti song ringing through every street.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Haryana</div>
+                    <div class="region-also">Lohri / Lodi</div>
+                    <p class="region-desc">Called Lodi in Haryana — the bonfire and offering traditions are the same.
+                        Families gather, circle the fire, and share revdi and til. The occasion for a newborn son's
+                        first Lohri is especially significant in Haryanvi culture.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Himachal Pradesh</div>
+                    <div class="region-also">Lohri</div>
+                    <p class="region-desc">Mountain communities celebrate with bonfires against a backdrop of
+                        snow-capped peaks. The folk music and traditional Himachali songs are different from Punjab's
+                        but the fire, offering, and community gathering traditions are identical.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Delhi &amp; Urban Diaspora</div>
+                    <div class="region-also">Colony Lohri</div>
+                    <p class="region-desc">Housing societies and apartment complexes organize colony Lohri bonfires —
+                        often on terraces or open grounds. The Dhol player, Bhangra circle, and revdi sharing are
+                        brought into the urban setting with full enthusiasm.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Sindhi Community</div>
+                    <div class="region-also">Lal Loi</div>
+                    <p class="region-desc">The Sindhi community celebrates Lal Loi on the same night — "Lal" means red
+                        (the fire) and "Loi" means warmth. The bonfire, offerings, and folk songs are similar with
+                        distinct Sindhi cultural elements woven in.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CEREMONY STEPS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎭</span> How to Celebrate Lohri — Step by Step</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Daytime</div>
+                    <div class="step-title">Lohri Maangna — Children Door to Door</div>
+                    <p class="step-desc">Children go from door to door in the neighborhood singing the Dulla Bhatti song
+                        and collecting revdi, gajak, peanuts, and popcorn in a cloth bag. Each household gives
+                        generously. The collected items are brought to the evening bonfire and shared with everyone. If
+                        a household gives nothing, the children sing a playful teasing verse at their door.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Afternoon</div>
+                    <div class="step-title">Build the Bonfire</div>
+                    <p class="step-desc">Choose a safe open outdoor space. Arrange dry wood logs in a
+                        <strong>conical/pyramid structure</strong> — large logs at the base, smaller ones leaning
+                        inward. Fill inside with dry leaves, twigs, and kindling. Place dry cow dung cakes within and
+                        around it. At the very center top, place a long sugarcane stalk — the central axis of the fire.
+                        Keep a bucket of water or sand nearby.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ After Sunset</div>
+                    <div class="step-title">Light the Bonfire — "Lohri Aayi!"</div>
+                    <p class="step-desc">After sunset (6–8 PM), the eldest member lights the bonfire. As the fire
+                        catches and rises, everyone folds hands and says <em>"Jai Lohri Mata Ki!"</em> or <em>"Lohri
+                            Aayi, Lohri Aayi!"</em> The whole family and neighbors gather in a circle around the fire.
+                        The warmth of the fire in the cold January night is part of the magic — it is physically and
+                        symbolically warming.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Puja</div>
+                    <div class="step-title">Offer into the Fire — Seven Sacred Offerings</div>
+                    <p class="step-desc">Everyone takes handfuls of the sacred Lohri foods and throws them into the fire
+                        as offerings to Agni and Surya, saying: <strong>"Aadar aye, dilather jaye"</strong> (May honor
+                        come, may poverty go). These are the harvest crops of winter — offered back to the divine in
+                        gratitude.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Pradakshina</div>
+                    <div class="step-title">Circle the Fire 4 Times — Clockwise</div>
+                    <p class="step-desc">After the initial offerings, everyone circles the burning bonfire <strong>4
+                            times clockwise</strong> (representing the four directions). As you circle, keep throwing
+                        handfuls of revdi, peanuts, and popcorn into the fire. Sing the Dulla Bhatti song as you circle.
+                        This communal circling — singing, throwing offerings, turning together — is the very heart of
+                        Lohri.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Special</div>
+                    <div class="step-title">Pehli Lohri — Newborns &amp; New Brides</div>
+                    <p class="step-desc">If there is a <strong>newborn</strong> in the family — the baby is brought to
+                        the fire and held while circling, blessings sought for their life. If there is a <strong>newly
+                            married couple</strong> — they circle the fire together holding hands or connected by her
+                        dupatta pallu, echoing the seven pheras of their wedding. The family then showers them with
+                        revdi and peanuts poured over their heads — a blessing confetti shower.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Celebration</div>
+                    <div class="step-title">Bhangra &amp; Gidda — Dance!</div>
+                    <p class="step-desc">After the puja and circling, the dhol begins to beat and the dancing starts.
+                        Men dance <strong>Bhangra</strong> — vigorous, full-body, arms raised, spinning in rhythm. Women
+                        dance <strong>Gidda</strong> — clapping, spinning, calling out witty Boliyan verses while others
+                        respond. You don't need to know the steps. Just clap, move, and join in. Nobody sits on the
+                        sidelines if they can help it.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Feast</div>
+                    <div class="step-title">Sarson ka Saag &amp; Makki ki Roti</div>
+                    <p class="step-desc">The soul food of Lohri — slow-cooked mustard greens finished with white butter
+                        (makhan) on top, eaten with thick corn flour flatbreads on a cold January night around the
+                        bonfire. One of the most perfect food experiences in all of Indian cuisine. Also pass around
+                        roasted peanuts, revdi, gajak — shared through the evening while the fire burns.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Gifts</div>
+                    <div class="step-title">Share with Neighbors &amp; Give Lohri Thali</div>
+                    <p class="step-desc">During the day, send plates of revdi, gajak, peanuts, and sweets to all
+                        neighbors. For a new bride's first Lohri, the in-laws present her a formal <strong>Lohri
+                            Thali</strong> of revdi, gajak, peanuts, and dry fruits — welcoming her into the family. For
+                        newborns, extended family visits to bless the child with clothes, gold, and sweets.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Next Morning</div>
+                    <div class="step-title">Maghi — Makar Sankranti Morning</div>
+                    <p class="step-desc">The morning after Lohri is <strong>Maghi</strong> — the Punjabi Makar
+                        Sankranti. Wake up early and take a dip in a river or add a few drops of gangajal to your bath.
+                        Visit the Gurudwara, offer prayers, and participate in community langar. Maghi is also
+                        associated with the Chhote Sahibzade — the four young sons of Guru Gobind Singh Ji — and is a
+                        day of remembrance and gratitude.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SEVEN OFFERINGS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🌾</span> The Seven Sacred Offerings to Agni</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>These are the harvest foods of the Rabi season — offered back to the divine fire as thanksgiving. Say
+                    <strong>"Aadar aye, dilather jaye"</strong> with each offering.</p>
+            </div>
+            <div class="offerings-grid">
+                <div class="offering-chip">
+                    <div class="offering-item">🍬 Revdi</div>
+                    <div class="offering-why">Sesame &amp; sugar candy — the most essential Lohri item, both offered and
+                        eaten</div>
+                </div>
+                <div class="offering-chip">
+                    <div class="offering-item">🍫 Gajak</div>
+                    <div class="offering-why">Sesame &amp; jaggery brittle — the harvest's sweetness given back to the
+                        fire</div>
+                </div>
+                <div class="offering-chip">
+                    <div class="offering-item">🥜 Peanuts</div>
+                    <div class="offering-why">Roasted groundnuts — inseparable from Lohri, thrown in by the handful
+                    </div>
+                </div>
+                <div class="offering-chip">
+                    <div class="offering-item">🍿 Popcorn</div>
+                    <div class="offering-why">Makki / phuliye — the corn harvest crackling joyfully in the fire</div>
+                </div>
+                <div class="offering-chip">
+                    <div class="offering-item">🌿 Sesame / Til</div>
+                    <div class="offering-why">Sacred at both Lohri and Sankranti — the winter seed crop offered with
+                        reverence</div>
+                </div>
+                <div class="offering-chip">
+                    <div class="offering-item">🎋 Sugarcane</div>
+                    <div class="offering-why">The Rabi crop itself — placed in the fire and also eaten fresh around it
+                    </div>
+                </div>
+                <div class="offering-chip">
+                    <div class="offering-item">🟫 Jaggery</div>
+                    <div class="offering-why">Gur — the sweetened form of the sugarcane harvest, offered as a lump</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── WHAT YOU NEED ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🛒</span> What You Need</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="items-grid">
+                <div class="item-chip"><span class="ic-dot"></span>Revdi (sesame &amp; sugar candy)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Gajak (sesame &amp; jaggery brittle)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Peanuts / moongphali (roasted)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Popcorn / makki phuliye</div>
+                <div class="item-chip"><span class="ic-dot"></span>Sesame seeds (til)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Sugarcane stalks</div>
+                <div class="item-chip"><span class="ic-dot"></span>Jaggery (gur)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Dry wood logs (bonfire)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Dry cow dung cakes (upale)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Mustard greens &amp; makki atta (Saag &amp; Roti)
+                </div>
+                <div class="item-chip"><span class="ic-dot"></span>White butter (makhan)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Dhol player or Punjabi folk music speaker</div>
+                <div class="item-chip"><span class="ic-dot"></span>Traditional Punjabi clothes (bright colors)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Bucket of water (bonfire safety)</div>
+            </div>
+        </div>
+
+        <!-- ── GALLERY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Lohri_bonfire_Punjab_India.jpg/1280px-Lohri_bonfire_Punjab_India.jpg"
+                        alt="Lohri bonfire night Punjab community"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🔥</span><span>Lohri Bonfire</span></div>'">
+                    <div class="g-label">Lohri bonfire — the fire that says winter is over and the sun is coming back
+                    </div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bhangra_dance_Punjab_Lohri.jpg/640px-Bhangra_dance_Punjab_Lohri.jpg"
+                        alt="Bhangra dance Lohri Punjab"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>💃</span><span>Bhangra</span></div>'">
+                    <div class="g-label">Bhangra around the bonfire — arms raised, dhol beating, nobody sitting still
+                    </div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sarson_ka_saag_makki_roti.jpg/640px-Sarson_ka_saag_makki_roti.jpg"
+                        alt="Sarson ka saag makki ki roti Lohri food"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🥬</span><span>Sarson ka Saag</span></div>'">
+                    <div class="g-label">Sarson ka Saag with Makki ki Roti &amp; white butter — the soul food of Lohri
+                        night</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Revdi_gajak_lohri_sweets.jpg/640px-Revdi_gajak_lohri_sweets.jpg"
+                        alt="Revdi gajak peanuts Lohri offerings"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🍬</span><span>Revdi &amp; Gajak</span></div>'">
+                    <div class="g-label">Revdi, gajak &amp; peanuts — offered to the fire and shared among everyone
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── VIDEOS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card" href="https://www.youtube.com/watch?v=L4lbMCxV3vI" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/L4lbMCxV3vI/maxresdefault.jpg"
+                            alt="Lohri puja bonfire ritual complete guide"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🔥</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Puja Guide</p>
+                        <p class="v-title">Lohri Puja Vidhi — Complete Ritual</p>
+                        <p class="v-sub">Bonfire, offerings &amp; circling — step by step</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=Cv7cNhCr4v4" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/Cv7cNhCr4v4/maxresdefault.jpg"
+                            alt="Sarson ka saag makki ki roti recipe"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🥬</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Recipe</p>
+                        <p class="v-title">Sarson ka Saag &amp; Makki ki Roti</p>
+                        <p class="v-sub">The soul food of Lohri — authentic recipe</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=Vv4V7V7q9nE" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/Vv4V7V7q9nE/maxresdefault.jpg"
+                            alt="Bhangra Gidda Lohri dance folk songs"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">💃</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Dance &amp; Music</p>
+                        <p class="v-title">Bhangra &amp; Gidda — Lohri Folk Songs</p>
+                        <p class="v-sub">Traditional Lohri dances and music</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── PRAYERS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🙏</span> Prayers &amp; Folk Chants</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="mantra-list">
+                <div class="mantra-card">
+                    <span class="mantra-icon">🔥</span>
+                    <div>
+                        <div class="mantra-label">Offering Prayer — Said with Every Handful into the Fire</div>
+                        <div class="mantra-text">"Aadar aye, dilather jaye"</div>
+                        <div class="mantra-meaning">May honor and prosperity come — may poverty go. Said with both hands
+                            as you throw each offering of revdi, gajak, peanuts, sesame, and sugarcane into the fire.
+                            The most essential Lohri utterance.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🌾</span>
+                    <div>
+                        <div class="mantra-label">Circling Chant — Said While Doing Pradakshina</div>
+                        <div class="mantra-text">"Lohri di lakh lakh vadhai, sada ghar vasda rahe"</div>
+                        <div class="mantra-meaning">A hundred thousand congratulations on Lohri — may our home always be
+                            prosperous and inhabited. Chanted while walking clockwise around the bonfire. "Vasda rahe" —
+                            may it keep living — is one of the most beautiful blessings in Punjabi.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">👶</span>
+                    <div>
+                        <div class="mantra-label">Blessing for Newborns — Said by Elders</div>
+                        <div class="mantra-text">"Jug jug jiyo, chardikala vich raho"</div>
+                        <div class="mantra-meaning">Live long, remain in high spirits always. "Chardikala" — perpetual
+                            high spirits, optimism, and divine energy — is one of the most important concepts in Punjabi
+                            and Sikh culture. This is the blessing for the new life being celebrated.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🎶</span>
+                    <div>
+                        <div class="mantra-label">Lighting the Fire — Said as the Bonfire Catches</div>
+                        <div class="mantra-text">"Jai Lohri Mata Ki!" / "Lohri Aayi, Lohri Aayi!"</div>
+                        <div class="mantra-meaning">Victory to Lohri Mata! / Lohri has come, Lohri has come! The joyful
+                            exclamation at the moment the bonfire blazes to life — said with folded hands and a full
+                            heart. The whole gathering says it together.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── DO'S & DON'TS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li>Light the bonfire after sunset in a safe open outdoor space</li>
+                        <li>Offer all seven items — revdi, gajak, peanuts, popcorn, sesame, sugarcane, jaggery — with
+                            intention and the prayer</li>
+                        <li>Circle the bonfire clockwise 4 times while singing the Dulla Bhatti song</li>
+                        <li>Perform the special Pehli Lohri rituals for newborns and newly married couples</li>
+                        <li>Dance Bhangra and Gidda with full energy — Lohri without dancing is incomplete</li>
+                        <li>Eat Sarson ka Saag and Makki ki Roti around the fire</li>
+                        <li>Share revdi, gajak, and peanuts with all neighbors on the day</li>
+                        <li>Keep a bucket of water or sand near the bonfire at all times</li>
+                        <li>Wake the next morning for the Maghi bath and Gurudwara visit</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li>Never light the bonfire indoors or in any enclosed space</li>
+                        <li>Do not let the bonfire become uncontrolled — size matters for safety</li>
+                        <li>Do not leave children unsupervised near the fire</li>
+                        <li>Do not offer carelessly — throw with both hands and intention, not absentmindedly</li>
+                        <li>Do not skip the folk songs — they are not entertainment, they are the ritual</li>
+                        <li>Do not let anyone sit on the sidelines if they can join in dancing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CLOSING ── -->
+        <div class="closing">
+            <p class="closing-text">
+                The fire burns on the coldest night of the year. The harvest is in. The family is together. The dhol is
+                beating.
+                <em>Tomorrow the sun turns north and warmth returns. Tonight — we dance.</em>
+            </p>
+            <p class="closing-sub">🔥 &nbsp; Lohri Di Lakh Lakh Vadhai &nbsp; 🌾</p>
+        </div>
+
+    </div><!-- /page-body -->
+
+    <script>
+        /* ══════════════════════════════════════
+           PARTICLE CANVAS
+        ══════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+
+            const COLORS = ['#c2410c', '#fb923c', '#fbbf24', '#a16207', '#ef4444', '#fde68a'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = Array.from({ length: 40 }, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: -(Math.random() * 0.4 + 0.1),
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.5 + 0.1,
+                    life: Math.random()
+                }));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life += 0.002;
+                    if (p.y < -10 || p.life > 1) {
+                        p.x = Math.random() * W;
+                        p.y = H + 10;
+                        p.life = 0;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha * Math.sin(p.life * Math.PI);
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize();
+            initParticles();
+            draw();
+        })();
+
+        /* ══════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════ */
+        (function () {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(
+                '.about-block, .significance-block, .region-card, .step-card, ' +
+                '.item-chip, .g-item, .v-card, .mantra-card, .dos-col, .closing, .sec-divider'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        /* ── Stagger delays on repeated elements ── */
+        ['.region-card', '.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card']
+            .forEach(sel => {
+                document.querySelectorAll(sel).forEach((el, i) => {
+                    el.style.transitionDelay = `${i * 0.07}s`;
+                });
+            });
+
+        /* ══════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        function openLb(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        /* ══════════════════════════════════════
+           ANIMATED TEXT — letter-by-letter on hero title
+        ══════════════════════════════════════ */
+        (function () {
+            // Split hero title into character spans for a staggered reveal
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            // Only animate plain text nodes
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) { // text node
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `
+              display:inline-block;
+              opacity:0;
+              transform:translateY(18px);
+              animation: slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;
+            `;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

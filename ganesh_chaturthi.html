@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ganesh Chaturthi — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+       DESIGN TOKENS — your website's palette
+    ═══════════════════════════════════════════ */
+        :root {
+            --bg: #0d1117;
+            --bg-2: #111827;
+            --card: #161d2e;
+            --card-2: #1b2338;
+            --card-3: #1e2a40;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --yellow: #b91c1c;
+            /* Ganesha's sacred vermillion red */
+            --yellow-lt: #f87171;
+            --yellow-dim: rgba(185, 28, 28, 0.10);
+            --yellow-glow: rgba(185, 28, 28, 0.22);
+            --pink: #b45309;
+            /* marigold offering gold */
+            --pink-dim: rgba(180, 83, 9, 0.12);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ─── SCROLLBAR — matches your pink accent ─── */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 3px;
+        }
+
+        /* ══════════════════════════════════════
+       FLOATING PARTICLE BACKGROUND
+    ══════════════════════════════════════ */
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(22, 29, 46, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        /* Gradient mesh background on hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(244, 63, 94, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(245, 158, 11, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 20% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Animated grid lines */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 3.5s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 32px rgba(245, 158, 11, 0.35));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp 0.7s 0.15s var(--ease) both;
+        }
+
+        /* Split-text reveal for the title */
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp 0.7s 0.28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--yellow);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Underline swipe on accent word */
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--yellow), var(--pink));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn 0.8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp 0.7s 0.4s var(--ease) both;
+        }
+
+        /* Date pill */
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--yellow-lt);
+            animation: slideUp 0.7s 0.52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--pink);
+            border-radius: 50%;
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Hero quick-stats row */
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 0.7s 0.65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--yellow);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════ */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        /* ─── SECTION HEADING — identical to your site ─── */
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--pink) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ══════════════════════════════════════
+       ABOUT BLOCK
+    ══════════════════════════════════════ */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        /* Myth quote */
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--yellow);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--yellow-lt);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       REGION CARDS — matches your site layout
+    ══════════════════════════════════════ */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .region-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+            cursor: default;
+        }
+
+        .region-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .region-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: var(--card-2);
+        }
+
+        .region-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .region-also {
+            font-size: 11px;
+            color: var(--pink);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .region-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       CEREMONY STEPS — activities style
+    ══════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* Shimmer sweep */
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--yellow-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-mantra {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: var(--card-3);
+            border-left: 2px solid var(--yellow);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 12.5px;
+            color: var(--yellow-lt);
+            line-height: 1.65;
+            font-family: var(--font-serif);
+        }
+
+        /* ══════════════════════════════════════
+       WHAT YOU NEED — chip list
+    ══════════════════════════════════════ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition:
+                opacity 0.4s var(--ease),
+                transform 0.4s var(--ease),
+                border-color 0.2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--yellow);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       PHOTO GALLERY
+    ══════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition:
+                opacity 0.55s var(--ease),
+                transform 0.55s var(--ease),
+                border-color 0.2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.82) saturate(0.88);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.95) saturate(1.05);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(13, 17, 23, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Placeholder when no image */
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* ══════════════════════════════════════
+       VIDEO CARDS
+    ══════════════════════════════════════ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.7);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--yellow-lt);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(245, 158, 11, 0.25);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--pink);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       MANTRAS / PRAYERS BLOCK
+    ══════════════════════════════════════ */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--yellow-lt);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+       DO'S & DON'TS
+    ══════════════════════════════════════ */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: var(--pink);
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+       SIGNIFICANCE BLOCK — like your site
+    ══════════════════════════════════════ */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════════════
+       CLOSING QUOTE
+    ══════════════════════════════════════ */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: var(--yellow-lt);
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 17, 23, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn 0.25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 16 offerings (Shodashopachara) grid */
+        .shodasha-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .shodasha-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 14px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .shodasha-chip:hover {
+            border-color: var(--yellow-lt);
+            transform: translateY(-2px);
+        }
+
+        .shodasha-num {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 4px;
+        }
+
+        .shodasha-name {
+            font-weight: 700;
+            color: var(--yellow-lt);
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .shodasha-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Morya farewell banner */
+        .morya-card {
+            background: linear-gradient(135deg, rgba(185, 28, 28, 0.08), rgba(180, 83, 9, 0.06));
+            border: 2px solid rgba(248, 113, 113, 0.30);
+            border-radius: var(--radius);
+            padding: 22px 26px;
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .morya-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--yellow-lt);
+            letter-spacing: 0.02em;
+            margin-bottom: 8px;
+        }
+
+        .morya-meaning {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        .morya-desc {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.75;
+        }
+
+        /* Modak recipe highlight */
+        .recipe-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--yellow-lt);
+            border-radius: var(--radius);
+            padding: 18px 22px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        .recipe-block strong {
+            color: var(--yellow-lt);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Particle canvas -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Back button -->
+    <a class="back-btn" href="festival-card.html">← Back</a>
+
+    <!-- Lightbox -->
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <span class="hero-emoji">🐘</span>
+        <p class="hero-eyebrow">Bhadrapada · Shukla Chaturthi · 10-Day Festival</p>
+        <h1 class="hero-title">Ganesh <span class="accent">Chaturthi</span></h1>
+        <p class="hero-subtitle">Vighnaharta's Arrival — Pranapratishtha, Modak, 10 Days of Grace &amp; the Farewell of
+            Ganpati Bappa Morya</p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            August 23, 2026 &nbsp;·&nbsp; Bhadrapada Shukla 4
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">10</div>
+                <div class="sl">Days of Festival</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">21</div>
+                <div class="sl">Modaks Offered</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">🌿</div>
+                <div class="sl">Durva Grass</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">∞</div>
+                <div class="sl">Om Gam Ganapataye</div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PAGE BODY
+  ══════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── ABOUT ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Ganesh Chaturthi celebrates the birth of <strong>Lord Ganesha</strong> — the elephant-headed son of
+                    Shiva and Parvati, and the most universally beloved deity in Hinduism. He is
+                    <strong>Vighnaharta</strong> (remover of obstacles), <strong>Prathamesh</strong> (worshipped first
+                    before any other deity in any ritual or new endeavor), <strong>Buddhipriya</strong> (lover of
+                    intelligence), and <strong>Modakahasta</strong> (the one who holds modak in his hand). He is a
+                    10-day festival concluding with the emotionally powerful Visarjan (immersion) on Anant Chaturdashi.
+                </p>
+            </div>
+            <div class="myth-quote">
+                "Goddess Parvati created Ganesha from the turmeric paste she used while bathing, breathing life into
+                him. When Shiva returned and was denied entry by this unknown guard, a battle ensued and Shiva beheaded
+                him. Devastated Parvati demanded he be restored. Shiva's forces brought the head of the first creature
+                found sleeping facing north — an elephant. Shiva placed it on Ganesha, restored his life, and declared
+                him chief among all Gods, to be worshipped first in every ritual."
+            </div>
+            <div class="about-block" style="margin-top:16px;">
+                <p>The festival was transformed into a massive public celebration by <strong>Lokmanya Bal Gangadhar
+                        Tilak in 1893</strong> — turning it from a private household puja into a community gathering
+                    that united people across caste and class against British colonial rule. That tradition of community
+                    celebration continues today — especially in <strong>Maharashtra</strong> where Ganesh Chaturthi is
+                    the greatest festival of the year.</p>
+            </div>
+        </div>
+
+        <!-- ── SIGNIFICANCE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Ganesh Chaturthi is the festival that begins with an invitation and ends with a farewell — and in
+                between, for 10 days, <strong>God lives in your home.</strong> He eats your modaks, accepts your
+                flowers, listens to every prayer. And when he leaves, the whole city lines the streets to say: <em>come
+                    back soon.</em> No other festival in India so completely captures both the joy of divine presence
+                and the grief of divine departure in the same breath.
+            </div>
+        </div>
+
+        <!-- ── DAY 1: STHAPANA ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🏠</span> Day 1 — Ganesh Sthapana (Installation)</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ First — Choose Wisely</div>
+                    <div class="step-title">The Idol — Always Clay (Shadu Mati)</div>
+                    <p class="step-desc">Choose an <strong>eco-friendly clay (shadu mati) idol</strong> — these dissolve
+                        naturally in water during immersion. Never buy Plaster of Paris idols — they are environmentally
+                        devastating, releasing toxic metals into rivers and seas. Clay idols come from the earth and
+                        return to the earth. Sizes range from 6 inches for home to 20+ feet for community mandals. A
+                        medium-sized clay idol is ideal for home worship.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Morning</div>
+                    <div class="step-title">Platform &amp; Decoration Setup</div>
+                    <p class="step-desc">Set up a raised platform — covered with a clean red or yellow cloth. Decorate
+                        with mango leaf torans above, banana plant stems on either side (traditional and auspicious),
+                        flower garlands, and rangoli at the base. The space must be clean, elevated, and visually
+                        beautiful — Ganesha is arriving as an honored guest, not a tenant. Treat his installation like
+                        preparing for the arrival of the most beloved person in the world.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Most Important — Day 1</div>
+                    <div class="step-title">Pranapratishtha — Invoking Divine Consciousness</div>
+                    <p class="step-desc">The <strong>Pranapratishtha</strong> transforms the clay idol from a statue
+                        into a living presence of Lord Ganesha. Place the idol facing you (east or north is auspicious).
+                        Sprinkle Gangajal from your right palm. Touch a flower to the idol while reciting the
+                        Pranapratishtha mantra or — if no priest is present — simply hold the flower to the idol, close
+                        your eyes, and sincerely invite Ganesha to make his home here and accept your worship.
+                        <strong>Your sincere invitation is what matters.</strong></p>
+                    <div class="step-mantra">"Om Gam Ganapataye Namaha" — then symbolically open the idol's eyes by
+                        touching gold or a flower to them</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Critical Warning</div>
+                    <div class="step-title">🌙 Do NOT Look at the Moon Tonight</div>
+                    <p class="step-desc">One of the most specific prohibitions in Hindu tradition: <strong>do not look
+                            at the moon on Ganesh Chaturthi.</strong> The moon laughed at Ganesha when he fell from his
+                        vehicle and Ganesha cursed anyone who sees the moon on his birthday to be falsely accused. If
+                        you accidentally see it — immediately recite the Syamantaka gem story from the Bhagavata Purana
+                        as remedy. This applies to the entire day and evening of Chaturthi.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── DAILY PUJA ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎭</span> The Daily Puja — Shodashopachara (16 Offerings)</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>The same puja is performed <strong>every morning and evening for all 10 days</strong>. The
+                    traditional Ganesh puja involves 16 offerings called <strong>Shodashopachara</strong>. Each is made
+                    with the primary mantra: <em>"Om Gam Ganapataye Namaha."</em></p>
+            </div>
+            <div class="shodasha-grid">
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">1 — Avahana</div>
+                    <div class="shodasha-name">Invitation</div>
+                    <div class="shodasha-desc">Fold hands and invite Ganesha to accept your worship today</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">2 — Asana</div>
+                    <div class="shodasha-name">Seat</div>
+                    <div class="shodasha-desc">Offer a flower as symbolic seat — "please be seated, O Lord"</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">3 — Padya</div>
+                    <div class="shodasha-name">Water for Feet</div>
+                    <div class="shodasha-desc">Sprinkle clean water at the base of the idol — washing the Lord's feet
+                    </div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">4 — Arghya</div>
+                    <div class="shodasha-name">Water Offering</div>
+                    <div class="shodasha-desc">Offer water in cupped hands before the idol as a formal offering</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">5 — Achamana</div>
+                    <div class="shodasha-name">Mouth Rinse</div>
+                    <div class="shodasha-desc">Offer water for symbolic mouth rinsing — courtesy to the divine guest
+                    </div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">6 — Snanam</div>
+                    <div class="shodasha-name">Abhishekam</div>
+                    <div class="shodasha-desc">Bathe with panchamritam (milk, curd, ghee, honey, sugar) then Gangajal.
+                        Dry gently.</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">7 — Vastra</div>
+                    <div class="shodasha-name">Clothing</div>
+                    <div class="shodasha-desc">Offer new cloth — a small piece of red cloth placed near the idol</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">8 — Yajnopavita</div>
+                    <div class="shodasha-name">Sacred Thread</div>
+                    <div class="shodasha-desc">Offer a new mauli (sacred thread) — wound around the idol</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">9 — Gandha</div>
+                    <div class="shodasha-name">Sandalwood</div>
+                    <div class="shodasha-desc">Apply chandan paste on the idol's forehead — cooling and fragrant</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">10 — Pushpa ⭐</div>
+                    <div class="shodasha-name">Flowers + Durva</div>
+                    <div class="shodasha-desc">Red hibiscus + Durva grass (3-bladed) in bunches of 3, 5, or 21. Durva is
+                        to Ganesha what Bilva is to Shiva.</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">11 — Dhoop</div>
+                    <div class="shodasha-name">Incense</div>
+                    <div class="shodasha-desc">Wave incense sticks before the idol — fragrance purifies the space</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">12 — Deepa</div>
+                    <div class="shodasha-name">Lamp</div>
+                    <div class="shodasha-desc">Light ghee diya and wave before the idol — the light of wisdom</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">13 — Naivedyam ⭐</div>
+                    <div class="shodasha-name">Modak Offering</div>
+                    <div class="shodasha-desc">Offer 21 Modaks — Ganesha's most sacred food. Also fruits and coconut.
+                        Never skip this.</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">14 — Tambula</div>
+                    <div class="shodasha-name">Betel</div>
+                    <div class="shodasha-desc">Offer betel leaves and betel nuts — traditional offering of hospitality
+                    </div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">15 — Dakshina</div>
+                    <div class="shodasha-name">Gift</div>
+                    <div class="shodasha-desc">Place a coin before the idol — symbolic gift acknowledging the Lord's
+                        grace</div>
+                </div>
+                <div class="shodasha-chip">
+                    <div class="shodasha-num">16 — Pradakshina</div>
+                    <div class="shodasha-name">Circumambulation</div>
+                    <div class="shodasha-desc">Circle the idol clockwise 3 times then prostrate — forehead to the ground
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── MODAK ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🍮</span> The Modak — Ganesha's Most Sacred Food</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p><strong>Modak</strong> is Lord Ganesha's absolute favorite food — his most specific and
+                    non-negotiable offering. The word means "that which gives bliss." Ganesha is even called
+                    <em>Modakahasta</em> — the one who holds Modak in his hand. Offer <strong>21 Modaks</strong> daily —
+                    21 is his sacred number. Never perform Ganesh puja without them.</p>
+            </div>
+            <div class="recipe-block">
+                <strong>Ukdiche Modak (Traditional Steamed Modak) — Step by Step:</strong><br><br>
+                <strong>Outer shell:</strong> Mix 1 cup rice flour with 1 cup boiling water and a pinch of salt. Mix
+                quickly into smooth dough — knead while warm.<br><br>
+                <strong>Filling:</strong> Cook 1 cup grated fresh coconut with ½ cup jaggery over low heat until jaggery
+                melts and combines. Add cardamom powder. Cook until thick. Cool completely.<br><br>
+                <strong>Shaping:</strong> Take a small ball of dough. Flatten into a circle in your palm. Place a
+                spoonful of filling at center. Gather the edges and pinch together into a pointed tip — creating the
+                characteristic pleated modak shape (like a small dumpling with a gathered top).<br><br>
+                <strong>Steam for 10–12 minutes.</strong> Serve warm to Ganesha — and after offering, distribute all 21
+                as prasad to everyone present.
+            </div>
+        </div>
+
+        <!-- ── MANTRAS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🙏</span> Key Mantras — Chanted Through All 10 Days</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="mantra-list">
+                <div class="mantra-card">
+                    <span class="mantra-icon">🐘</span>
+                    <div>
+                        <div class="mantra-label">Primary Ganesha Mantra — 108 Times Daily (Every Offering, Every
+                            Pradakshina)</div>
+                        <div class="mantra-text">"Om Gam Ganapataye Namaha"</div>
+                        <div class="mantra-meaning">The seed (beeja) mantra of Ganesha. "Gam" is Ganesha's specific
+                            beeja syllable — the sound of his divine energy compressed into a single syllable. Chanting
+                            this 108 times daily for 10 days is the most complete mantra practice of the festival. Said
+                            with every offering of Durva grass, with every flower placed at his feet, with every circle
+                            of Pradakshina.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">✨</span>
+                    <div>
+                        <div class="mantra-label">Vakratunda — The Most Important Ganesha Prayer (Said Before Every
+                            Undertaking)</div>
+                        <div class="mantra-text">"Vakratunda Mahakaya, Suryakoti Sama Prabha — Nirvighnam Kuru Me Deva,
+                            Sarva Karyeshu Sarvada"</div>
+                        <div class="mantra-meaning">O Lord with the curved trunk and massive body, whose radiance equals
+                            a million suns — make all my endeavors free from obstacles, always. Said before beginning
+                            anything — a new project, a journey, a meal, a puja. The most universally known Ganesha
+                            prayer in Hinduism. On Chaturthi, say it at the beginning of every puja and every morning.
+                        </div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">📿</span>
+                    <div>
+                        <div class="mantra-label">Ganesha Atharvashirsha — Daily Recitation (Takes 15 Minutes)</div>
+                        <div class="mantra-text">"Namaste Ganapataye, Tvameva Pratyaksham Tatvamasi — Tvameva Kevalam
+                            Kartasi, Tvameva Kevalam Dhartasi..."</div>
+                        <div class="mantra-meaning">A complete Upanishad — the oldest, most sacred text dedicated
+                            entirely to Ganesha. Reciting it daily during all 10 days is the most complete act of Ganesh
+                            worship possible. It takes approximately 15 minutes. Available on YouTube with translation
+                            and pronunciation. Learning even the opening verses and reciting them with meaning is deeply
+                            meaningful.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🎵</span>
+                    <div>
+                        <div class="mantra-label">Jai Ganesh Aarti — Morning and Evening (With Full Voice)</div>
+                        <div class="mantra-text">"Jai Ganesh Jai Ganesh Jai Ganesh Deva — Mata Jaki Parvati, Pita
+                            Mahadeva — Ek Dant Dayavant, Char Bhujadhhari — Mathe Sindoor Sohe, Muse Ki Savari..."</div>
+                        <div class="mantra-meaning">The most universally known Ganesh aarti — sung with full voice and
+                            clapping. Wave camphor in a clockwise circle before the idol while singing. After aarti,
+                            both palms over the camphor flame and brought to the forehead. This aarti is performed twice
+                            daily for 10 days — it is the heartbeat of the festival.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── COMMUNITY CELEBRATION ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎉</span> Community Ganesh Chaturthi — Sarvajanik Utsav</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="region-grid">
+                <div class="region-card">
+                    <div class="region-name">Mumbai — Lalbaugcha Raja</div>
+                    <div class="region-also">Most Famous Ganesh in India</div>
+                    <p class="region-desc">Mumbai's Lalbaugcha Raja — installed since 1934 — draws over a million
+                        visitors across 10 days. Lines stretch for hours for a single darshan. The streets of Mumbai
+                        transform — every neighborhood has multiple pandals, every building is decorated, and the entire
+                        city lives the festival simultaneously. Nothing prepares you for the energy of Mumbai on Ganesh
+                        Chaturthi.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Pune — Kasba Ganpati</div>
+                    <div class="region-also">The Original Sarvajanik Festival</div>
+                    <p class="region-desc">Pune's Kasba Ganpati — the first Sarvajanik Ganesh declared by Lokmanya Tilak
+                        in 1893 — is Maharashtra's most historically significant installation. The Pune festival is
+                        considered the spiritual capital of Ganesh Chaturthi and the tradition Tilak started here
+                        changed India forever.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Visiting Pandals</div>
+                    <div class="region-also">The Community Darshan Tradition</div>
+                    <p class="region-desc">Visiting neighboring mandals' Ganesha installations is central to the
+                        festival. People travel across cities, stand in lines for hours, and experience different Ganesh
+                        manifestations — some serene, some fierce, some artistic, some traditional. Every pandal has a
+                        theme, a cultural program, and the energy of thousands of devotees united in love for the same
+                        God.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Hyderabad &amp; South India</div>
+                    <div class="region-also">Khairatabad Ganesh</div>
+                    <p class="region-desc">Hyderabad's Khairatabad Ganesh is among the tallest in India — often reaching
+                        50+ feet in height. South India's Ganesh Chaturthi celebrations are distinct in their devotional
+                        character, with more elaborate temple-style pujas and a stronger emphasis on classical music and
+                        dance performances through the 10 days.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Home Ganesh</div>
+                    <div class="region-also">The Most Intimate Celebration</div>
+                    <p class="region-desc">A home Ganesh installation — even a small clay idol on a simple platform — is
+                        the most intimate and personal of all Ganesh Chaturthi experiences. Your home becomes a temple
+                        for 10 days. Every morning and evening puja, every modak offered, every prayer said — all heard
+                        directly by the living Ganesha installed in your home by your own invitation.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── VISARJAN ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🌊</span> Anant Chaturdashi — The Visarjan (Day 10)</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Final Morning</div>
+                    <div class="step-title">The Last Elaborate Puja</div>
+                    <p class="step-desc">Perform the most elaborate puja of all 10 days on Visarjan morning. Offer 21
+                        modaks again. Recite the full Ganesha Atharvashirsha. Perform the longest aarti. Decorate with
+                        fresh flowers one final time. Prostrate completely — with full awareness that this is the last
+                        time Ganesha will receive your worship in this form, in this home, in this year.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ The Farewell</div>
+                    <div class="step-title">Uttarpuja — Releasing the Divine Presence</div>
+                    <p class="step-desc">The <strong>Uttarpuja</strong> is the ritual farewell — performing the
+                        <strong>Udvasan</strong> (requesting Ganesha to return to his divine abode). After the final
+                        flowers and camphor aarti, recite the farewell mantra: <em>"Gaccha Gaccha Surashreshtha... Yatra
+                            Brahma Cha Rudrascha, Tatra Gaccha Ganeswar"</em> — Go, O Lord of the Gods, to where Brahma
+                        and Rudra reside. This moment — saying goodbye to the living presence you invited — is the
+                        emotional heart of Ganesh Chaturthi.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ The Procession</div>
+                    <div class="step-title">Carry Him Out — Shoulders, Not Ground</div>
+                    <p class="step-desc">The idol is carried out on the <strong>shoulders of family members</strong> —
+                        never placed on the ground until immersion. A procession forms — dhol-tasha drums beating,
+                        everyone dancing, voices raised. In community celebrations across Mumbai, Pune, and Hyderabad —
+                        millions line the streets and the processions continue through the night. The energy is unlike
+                        anything else in India's festival calendar.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ The Immersion</div>
+                    <div class="step-title">Eco-Friendly Visarjan</div>
+                    <p class="step-desc">At the water body — the clay idol is gently lowered into the water while
+                        chanting reaches its peak. As the idol dissolves — returning to the earth from which it was made
+                        — celebration and grief mix in the most honest emotion of the festival. <strong>Eco-friendly
+                            option:</strong> Immerse in a large bucket or designated tank at home. Allow clay to
+                        dissolve completely. The clay-water can be used to water plants — blessed soil returning to
+                        earth.</p>
+                </div>
+            </div>
+
+            <div class="morya-card">
+                <div class="morya-title">🐘 Ganpati Bappa Morya — Pudchya Varshi Lavkar Ya</div>
+                <div class="morya-meaning">"Lord Ganesha our father — come back soon next year"</div>
+                <div class="morya-desc">This is the anthem of Ganesh Chaturthi — shouted with full voice and full heart
+                    at every step of the Visarjan procession. It is one of the most emotionally complex moments in
+                    Indian festival life: <strong>pure joy and genuine grief of parting, perfectly mixed.</strong> You
+                    are celebrating his presence while grieving his departure while already anticipating his return.
+                    Shout it until your throat gives out. Mean every word.</div>
+            </div>
+        </div>
+
+        <!-- ── WHAT YOU NEED ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🛒</span> What You Need</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="items-grid">
+                <div class="item-chip"><span class="ic-dot"></span>Clay (shadu mati) Ganesha idol — never Plaster of
+                    Paris</div>
+                <div class="item-chip"><span class="ic-dot"></span>Durva grass (three-bladed) — the most sacred Ganesha
+                    offering</div>
+                <div class="item-chip"><span class="ic-dot"></span>Red hibiscus flowers</div>
+                <div class="item-chip"><span class="ic-dot"></span>Modak — 21 per day (steamed or fried)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Coconut, banana, seasonal fruits</div>
+                <div class="item-chip"><span class="ic-dot"></span>Rice flour, jaggery, fresh coconut (for making modak)
+                </div>
+                <div class="item-chip"><span class="ic-dot"></span>Panchamritam ingredients (for Abhishekam)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Kumkum, turmeric, chandan paste</div>
+                <div class="item-chip"><span class="ic-dot"></span>Marigold garlands for platform decoration</div>
+                <div class="item-chip"><span class="ic-dot"></span>Camphor (for Aarti twice daily)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Ghee diyas (for 10 days)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Red or yellow clothes — Ganesha's colors</div>
+            </div>
+        </div>
+
+        <!-- ── GALLERY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Lalbaugcha_Raja_2019.jpg/1280px-Lalbaugcha_Raja_2019.jpg"
+                        alt="Lalbaugcha Raja Mumbai Ganesh Chaturthi"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🐘</span><span>Lalbaugcha Raja</span></div>'">
+                    <div class="g-label">Lalbaugcha Raja Mumbai — the most famous Ganesha in India, a million visitors
+                        in 10 days</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Modak_Ganesha_offering.jpg/640px-Modak_Ganesha_offering.jpg"
+                        alt="Modak Ganesha offering steamed traditional"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🍮</span><span>Modak</span></div>'">
+                    <div class="g-label">Ukdiche Modak — 21 steamed modaks offered daily, Ganesha's most sacred and
+                        beloved food</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Ganesh_Visarjan_Mumbai_procession.jpg/640px-Ganesh_Visarjan_Mumbai_procession.jpg"
+                        alt="Ganesh Visarjan immersion procession Mumbai"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🌊</span><span>Visarjan</span></div>'">
+                    <div class="g-label">Visarjan procession — Ganpati Bappa Morya filling the streets, joy and grief in
+                        one voice</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Durva_grass_Ganesha_offering.jpg/640px-Durva_grass_Ganesha_offering.jpg"
+                        alt="Durva grass three bladed Ganesha most sacred offering"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🌿</span><span>Durva Grass</span></div>'">
+                    <div class="g-label">Durva grass — three-bladed, offered in bunches of 21, Ganesha's most specific
+                        sacred offering</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── VIDEOS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card" href="https://www.youtube.com/watch?v=jIKbJRzpBr0" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/jIKbJRzpBr0/maxresdefault.jpg"
+                            alt="Ganesh Chaturthi puja vidhi complete guide"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🐘</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Puja Guide</p>
+                        <p class="v-title">Ganesh Chaturthi Puja — Complete Vidhi</p>
+                        <p class="v-sub">Pranapratishtha, Shodashopachara &amp; Aarti</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=OXzSCxPGFDY" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/OXzSCxPGFDY/maxresdefault.jpg"
+                            alt="Ukdiche Modak recipe steamed traditional"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🍮</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Recipe</p>
+                        <p class="v-title">Ukdiche Modak — Traditional Steamed</p>
+                        <p class="v-sub">The most sacred prasad of Ganesh Chaturthi</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=7hC8_plYfHk" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/7hC8_plYfHk/maxresdefault.jpg"
+                            alt="Lalbaugcha Raja Mumbai Ganesh Visarjan"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🌊</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Visarjan</p>
+                        <p class="v-title">Lalbaugcha Raja — Visarjan &amp; Mumbai Celebration</p>
+                        <p class="v-sub">The 10-day festival's emotional farewell</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── DO'S & DON'TS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li>Buy a clay (shadu mati) idol — never Plaster of Paris</li>
+                        <li>Perform Pranapratishtha before the first puja — essential</li>
+                        <li>Offer Durva grass and 21 Modaks every day — non-negotiable</li>
+                        <li>Perform puja both morning and evening for all 10 days</li>
+                        <li>Chant "Om Gam Ganapataye Namaha" 108 times daily</li>
+                        <li>Recite Ganesha Atharvashirsha every day</li>
+                        <li>Visit community pandals for darshan</li>
+                        <li>Shout "Ganpati Bappa Morya" with full voice and full heart</li>
+                        <li>Do eco-friendly Visarjan — clay idol in bucket or designated tank</li>
+                        <li>Use the clay-water after Visarjan to water plants — blessed earth returned</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li><strong>Do not look at the moon on Ganesh Chaturthi</strong> — Ganesha's specific curse for
+                            this remains in effect</li>
+                        <li>Never use Plaster of Paris idols — they release toxic metals in water</li>
+                        <li>Do not perform Visarjan in rivers or seas with non-clay or chemically painted idols</li>
+                        <li>Do not skip Modak offering — ever, on any of the 10 days</li>
+                        <li>Do not immerse flowers and decorations in water — compost them separately</li>
+                        <li>Do not let the 10 days pass as mere festivity — genuinely pray for the removal of real
+                            obstacles in your life</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CLOSING ── -->
+        <div class="closing">
+            <p class="closing-text">
+                For 10 days you invite God into your home. You feed him, bathe him, sing to him every morning and
+                evening.
+                And then on the tenth day you carry him to the water, and watch him dissolve back into the earth.
+                <em>And through tears you shout — come back soon. Come back soon.</em>
+            </p>
+            <p class="closing-sub">🐘 &nbsp; Ganpati Bappa Morya &nbsp; 🌺</p>
+        </div>
+
+    </div><!-- /page-body -->
+
+    <script>
+        /* ══════════════════════════════════════
+           PARTICLE CANVAS
+        ══════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+
+            const COLORS = ['#b91c1c', '#f87171', '#b45309', '#fbbf24', '#f59e0b', '#fde68a', '#dc2626'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = Array.from({ length: 40 }, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: -(Math.random() * 0.4 + 0.1),
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.5 + 0.1,
+                    life: Math.random()
+                }));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life += 0.002;
+                    if (p.y < -10 || p.life > 1) {
+                        p.x = Math.random() * W;
+                        p.y = H + 10;
+                        p.life = 0;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha * Math.sin(p.life * Math.PI);
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize();
+            initParticles();
+            draw();
+        })();
+
+        /* ══════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════ */
+        (function () {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(
+                '.about-block, .significance-block, .region-card, .step-card, ' +
+                '.item-chip, .g-item, .v-card, .mantra-card, .dos-col, .closing, .sec-divider'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        /* ── Stagger delays on repeated elements ── */
+        ['.region-card', '.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card']
+            .forEach(sel => {
+                document.querySelectorAll(sel).forEach((el, i) => {
+                    el.style.transitionDelay = `${i * 0.07}s`;
+                });
+            });
+
+        /* ══════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        function openLb(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        /* ══════════════════════════════════════
+           ANIMATED TEXT — letter-by-letter on hero title
+        ══════════════════════════════════════ */
+        (function () {
+            // Split hero title into character spans for a staggered reveal
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            // Only animate plain text nodes
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) { // text node
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `
+              display:inline-block;
+              opacity:0;
+              transform:translateY(18px);
+              animation: slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;
+            `;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

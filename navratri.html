@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navratri — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+       DESIGN TOKENS — your website's palette
+    ═══════════════════════════════════════════ */
+        :root {
+            --bg: #0d1117;
+            --bg-2: #111827;
+            --card: #161d2e;
+            --card-2: #1b2338;
+            --card-3: #1e2a40;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --yellow: #c2410c;
+            /* Navratri saffron-orange */
+            --yellow-lt: #f97316;
+            --yellow-dim: rgba(194, 65, 12, 0.10);
+            --yellow-glow: rgba(194, 65, 12, 0.22);
+            --pink: #7c3aed;
+            /* royal Shakti purple */
+            --pink-dim: rgba(124, 58, 237, 0.12);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ─── SCROLLBAR — matches your pink accent ─── */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 3px;
+        }
+
+        /* ══════════════════════════════════════
+       FLOATING PARTICLE BACKGROUND
+    ══════════════════════════════════════ */
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(22, 29, 46, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        /* Gradient mesh background on hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(244, 63, 94, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(245, 158, 11, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 20% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Animated grid lines */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 3.5s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 32px rgba(245, 158, 11, 0.35));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp 0.7s 0.15s var(--ease) both;
+        }
+
+        /* Split-text reveal for the title */
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp 0.7s 0.28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--yellow);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Underline swipe on accent word */
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--yellow), var(--pink));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn 0.8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp 0.7s 0.4s var(--ease) both;
+        }
+
+        /* Date pill */
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--yellow-lt);
+            animation: slideUp 0.7s 0.52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--pink);
+            border-radius: 50%;
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Hero quick-stats row */
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 0.7s 0.65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--yellow);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════ */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        /* ─── SECTION HEADING — identical to your site ─── */
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--pink) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ══════════════════════════════════════
+       ABOUT BLOCK
+    ══════════════════════════════════════ */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        /* Myth quote */
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--yellow);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--yellow-lt);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       REGION CARDS — matches your site layout
+    ══════════════════════════════════════ */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .region-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+            cursor: default;
+        }
+
+        .region-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .region-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: var(--card-2);
+        }
+
+        .region-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .region-also {
+            font-size: 11px;
+            color: var(--pink);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .region-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       CEREMONY STEPS — activities style
+    ══════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* Shimmer sweep */
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--yellow-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-mantra {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: var(--card-3);
+            border-left: 2px solid var(--yellow);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 12.5px;
+            color: var(--yellow-lt);
+            line-height: 1.65;
+            font-family: var(--font-serif);
+        }
+
+        /* ══════════════════════════════════════
+       WHAT YOU NEED — chip list
+    ══════════════════════════════════════ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition:
+                opacity 0.4s var(--ease),
+                transform 0.4s var(--ease),
+                border-color 0.2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--yellow);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       PHOTO GALLERY
+    ══════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition:
+                opacity 0.55s var(--ease),
+                transform 0.55s var(--ease),
+                border-color 0.2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.82) saturate(0.88);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.95) saturate(1.05);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(13, 17, 23, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Placeholder when no image */
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* ══════════════════════════════════════
+       VIDEO CARDS
+    ══════════════════════════════════════ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.7);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--yellow-lt);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(245, 158, 11, 0.25);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--pink);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       MANTRAS / PRAYERS BLOCK
+    ══════════════════════════════════════ */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--yellow-lt);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+       DO'S & DON'TS
+    ══════════════════════════════════════ */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: var(--pink);
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+       SIGNIFICANCE BLOCK — like your site
+    ══════════════════════════════════════ */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════════════
+       CLOSING QUOTE
+    ══════════════════════════════════════ */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: var(--yellow-lt);
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 17, 23, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn 0.25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Nine Days table */
+        .nine-days-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 13px;
+        }
+
+        .nine-days-table th {
+            background: var(--card-2);
+            color: var(--text-dim);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nine-days-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-lt);
+            color: var(--text);
+            vertical-align: middle;
+        }
+
+        .nine-days-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .nine-days-table tr:hover td {
+            background: var(--card-2);
+        }
+
+        .day-swatch {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .goddess-name {
+            font-weight: 600;
+            color: var(--yellow-lt);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Particle canvas -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Back button -->
+    <a class="back-btn" href="festival-card.html">← Back</a>
+
+    <!-- Lightbox -->
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <span class="hero-emoji">🪔</span>
+        <p class="hero-eyebrow">Ashwin · Shukla Pratipada to Navami · Nine Nights</p>
+        <h1 class="hero-title">Nav<span class="accent">ratri</span></h1>
+        <p class="hero-subtitle">Nine Nights of the Divine Mother — Power, Purification &amp; Transformation</p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            October 9–18, 2026 &nbsp;·&nbsp; Sharad Navratri
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">9</div>
+                <div class="sl">Nights</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">9</div>
+                <div class="sl">Forms of Durga</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">700</div>
+                <div class="sl">Saptashati Verses</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">∞</div>
+                <div class="sl">Shakti</div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PAGE BODY
+  ══════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── ABOUT ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Navratri — <strong>"Nine Nights"</strong> — celebrates <strong>Goddess Durga</strong> in her nine
+                    forms across nine nights. It commemorates her nine-day battle against the buffalo demon
+                    <strong>Mahishasura</strong> who had conquered the three worlds. No God could defeat him — he had a
+                    boon that no man could kill him. So the Gods combined their divine energies, and from that combined
+                    light emerged <strong>Goddess Durga</strong> — the supreme Shakti. She fought for nine days and
+                    killed him on the tenth day — <strong>Vijayadashami (Dussehra).</strong>
+                </p>
+                <div class="myth-quote">
+                    "Mahishasura represents the buffalo-headed ego — stubborn, gross, and powerful. Durga's nine-day
+                    battle is the soul's nine-stage journey of conquering its own ego, ignorance, and darkness."
+                </div>
+                <p style="margin-top:16px;">Navratri is simultaneously a <strong>festival of the divine
+                        feminine</strong>, a <strong>fasting and purification period</strong>, and a <strong>cultural
+                        celebration</strong> — through Garba and Dandiya Raas (Gujarat), Durga Puja (Bengal), and Kolu
+                    (South India). It occurs four times a year — the most celebrated being <strong>Sharad
+                        Navratri</strong> (October) and Chaitra Navratri (March–April).</p>
+            </div>
+        </div>
+
+        <!-- ── SIGNIFICANCE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Navratri is nine nights of the soul doing what Durga did — facing the demon, fighting without rest, and
+                refusing to stop until the darkness is destroyed. The goddess doesn't negotiate with Mahishasura. She
+                doesn't compromise with the ego. She kills it — completely, finally, on the ninth night. <strong>And on
+                    the tenth morning, there is only victory.</strong>
+            </div>
+        </div>
+
+        <!-- ── NINE DAYS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🌈</span> Nine Days · Nine Colors · Nine Forms</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <table class="nine-days-table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Goddess</th>
+                        <th>Color</th>
+                        <th>What She Represents</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Day 1</td>
+                        <td><span class="goddess-name">Shailputri</span></td>
+                        <td><span class="day-swatch" style="background:#eab308;"></span>Yellow</td>
+                        <td>Daughter of the Himalayas — strength of the earth</td>
+                    </tr>
+                    <tr>
+                        <td>Day 2</td>
+                        <td><span class="goddess-name">Brahmacharini</span></td>
+                        <td><span class="day-swatch" style="background:#16a34a;"></span>Green</td>
+                        <td>The austere devotee — tapas and renunciation</td>
+                    </tr>
+                    <tr>
+                        <td>Day 3</td>
+                        <td><span class="goddess-name">Chandraghanta</span></td>
+                        <td><span class="day-swatch" style="background:#6b7280;"></span>Grey</td>
+                        <td>Warrior with a bell-shaped moon — courage in battle</td>
+                    </tr>
+                    <tr>
+                        <td>Day 4</td>
+                        <td><span class="goddess-name">Kushmanda</span></td>
+                        <td><span class="day-swatch" style="background:#f97316;"></span>Orange</td>
+                        <td>Creator of the universe — cosmic energy and warmth</td>
+                    </tr>
+                    <tr>
+                        <td>Day 5</td>
+                        <td><span class="goddess-name">Skandamata</span></td>
+                        <td><span class="day-swatch" style="background:#f1f5f9;border-color:#475569;"></span>White</td>
+                        <td>Mother of Skanda (Murugan) — fierce maternal love</td>
+                    </tr>
+                    <tr>
+                        <td>Day 6</td>
+                        <td><span class="goddess-name">Katyayani</span></td>
+                        <td><span class="day-swatch" style="background:#dc2626;"></span>Red</td>
+                        <td>The fierce warrior — destroyer of ego and illusion</td>
+                    </tr>
+                    <tr>
+                        <td>Day 7</td>
+                        <td><span class="goddess-name">Kalaratri</span></td>
+                        <td><span class="day-swatch" style="background:#1d4ed8;"></span>Royal Blue</td>
+                        <td>The dark night — destroyer of darkness and fear</td>
+                    </tr>
+                    <tr>
+                        <td>Day 8</td>
+                        <td><span class="goddess-name">Mahagauri</span></td>
+                        <td><span class="day-swatch" style="background:#f9a8d4;"></span>Pink</td>
+                        <td>The pure white goddess — purification complete</td>
+                    </tr>
+                    <tr>
+                        <td>Day 9</td>
+                        <td><span class="goddess-name">Siddhidatri</span></td>
+                        <td><span class="day-swatch" style="background:#7c3aed;"></span>Purple</td>
+                        <td>Giver of all siddhis — perfection and liberation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ── REGIONS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🗺️</span> Regions — How India Celebrates</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="region-grid">
+                <div class="region-card">
+                    <div class="region-name">Gujarat</div>
+                    <div class="region-also">Garba &amp; Dandiya Capital</div>
+                    <p class="region-desc">All-night Garba and Dandiya Raas for all nine nights. Women in embroidered
+                        chaniya choli, men in kediya-dhoti. The most joyful and energetic Navratri celebration —
+                        thousands dancing together until 3 AM.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">West Bengal</div>
+                    <div class="region-also">Durga Puja</div>
+                    <p class="region-desc">Magnificent pandals with elaborately crafted Durga idols across every
+                        neighborhood. The grandest cultural festival in India — ending with the deeply emotional Sindoor
+                        Khela and Visarjan immersion.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">South India</div>
+                    <div class="region-also">Kolu / Golu</div>
+                    <p class="region-desc">Display of dolls and figurines on odd-numbered stepped shelves (5, 7, or 9
+                        steps) in the home. Neighbors visit each other's Kolu, exchange tamboolam gifts, and sing
+                        devotional songs together.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">North India</div>
+                    <div class="region-also">Durga Puja &amp; Dussehra</div>
+                    <p class="region-desc">Kalash Sthapana, nine-day fasting, Kanya Puja, Durga Saptashati recitation.
+                        Culminates with massive Ravana effigy burning on Dussehra — especially spectacular at Delhi's
+                        Ramleela Maidan.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Himachal Pradesh</div>
+                    <div class="region-also">Kullu Dussehra</div>
+                    <p class="region-desc">The Kullu Dussehra is a UNESCO-recognized festival — hundreds of local
+                        deities are brought in procession to meet Lord Raghunath. A week-long fair and celebration
+                        unique to the Himalayas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── KALASH STHAPANA ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🪔</span> Kalash Sthapana — Day 1 Installation</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p><strong>Kalash Sthapana</strong> on Day 1 is the most important ritual that begins Navratri —
+                    performed at the auspicious <strong>Pratipada Muhurta</strong> (check drikpanchang.com for your
+                    city's exact time).</p>
+                <p>Spread clean soil on a plate. Sow <strong>barley seeds (jau)</strong> — they sprout over 9 days
+                    representing growth and prosperity. Place a brass or clay <strong>Kalash</strong> filled with water,
+                    Gangajal, a coin, betel nut, and akshat on the soil. Place <strong>5 mango leaves</strong> around
+                    the rim. Crown with a whole <strong>coconut</strong> (tuft up). Tie mauli thread around the neck.
+                    Apply kumkum and turmeric.</p>
+                <div class="myth-quote">"Light an <strong>Akhand Diya</strong> — a large ghee lamp that burns
+                    continuously for all 9 days without being extinguished. This continuous flame represents the
+                    unbroken presence of the Divine Mother in your home. Keeping it lit for all 9 days is considered the
+                    most auspicious act of Navratri."</div>
+            </div>
+        </div>
+
+        <!-- ── CEREMONY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎭</span> Daily Puja — Morning &amp; Evening</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Daily</div>
+                    <div class="step-title">Light Diya &amp; Offer Flowers</div>
+                    <p class="step-desc">Light the diya (add ghee to keep the Akhand Diya burning). Light incense — red
+                        sandalwood preferred. Place fresh red or marigold flowers at the feet of the Durga idol. Offer a
+                        fresh garland if possible.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Daily</div>
+                    <div class="step-title">Tilak &amp; Akshat Offering</div>
+                    <p class="step-desc">Apply kumkum and turmeric on the idol's forehead. Sprinkle akshat
+                        (turmeric-tinted rice) on the idol. Offer coconut and seasonal fruits as naivedyam.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Daily</div>
+                    <div class="step-title">Chant Durga Mantra — 108 Times</div>
+                    <p class="step-desc">Sit quietly and chant 108 times: <em>"Om Dum Durgayai Namaha."</em> Use a mala
+                        to count. Each repetition is an invocation of the goddess's specific energy — not mechanical
+                        repetition but conscious call.</p>
+                    <div class="step-mantra">"Om Dum Durgayai Namaha" × 108</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Daily</div>
+                    <div class="step-title">Durga Saptashati Recitation</div>
+                    <p class="step-desc">The 700-verse scripture — the most important Navratri text. Divide across 9
+                        days: Days 1–3 (Prathama Charitra), Days 4–6 (Madhyama Charitra), Days 7–9 (Uttama Charitra). If
+                        full Sanskrit isn't possible — listen to Anuradha Paudwal's recitation.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Daily</div>
+                    <div class="step-title">Aarti</div>
+                    <p class="step-desc">Wave camphor clockwise before the goddess while singing <em>"Jai Ambe Gauri,
+                            Maiya Jai Ambe Gauri — Tumko Nishdin Dhyavat, Hari Brahma Shivari..."</em> Then three
+                        clockwise pradakshinas and full prostration — forehead to ground.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Day 8/9</div>
+                    <div class="step-title">Kanya Puja — Most Sacred Ritual</div>
+                    <p class="step-desc">Invite 9 girls (ages 2–10) — one for each form of Durga. Wash their feet. Apply
+                        kumkum tilak. Offer red chunni. Feed them <strong>Puri, Chana (black chickpea curry), and
+                            Halwa.</strong> Give each girl dakshina (gift). Touch their feet and receive their blessing
+                        — they are the goddess.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Nights</div>
+                    <div class="step-title">Garba &amp; Dandiya Raas</div>
+                    <p class="step-desc">Circular dance around the Garbha Deep (lamp in a clay pot) representing the
+                        divine mother's womb. Dandiya Raas with decorated sticks re-enacts Durga's playful victory dance
+                        after defeating Mahishasura. It is worship through movement — not just celebration.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Day 10</div>
+                    <div class="step-title">Vijayadashami — Dussehra</div>
+                    <p class="step-desc">Aparajita Puja and Shami tree worship in the morning. Watch or attend Ravana
+                        effigy burning — his ten heads represent the ten vices destroyed. Begin something new — this is
+                        the most auspicious day of the year for any new endeavor. Victory belongs to the prepared.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── WHAT YOU NEED ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🛒</span> What You Need</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="items-grid">
+                <div class="item-chip"><span class="ic-dot"></span>Durga idol or framed photo</div>
+                <div class="item-chip"><span class="ic-dot"></span>Brass or clay Kalash</div>
+                <div class="item-chip"><span class="ic-dot"></span>Barley seeds (jau)</div>
+                <div class="item-chip"><span class="ic-dot"></span>5 mango leaves</div>
+                <div class="item-chip"><span class="ic-dot"></span>Whole coconut</div>
+                <div class="item-chip"><span class="ic-dot"></span>Akhand Diya (large ghee lamp)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Red &amp; orange flowers daily</div>
+                <div class="item-chip"><span class="ic-dot"></span>Durga Saptashati book</div>
+                <div class="item-chip"><span class="ic-dot"></span>Kumkum, turmeric, chandan</div>
+                <div class="item-chip"><span class="ic-dot"></span>Camphor, incense, Gangajal</div>
+                <div class="item-chip"><span class="ic-dot"></span>Sabudana, kuttu atta, makhana</div>
+                <div class="item-chip"><span class="ic-dot"></span>Sendha namak (rock salt)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Chaniya choli / festive clothes</div>
+                <div class="item-chip"><span class="ic-dot"></span>Dandiya sticks</div>
+            </div>
+        </div>
+
+        <!-- ── GALLERY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Garba_dance_Navratri.jpg/1280px-Garba_dance_Navratri.jpg"
+                        alt="Garba dance Navratri Gujarat women colorful"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>💃</span><span>Garba Dance</span></div>'">
+                    <div class="g-label">Garba — thousands dancing in devotion to the divine mother</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Durga_Puja_Pandal_Kolkata.jpg/640px-Durga_Puja_Pandal_Kolkata.jpg"
+                        alt="Durga Puja pandal Kolkata Bengal idol"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🦁</span><span>Durga Puja Pandal</span></div>'">
+                    <div class="g-label">Durga Puja pandal — Kolkata's magnificent idol in her divine family</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Kolu_golu_dolls_display_Navratri.jpg/640px-Kolu_golu_dolls_display_Navratri.jpg"
+                        alt="Kolu Golu doll display South India Navratri"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🪆</span><span>Kolu Display</span></div>'">
+                    <div class="g-label">Kolu — the nine-step doll display of South Indian Navratri</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Ravana_Dussehra_effigy_burning.jpg/640px-Ravana_Dussehra_effigy_burning.jpg"
+                        alt="Ravana effigy burning Dussehra Vijayadashami"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🔥</span><span>Dussehra</span></div>'">
+                    <div class="g-label">Vijayadashami — the burning of Ravana, the ten-headed ego</div>
+                </div>
+            </div>
+            <p style="font-size:11px;color:var(--text-dim);margin-top:10px;">
+                Replace <code>src</code> values with your own photos for best results.
+            </p>
+        </div>
+
+        <!-- ── VIDEOS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card" href="https://www.youtube.com/watch?v=sTSGMqfLOmU" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/sTSGMqfLOmU/maxresdefault.jpg" alt="Navratri Garba dance"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">💃</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Garba</p>
+                        <p class="v-title">Navratri Garba — Best of Gujarat</p>
+                        <p class="v-sub">The all-night devotional dance at its finest</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=gT_7tOmB-rQ" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/gT_7tOmB-rQ/maxresdefault.jpg"
+                            alt="Durga Saptashati recitation"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">📜</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Scripture</p>
+                        <p class="v-title">Durga Saptashati — Full Recitation</p>
+                        <p class="v-sub">700 verses by Anuradha Paudwal</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=DWrp7TlxhIE" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/DWrp7TlxhIE/maxresdefault.jpg"
+                            alt="Durga Puja Kolkata pandal hopping"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🦁</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Durga Puja</p>
+                        <p class="v-title">Kolkata Durga Puja — Pandal Tour</p>
+                        <p class="v-sub">The greatest cultural spectacle in India</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── PRAYERS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🙏</span> Key Prayers &amp; Mantras</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="mantra-list">
+                <div class="mantra-card">
+                    <span class="mantra-icon">🪔</span>
+                    <div>
+                        <div class="mantra-label">Primary Durga Mantra — 108 Times Daily</div>
+                        <div class="mantra-text">"Om Dum Durgayai Namaha"</div>
+                        <div class="mantra-meaning">The seed mantra of Goddess Durga. "Dum" is her bija — the sound of
+                            her energy compressed into one syllable. Chanted 108 times daily, it is the single most
+                            important practice of Navratri.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🔱</span>
+                    <div>
+                        <div class="mantra-label">Navarna Mantra — The Nine-Syllable Mantra (Most Powerful)</div>
+                        <div class="mantra-text">"Om Aim Hreem Kleem Chamundayai Vichche"</div>
+                        <div class="mantra-meaning">The bija mantra of Goddess Chamunda — combining seed syllables of
+                            Saraswati (Aim), Lakshmi (Hreem), and Kali (Kleem). Chanting this invokes all three aspects
+                            of the divine mother simultaneously — knowledge, wealth, and power together.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🌺</span>
+                    <div>
+                        <div class="mantra-label">Durga Shloka — Recite Daily</div>
+                        <div class="mantra-text">
+                            "Sarva Mangala Mangalye, Shive Sarvartha Sadhike<br>
+                            Sharanye Tryambake Gauri, Narayani Namostute"
+                        </div>
+                        <div class="mantra-meaning">O auspicious one — auspiciousness of all auspicious things, O Shiva
+                            — fulfiller of all desires, O three-eyed Gauri who shelters all — Narayani, I bow to You.
+                        </div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">✨</span>
+                    <div>
+                        <div class="mantra-label">Ya Devi — The Most Complete Navratri Prayer</div>
+                        <div class="mantra-text">
+                            "Ya Devi Sarva Bhuteshu, Shakti Rupena Samsthita<br>
+                            Namastasyai Namastasyai Namastasyai Namo Namaha"
+                        </div>
+                        <div class="mantra-meaning">To the Goddess who is present in all beings as Power — salutation,
+                            salutation, salutation to Her again and again. This verse is recited with different
+                            qualities (Shakti, Buddhi, Shanti) — honoring the goddess in every aspect of existence.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── DO'S & DON'TS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li>Wear the specific color of each day — it connects you to that day's goddess</li>
+                        <li>Set up Kalash Sthapana on Day 1 at the correct Muhurta</li>
+                        <li>Keep the Akhand Diya burning for all 9 days without extinguishing</li>
+                        <li>Observe Phalahar fast for all 9 days — or minimum Day 1, Ashtami, Navami</li>
+                        <li>Recite Durga Saptashati daily — even listening to audio counts</li>
+                        <li>Chant "Om Dum Durgayai Namaha" 108 times daily</li>
+                        <li>Perform Kanya Puja on Ashtami or Navami — never skip this</li>
+                        <li>Dance Garba and Dandiya with full joy — it is worship, not just celebration</li>
+                        <li>Begin something new on Vijayadashami — the most auspicious day of the year</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li>Do not eat grains, onion, garlic, or non-vegetarian food while fasting</li>
+                        <li>Do not extinguish the Akhand Diya — monitor ghee and wick throughout</li>
+                        <li>Do not skip Kanya Puja — it is the single most essential ritual</li>
+                        <li>Do not treat Garba as merely a dance event — it is moving meditation</li>
+                        <li>Do not forget Vijayadashami — it is the culmination of all nine days</li>
+                        <li>Do not begin the Durga Saptashati and leave it incomplete each day</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CLOSING ── -->
+        <div class="closing">
+            <p class="closing-text">
+                She doesn't negotiate with the demon. She doesn't compromise with the ego.
+                <em>She fights for nine days — and on the tenth morning, there is only victory.</em>
+                That is Navratri. That is Durga. That is you.
+            </p>
+            <p class="closing-sub">🪔 &nbsp; Om Dum Durgayai Namaha &nbsp; 🦁</p>
+        </div>
+
+    </div><!-- /page-body -->
+
+    <script>
+        /* ══════════════════════════════════════
+           PARTICLE CANVAS
+        ══════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+
+            const COLORS = ['#c2410c', '#f97316', '#7c3aed', '#fcd34d', '#ffffff'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = Array.from({ length: 40 }, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: -(Math.random() * 0.4 + 0.1),
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.5 + 0.1,
+                    life: Math.random()
+                }));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life += 0.002;
+                    if (p.y < -10 || p.life > 1) {
+                        p.x = Math.random() * W;
+                        p.y = H + 10;
+                        p.life = 0;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha * Math.sin(p.life * Math.PI);
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize();
+            initParticles();
+            draw();
+        })();
+
+        /* ══════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════ */
+        (function () {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(
+                '.about-block, .significance-block, .region-card, .step-card, ' +
+                '.item-chip, .g-item, .v-card, .mantra-card, .dos-col, .closing, .sec-divider'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        /* ── Stagger delays on repeated elements ── */
+        ['.region-card', '.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card']
+            .forEach(sel => {
+                document.querySelectorAll(sel).forEach((el, i) => {
+                    el.style.transitionDelay = `${i * 0.07}s`;
+                });
+            });
+
+        /* ══════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        function openLb(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        /* ══════════════════════════════════════
+           ANIMATED TEXT — letter-by-letter on hero title
+        ══════════════════════════════════════ */
+        (function () {
+            // Split hero title into character spans for a staggered reveal
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            // Only animate plain text nodes
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) { // text node
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `
+              display:inline-block;
+              opacity:0;
+              transform:translateY(18px);
+              animation: slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;
+            `;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

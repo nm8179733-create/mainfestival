@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diwali — Festival of Lights | Festivals of India</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg2: #161b27;
+            --bg3: #1a2035;
+            --card: #1a2035;
+            --card-hov: #1f2840;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-g: rgba(255, 193, 50, 0.18);
+            --accent: #ff6b6b;
+            --gold: #ffd166;
+            --orange: #ff9f1c;
+            --text: #f0f4ff;
+            --muted: #8892b0;
+            --dim: #4a5568;
+            --r: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden
+        }
+
+        /* CURSOR GLOW */
+        #cg {
+            position: fixed;
+            width: 360px;
+            height: 360px;
+            background: radial-gradient(circle, rgba(255, 193, 50, .055), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: left .08s, top .08s
+        }
+
+        /* SPARKLES */
+        .sp {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            animation: spk 3s ease forwards
+        }
+
+        @keyframes spk {
+            0% {
+                opacity: 0;
+                transform: scale(0) translateY(0)
+            }
+
+            40% {
+                opacity: .9;
+                transform: scale(1) translateY(-14px)
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(.4) translateY(-36px)
+            }
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 48px;
+            background: rgba(13, 17, 23, .88);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 20px;
+            background: rgba(255, 193, 50, .09);
+            border: 1px solid rgba(255, 193, 50, .22);
+            border-radius: 10px;
+            color: var(--gold);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: .84rem;
+            text-decoration: none;
+            transition: all .2s
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 193, 50, .18);
+            transform: translateX(-3px)
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 130px 40px 90px
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 90% 55% at 50% 90%, rgba(255, 107, 30, .2) 0%, transparent 65%), radial-gradient(ellipse 55% 35% at 50% 105%, rgba(230, 57, 70, .13) 0%, transparent 60%), linear-gradient(180deg, #0d1117 0%, #100a0e 100%)
+        }
+
+        .diya {
+            position: absolute;
+            animation: fdiya 7s ease-in-out infinite;
+            opacity: .55;
+            font-size: 1.7rem;
+            user-select: none
+        }
+
+        .diya:nth-child(1) {
+            left: 6%;
+            top: 28%;
+            animation-delay: 0s;
+            font-size: 1.4rem
+        }
+
+        .diya:nth-child(2) {
+            left: 13%;
+            top: 62%;
+            animation-delay: 1.1s;
+            font-size: 2rem
+        }
+
+        .diya:nth-child(3) {
+            right: 8%;
+            top: 23%;
+            animation-delay: .5s
+        }
+
+        .diya:nth-child(4) {
+            right: 16%;
+            top: 58%;
+            animation-delay: 1.6s;
+            font-size: 1.3rem
+        }
+
+        .diya:nth-child(5) {
+            left: 48%;
+            top: 10%;
+            animation-delay: 2.1s;
+            font-size: 1.2rem
+        }
+
+        .diya:nth-child(6) {
+            left: 28%;
+            top: 82%;
+            animation-delay: .9s
+        }
+
+        .diya:nth-child(7) {
+            right: 28%;
+            top: 80%;
+            animation-delay: 1.9s;
+            font-size: 1.5rem
+        }
+
+        .diya:nth-child(8) {
+            left: 82%;
+            top: 45%;
+            animation-delay: 2.5s;
+            font-size: 1.3rem
+        }
+
+        .diya:nth-child(9) {
+            left: 4%;
+            top: 50%;
+            animation-delay: 3s;
+            font-size: 1rem
+        }
+
+        @keyframes fdiya {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-3deg)
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(3deg)
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2
+        }
+
+        .hero-overline {
+            display: inline-block;
+            font-size: .74rem;
+            letter-spacing: .32em;
+            text-transform: uppercase;
+            color: var(--orange);
+            font-weight: 600;
+            margin-bottom: 22px;
+            opacity: 0;
+            animation: fup .8s .3s forwards
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4.5rem, 11vw, 9rem);
+            font-weight: 900;
+            line-height: .88;
+            background: linear-gradient(130deg, #ffe082 0%, #ff9800 38%, #ff5722 68%, #ffd54f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 14px;
+            opacity: 0;
+            animation: fup 1s .5s forwards
+        }
+
+        .hero-sub {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 3vw, 1.75rem);
+            font-style: italic;
+            color: var(--gold);
+            opacity: 0;
+            animation: fup 1s .7s forwards;
+            margin-bottom: 28px
+        }
+
+        .hero-desc {
+            max-width: 620px;
+            margin: 0 auto 38px;
+            font-size: 1rem;
+            color: var(--muted);
+            line-height: 1.82;
+            opacity: 0;
+            animation: fup 1s .9s forwards
+        }
+
+        .hero-pills {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fup 1s 1.1s forwards
+        }
+
+        .pill {
+            background: rgba(255, 193, 50, .1);
+            border: 1px solid rgba(255, 193, 50, .25);
+            border-radius: 100px;
+            padding: 9px 20px;
+            font-size: .83rem;
+            color: var(--gold);
+            font-weight: 500
+        }
+
+        .scroll-cue {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            opacity: 0;
+            animation: fi 1s 2s forwards;
+            color: var(--dim);
+            font-size: .72rem;
+            letter-spacing: .12em
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 48px;
+            background: linear-gradient(180deg, transparent, var(--gold), transparent);
+            animation: sp2 2.2s ease infinite
+        }
+
+        @keyframes sp2 {
+
+            0%,
+            100% {
+                opacity: .3
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        @keyframes fup {
+            from {
+                opacity: 0;
+                transform: translateY(28px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fi {
+            to {
+                opacity: 1
+            }
+        }
+
+        /* LAYOUT */
+        .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 80px 48px
+        }
+
+        .sec-over {
+            font-size: .72rem;
+            letter-spacing: .26em;
+            text-transform: uppercase;
+            color: var(--orange);
+            font-weight: 600;
+            margin-bottom: 10px
+        }
+
+        .sec-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.1
+        }
+
+        .sec-title span {
+            background: linear-gradient(130deg, var(--orange), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .divider {
+            width: 56px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--orange), var(--gold));
+            margin-bottom: 40px;
+            border-radius: 2px
+        }
+
+        .band {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border)
+        }
+
+        /* SCROLL ANIMATIONS */
+        .fu {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .65s ease, transform .65s ease
+        }
+
+        .fu.vis {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* QUOTE BAND */
+        .quote-band {
+            background: linear-gradient(135deg, rgba(255, 107, 30, .07), rgba(255, 193, 50, .04));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 72px 48px;
+            text-align: center
+        }
+
+        .qt {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.35rem, 3.2vw, 2.1rem);
+            font-style: italic;
+            color: var(--text);
+            max-width: 820px;
+            margin: 0 auto 18px;
+            line-height: 1.52
+        }
+
+        .qt-attr {
+            color: var(--muted);
+            font-size: .83rem;
+            letter-spacing: .1em
+        }
+
+        /* ABOUT SPLIT */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start
+        }
+
+        .about-text p {
+            color: var(--muted);
+            font-size: .96rem;
+            line-height: 1.84;
+            margin-bottom: 16px
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0
+        }
+
+        .about-img {
+            border-radius: var(--r);
+            overflow: hidden;
+            height: 420px;
+            border: 1px solid var(--border);
+            position: relative
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .about-img-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, rgba(0, 0, 0, .8), transparent);
+            padding: 24px 16px 14px;
+            font-size: .8rem;
+            color: rgba(255, 255, 255, .8)
+        }
+
+        /* ORIGINS GRID */
+        .origins-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px
+        }
+
+        .origin-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 26px 24px;
+            transition: all .3s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .origin-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            border-radius: 0 var(--r) 0 100%;
+            background: var(--gold);
+            opacity: .06;
+            transition: opacity .3s
+        }
+
+        .origin-card:hover {
+            border-color: var(--border-g);
+            transform: translateY(-4px);
+            background: var(--card-hov)
+        }
+
+        .origin-card:hover::before {
+            opacity: .12
+        }
+
+        .oc-icon {
+            font-size: 1.8rem;
+            margin-bottom: 14px;
+            display: block
+        }
+
+        .oc-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px
+        }
+
+        .oc-sub {
+            font-size: .72rem;
+            color: var(--orange);
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-bottom: 8px
+        }
+
+        .oc-desc {
+            font-size: .875rem;
+            color: var(--muted);
+            line-height: 1.7
+        }
+
+        /* GALLERY */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 220px;
+            gap: 14px
+        }
+
+        .gi {
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .gi:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2
+        }
+
+        .gi:nth-child(4) {
+            grid-column: span 2
+        }
+
+        .gi img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease
+        }
+
+        .gi:hover img {
+            transform: scale(1.06)
+        }
+
+        .gi-cap {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, rgba(0, 0, 0, .8), transparent);
+            padding: 24px 14px 12px;
+            font-size: .8rem;
+            font-weight: 600;
+            color: #fff;
+            opacity: 0;
+            transition: opacity .3s
+        }
+
+        .gi:hover .gi-cap {
+            opacity: 1
+        }
+
+        /* LIGHTBOX */
+        #lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .92);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px
+        }
+
+        #lb.open {
+            display: flex
+        }
+
+        #lb img {
+            max-width: 92vw;
+            max-height: 88vh;
+            border-radius: 12px;
+            object-fit: contain
+        }
+
+        #lb-close {
+            position: fixed;
+            top: 20px;
+            right: 24px;
+            background: rgba(255, 255, 255, .1);
+            border: none;
+            color: #fff;
+            font-size: 1.6rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s
+        }
+
+        #lb-close:hover {
+            background: rgba(255, 255, 255, .22)
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            padding-left: 44px
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(180deg, var(--orange), transparent)
+        }
+
+        .tl-item {
+            position: relative;
+            margin-bottom: 52px
+        }
+
+        .tl-dot {
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 22px;
+            height: 22px;
+            background: var(--bg);
+            border: 2px solid var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .tl-dot::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%
+        }
+
+        .day-tag {
+            display: inline-block;
+            font-size: .7rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            background: rgba(255, 159, 28, .14);
+            border: 1px solid rgba(255, 159, 28, .28);
+            color: var(--orange);
+            border-radius: 6px;
+            padding: 4px 10px;
+            margin-bottom: 8px;
+            font-weight: 600
+        }
+
+        .tl-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 10px
+        }
+
+        .tl-item p {
+            color: var(--muted);
+            font-size: .93rem;
+            line-height: 1.8;
+            max-width: 700px
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 14px
+        }
+
+        .step-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            background: rgba(255, 193, 50, .05);
+            border-left: 2px solid var(--orange);
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 8px;
+            font-size: .87rem;
+            color: var(--muted);
+            line-height: 1.7
+        }
+
+        .step-num {
+            min-width: 22px;
+            height: 22px;
+            background: var(--orange);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            font-weight: 700;
+            margin-top: 1px;
+            flex-shrink: 0
+        }
+
+        /* FOOD SECTION */
+        .foods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px
+        }
+
+        .food-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            overflow: hidden;
+            transition: all .3s
+        }
+
+        .food-card:hover {
+            border-color: var(--border-g);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .4)
+        }
+
+        .food-img {
+            height: 196px;
+            overflow: hidden
+        }
+
+        .food-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .45s
+        }
+
+        .food-card:hover .food-img img {
+            transform: scale(1.07)
+        }
+
+        .food-body {
+            padding: 18px
+        }
+
+        .food-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px
+        }
+
+        .food-badge {
+            display: inline-block;
+            font-size: .68rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            background: rgba(255, 159, 28, .13);
+            border: 1px solid rgba(255, 159, 28, .26);
+            color: var(--orange);
+            border-radius: 6px;
+            padding: 3px 8px;
+            margin-bottom: 8px;
+            font-weight: 600
+        }
+
+        .food-desc {
+            font-size: .86rem;
+            color: var(--muted);
+            line-height: 1.68
+        }
+
+        /* VIDEO SECTION */
+        .vids-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 20px
+        }
+
+        .vid-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            overflow: hidden;
+            transition: all .3s
+        }
+
+        .vid-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-g)
+        }
+
+        .vid-thumb {
+            height: 156px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .vid-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s
+        }
+
+        .vid-card:hover .vid-thumb img {
+            transform: scale(1.07)
+        }
+
+        .vid-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, .38);
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .play-btn {
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 193, 50, .92);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #000;
+            padding-left: 3px;
+            transition: transform .2s
+        }
+
+        .vid-card:hover .play-btn {
+            transform: scale(1.12)
+        }
+
+        .vid-info {
+            padding: 16px
+        }
+
+        .vid-title {
+            font-weight: 600;
+            font-size: .93rem;
+            margin-bottom: 5px
+        }
+
+        .vid-meta {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-bottom: 10px
+        }
+
+        .vid-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--orange);
+            font-size: .8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: gap .2s
+        }
+
+        .vid-link:hover {
+            gap: 10px
+        }
+
+        /* TRADITIONS */
+        .trad-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px
+        }
+
+        .trad-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 26px 24px;
+            transition: all .3s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .trad-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--orange), var(--gold));
+            transform: scaleX(0);
+            transition: transform .3s;
+            transform-origin: left
+        }
+
+        .trad-card:hover {
+            border-color: var(--border-g);
+            transform: translateY(-4px)
+        }
+
+        .trad-card:hover::after {
+            transform: scaleX(1)
+        }
+
+        .trad-icon {
+            font-size: 2rem;
+            margin-bottom: 14px;
+            display: block
+        }
+
+        .trad-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px
+        }
+
+        .trad-desc {
+            font-size: .875rem;
+            color: var(--muted);
+            line-height: 1.72
+        }
+
+        /* SHOPPING */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 18px
+        }
+
+        .shop-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 22px 20px;
+            transition: border-color .2s
+        }
+
+        .shop-card:hover {
+            border-color: var(--border-g)
+        }
+
+        .shop-icon {
+            font-size: 1.6rem;
+            margin-bottom: 12px
+        }
+
+        .shop-title {
+            font-weight: 600;
+            font-size: .93rem;
+            margin-bottom: 10px;
+            color: var(--gold)
+        }
+
+        .shop-list {
+            list-style: none;
+            padding: 0
+        }
+
+        .shop-list li {
+            font-size: .84rem;
+            color: var(--muted);
+            padding: 5px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+            line-height: 1.55
+        }
+
+        .shop-list li::before {
+            content: '·';
+            color: var(--orange);
+            font-size: 1.2rem;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 1px
+        }
+
+        .shop-list li:last-child {
+            border-bottom: none
+        }
+
+        /* MANTRAS */
+        .mantra-block {
+            background: linear-gradient(135deg, var(--bg3), var(--card));
+            border: 1px solid var(--border-g);
+            border-radius: var(--r);
+            padding: 32px 36px;
+            margin-bottom: 18px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .mantra-block::before {
+            content: '🪔';
+            position: absolute;
+            right: 20px;
+            top: 16px;
+            font-size: 4rem;
+            opacity: .07
+        }
+
+        .m-label {
+            font-size: .7rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--orange);
+            font-weight: 600;
+            margin-bottom: 10px
+        }
+
+        .m-sanskrit {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--gold);
+            line-height: 1.85;
+            margin-bottom: 10px
+        }
+
+        .m-meaning {
+            font-size: .875rem;
+            color: var(--muted);
+            line-height: 1.7
+        }
+
+        /* DOS & DONTS */
+        .dd-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px
+        }
+
+        .dd-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 26px 24px
+        }
+
+        .dd-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .dd-list {
+            list-style: none;
+            padding: 0
+        }
+
+        .dd-list li {
+            font-size: .87rem;
+            color: var(--muted);
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.6
+        }
+
+        .dd-list li:last-child {
+            border-bottom: none
+        }
+
+        .dd-list li .ico {
+            min-width: 18px
+        }
+
+        .do-card {
+            border-color: rgba(100, 220, 130, .12)
+        }
+
+        .dont-card {
+            border-color: rgba(255, 107, 107, .12)
+        }
+
+        /* CLOSING */
+        .closing {
+            background: linear-gradient(135deg, rgba(255, 107, 30, .08), rgba(255, 193, 50, .05));
+            border-top: 1px solid var(--border);
+            padding: 90px 48px;
+            text-align: center
+        }
+
+        .closing-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 3vw, 1.95rem);
+            font-style: italic;
+            color: var(--text);
+            max-width: 860px;
+            margin: 0 auto 18px;
+            line-height: 1.58
+        }
+
+        .closing-em {
+            color: var(--gold)
+        }
+
+        footer {
+            text-align: center;
+            padding: 44px 48px;
+            border-top: 1px solid var(--border);
+            color: var(--dim);
+            font-size: .84rem
+        }
+
+        footer a {
+            color: var(--orange);
+            text-decoration: none
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:900px) {
+
+            .about-grid,
+            .dd-grid {
+                grid-template-columns: 1fr
+            }
+
+            .gallery {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 180px
+            }
+
+            .gi:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1
+            }
+
+            .gi:nth-child(4) {
+                grid-column: span 2
+            }
+        }
+
+        @media(max-width:640px) {
+            nav {
+                padding: 12px 20px
+            }
+
+            .wrap {
+                padding: 56px 20px
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 220px
+            }
+
+            .gi:nth-child(n) {
+                grid-column: span 1;
+                grid-row: span 1
+            }
+
+            .quote-band,
+            .closing {
+                padding: 56px 20px
+            }
+
+            .mantra-block {
+                padding: 24px 20px
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="cg"></div>
+
+    <!-- NAV -->
+    <nav>
+        <a class="nav-logo" href="festival-card.html">🪔 Festivals of India</a>
+        <a class="back-btn" href="festival-card.html">← All Festivals</a>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="diya">🪔</div>
+        <div class="diya">🪔</div>
+        <div class="diya">🪔</div>
+        <div class="diya">🪔</div>
+        <div class="diya">✨</div>
+        <div class="diya">🌟</div>
+        <div class="diya">🪔</div>
+        <div class="diya">✨</div>
+        <div class="diya">🕯️</div>
+        <div class="hero-content">
+            <div class="hero-overline">The Festival of Lights</div>
+            <h1 class="hero-title">Diwali</h1>
+            <div class="hero-sub">दीपावली · Deepavali · "Row of Lights"</div>
+            <p class="hero-desc">The most widely celebrated Hindu festival in the world — a 5-day celebration of light
+                over darkness, knowledge over ignorance, and the joyful return of Lord Rama to Ayodhya after 14 years of
+                exile.</p>
+            <div class="hero-pills">
+                <span class="pill">🗓 October 17–21, 2026</span>
+                <span class="pill">🌑 Amavasya of Kartika</span>
+                <span class="pill">🙏 Hindu · Jain · Sikh</span>
+                <span class="pill">🌍 Celebrated Worldwide</span>
+            </div>
+        </div>
+        <div class="scroll-cue"><span style="letter-spacing:.15em">SCROLL</span>
+            <div class="scroll-line"></div>
+        </div>
+    </div>
+
+    <!-- OPENING QUOTE -->
+    <div class="quote-band">
+        <p class="qt">"Diwali chose the darkest night of the year to light the most lights. Not the half-moon night, not
+            an easier night — Amavasya, complete darkness. Because that is what light is for. Not for when it is already
+            bright. But for the darkest night."</p>
+        <p class="qt-attr">— The Spirit of Deepavali 🪔</p>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="wrap">
+        <div class="sec-over fu">WHAT IS DIWALI</div>
+        <h2 class="sec-title fu">The Festival of <span>Lights</span></h2>
+        <div class="divider fu"></div>
+        <div class="about-grid">
+            <div class="about-text fu">
+                <p>Diwali — from <strong style="color:var(--gold)">Deepavali</strong>, meaning "row of lights" — is the
+                    most widely celebrated Hindu festival in the world. It is a 5-day festival observed during the new
+                    moon (Amavasya) of the Hindu month of Kartika, falling in October or November. In 2026, it falls
+                    around <strong style="color:var(--text)">October 17–21</strong>. Check <strong
+                        style="color:var(--gold)">drikpanchang.com</strong> for the exact Lakshmi Puja Muhurta — the
+                    most important timing of the entire festival.</p>
+                <p>The main Diwali night falls on Amavasya — the darkest night of the lunar month. Yet it is precisely
+                    on this night that millions of diyas are lit across India and around the world, transforming the
+                    darkest night into the brightest.</p>
+                <p>The festival celebrates multiple simultaneous events across different traditions — Lord Rama's return
+                    to Ayodhya, Goddess Lakshmi's birth from the cosmic ocean, Krishna's victory over Narakasura, Lord
+                    Mahavira's attainment of Moksha (for Jains), and Guru Hargobind Ji's release from Mughal
+                    imprisonment — <strong style="color:var(--text)">Bandi Chhor Divas</strong> for Sikhs.</p>
+                <p>The true heart of Diwali is the <strong style="color:var(--gold)">Lakshmi Puja</strong> performed on
+                    the main night — a deeply devotional act of inviting the goddess of prosperity, beauty, and
+                    abundance into the home. Every diya lit is an invitation. She enters only the brightest, cleanest
+                    home.</p>
+            </div>
+            <div class="about-img fu">
+                <img src="https://images.unsplash.com/photo-1574452056399-41a6b0a69e9c?w=800&q=80"
+                    alt="Diwali diyas lit in rows">
+                <div class="about-img-caption">Rows of clay diyas on Diwali night — the most iconic image of the
+                    festival</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORIGINS -->
+    <div class="band">
+        <div class="wrap">
+            <div class="sec-over fu">STORIES &amp; ORIGINS</div>
+            <h2 class="sec-title fu">Why We <span>Celebrate</span></h2>
+            <div class="divider fu"></div>
+            <div class="origins-grid">
+                <div class="origin-card fu">
+                    <span class="oc-icon">🏹</span>
+                    <div class="oc-sub">Hindu — Pan India</div>
+                    <div class="oc-title">Lord Rama's Return to Ayodhya</div>
+                    <p class="oc-desc">After 14 years of exile and the defeat of the demon king Ravana, Lord Rama
+                        returned home on this Amavasya night. The people of Ayodhya lit thousands of rows of diyas to
+                        welcome him — this is the origin of Diwali's defining tradition of light.</p>
+                </div>
+                <div class="origin-card fu">
+                    <span class="oc-icon">🌸</span>
+                    <div class="oc-sub">Hindu — Goddess of Prosperity</div>
+                    <div class="oc-title">Birth of Goddess Lakshmi</div>
+                    <p class="oc-desc">Lakshmi emerged from the Samudra Manthan (cosmic ocean churning) on this night
+                        and is believed to roam the earth on Diwali night blessing homes that are clean, lit, and
+                        welcoming. She enters only the brightest, cleanest home — every diya lit is an invitation to
+                        her.</p>
+                </div>
+                <div class="origin-card fu">
+                    <span class="oc-icon">🐚</span>
+                    <div class="oc-sub">Hindu — Krishna Tradition</div>
+                    <div class="oc-title">Krishna's Victory Over Narakasura</div>
+                    <p class="oc-desc">Lord Krishna killed the demon Narakasura on the day before Diwali (Naraka
+                        Chaturdashi), liberating 16,000 women he had imprisoned. People celebrated with oil baths —
+                        observed today as the Abhyanga Snanam tradition of Choti Diwali.</p>
+                </div>
+                <div class="origin-card fu">
+                    <span class="oc-icon">☸️</span>
+                    <div class="oc-sub">Jain Tradition</div>
+                    <div class="oc-title">Mahavira's Nirvana</div>
+                    <p class="oc-desc">For Jains, Diwali is the day Lord Mahavira attained Moksha — liberation from the
+                        cycle of birth and death. The ultimate light of the soul extinguishing all karma. Jains observe
+                        Diwali with prayers, fasting, and lighting lamps in memory of the soul's eternal light.</p>
+                </div>
+                <div class="origin-card fu">
+                    <span class="oc-icon">🪯</span>
+                    <div class="oc-sub">Sikh Tradition — Bandi Chhor Divas</div>
+                    <div class="oc-title">Guru Hargobind Ji's Release</div>
+                    <p class="oc-desc">For Sikhs, Diwali is Bandi Chhor Divas — the day the sixth Sikh Guru was released
+                        from Mughal imprisonment along with 52 other kings. The Golden Temple at Amritsar is illuminated
+                        spectacularly on this night in one of the most breathtaking celebrations in India.</p>
+                </div>
+                <div class="origin-card fu">
+                    <span class="oc-icon">💫</span>
+                    <div class="oc-sub">Universal Meaning</div>
+                    <div class="oc-title">Light Over Darkness</div>
+                    <p class="oc-desc">Across every tradition, Diwali carries the same universal message: light always
+                        overcomes darkness, knowledge always overcomes ignorance, and the smallest flame lit with
+                        devotion on the darkest night changes everything.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="wrap">
+        <div class="sec-over fu">GALLERY</div>
+        <h2 class="sec-title fu">Diwali Through <span>Images</span></h2>
+        <div class="divider fu"></div>
+        <div class="gallery fu">
+            <div class="gi" onclick="openLb(this)">
+                <img src="https://images.unsplash.com/photo-1574452056399-41a6b0a69e9c?w=900&q=80"
+                    alt="Diwali diyas rows">
+                <div class="gi-cap">Rows of Diyas — The Heartbeat of Diwali Night</div>
+            </div>
+            <div class="gi" onclick="openLb(this)">
+                <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80" alt="Rangoli art">
+                <div class="gi-cap">Rangoli Art at the Entrance</div>
+            </div>
+            <div class="gi" onclick="openLb(this)">
+                <img src="https://images.unsplash.com/photo-1567537702003-d2f4e977e56c?w=600&q=80"
+                    alt="Diwali night fireworks">
+                <div class="gi-cap">Diwali Night Celebrations</div>
+            </div>
+            <div class="gi" onclick="openLb(this)">
+                <img src="https://images.unsplash.com/photo-1522767326068-70b2d97e28f7?w=900&q=80"
+                    alt="Diwali home lighting">
+                <div class="gi-cap">Homes Decorated with Lights &amp; Diyas</div>
+            </div>
+            <div class="gi" onclick="openLb(this)">
+                <img src="https://images.unsplash.com/photo-1603366615917-1fa6dad02d81?w=600&q=80"
+                    alt="Puja thali offerings">
+                <div class="gi-cap">Lakshmi Puja Thali — Sacred Offerings</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5-DAY TIMELINE -->
+    <div class="band">
+        <div class="wrap">
+            <div class="sec-over fu">THE FIVE SACRED DAYS</div>
+            <h2 class="sec-title fu">The Journey of <span>Deepavali</span></h2>
+            <div class="divider fu"></div>
+            <div class="timeline">
+
+                <div class="tl-item fu">
+                    <div class="tl-dot"></div>
+                    <div class="day-tag">Day 1 — Dhanteras</div>
+                    <h3>🪙 Dhanteras — Dhanvantari's Day</h3>
+                    <p><strong style="color:var(--text)">Dhantrayodashi</strong> — the 13th lunar day, two days before
+                        the main Diwali night. "Dhan" means wealth and "Teras" means thirteenth. On this day <strong
+                            style="color:var(--gold)">Dhanvantari</strong> — the divine physician and God of Ayurveda —
+                        emerged from the Samudra Manthan carrying the pot of Amrit and the knowledge of medicine. Yama
+                        (the God of Death) is also appeased on this day.</p>
+                    <ul class="step-list">
+                        <li><span class="step-num">1</span><span><strong style="color:var(--text)">Buy gold, silver, or
+                                    metal items</strong> — even a small silver coin or steel vessel fulfills this
+                                tradition. Lakshmi enters your home through every auspicious purchase made on this
+                                day.</span></li>
+                        <li><span class="step-num">2</span><span><strong style="color:var(--text)">Dhanvantari
+                                    Puja</strong> — light a diya and offer flowers, praying for the health of every
+                                family member. His mantra: <em style="color:var(--gold)">"Om Namo Bhagavate Vasudevaya
+                                    Dhanvantaraye Amrita Kalasha Hastaya Sarva Amaya Vinashanaya Trailokya Nathaya Sri
+                                    Maha Vishnave Namaha"</em></span></li>
+                        <li><span class="step-num">3</span><span><strong style="color:var(--text)">Light 13
+                                    diyas</strong> — one for each Teras — placing them at the doorstep, in every room,
+                                and in the kitchen. The kitchen diya on Dhanteras is specifically important as the
+                                kitchen is Lakshmi's domain.</span></li>
+                        <li><span class="step-num">4</span><span><strong style="color:var(--text)">Yamadeepa</strong> —
+                                light one diya facing south (Yama's direction) and pray for protection from untimely
+                                death for all family members. This is called Yamadeepa and is a Dhanteras-specific
+                                ritual.</span></li>
+                    </ul>
+                </div>
+
+                <div class="tl-item fu">
+                    <div class="tl-dot"></div>
+                    <div class="day-tag">Day 2 — Choti Diwali</div>
+                    <h3>🌙 Choti Diwali — Naraka Chaturdashi</h3>
+                    <p>The day before the main Diwali night. Celebrates <strong style="color:var(--gold)">Krishna's
+                            defeat of the demon Narakasura</strong> before sunrise, liberating 16,000 women he had
+                        imprisoned. The next morning people celebrated with oil baths before dawn — this is observed
+                        today as Abhyanga Snanam.</p>
+                    <ul class="step-list">
+                        <li><span class="step-num">1</span><span><strong style="color:var(--text)">Wake before sunrise —
+                                    this is essential.</strong> The Abhyanga Snanam (oil bath) must be taken before the
+                                sun rises. Apply warm sesame or coconut oil all over the body and hair, massage
+                                thoroughly, then bathe with warm water. Taking this bath before sunrise connects you to
+                                that ancient celebration of liberation.</span></li>
+                        <li><span class="step-num">2</span><span><strong style="color:var(--text)">Wear new
+                                    clothes</strong> after bathing — this is the first wearing of Diwali new clothes for
+                                many families.</span></li>
+                        <li><span class="step-num">3</span><span><strong style="color:var(--text)">Light 14
+                                    diyas</strong> in the evening, placed in every corner of the home — traditionally 14
+                                diyas for Naraka Chaturdashi.</span></li>
+                    </ul>
+                </div>
+
+                <div class="tl-item fu">
+                    <div class="tl-dot"></div>
+                    <div class="day-tag">Day 3 — The Grand Night</div>
+                    <h3>🪔 Diwali Amavasya — The Most Sacred Night</h3>
+                    <p>The most sacred, most joyful, most magnificent night of the entire festival. Check the exact
+                        <strong style="color:var(--gold)">Lakshmi Puja Muhurta</strong> on drikpanchang.com for your
+                        city — the Pradosh Kaal window (typically 6–8 PM) is when Lakshmi is most actively present and
+                        receptive.</p>
+                    <p style="margin-top:10px"><strong style="color:var(--text)">Morning:</strong> Clean the home one
+                        final time. Make fresh rangoli at the entrance — the most elaborate and beautiful of the year.
+                        Traditional motifs include lotus flowers, diyas, Lakshmi's feet (auspicious footprints leading
+                        into the home), swastikas, and geometric patterns.</p>
+                    <p style="margin-top:10px"><strong style="color:var(--text)">Draw Lakshmi's Footprints</strong> —
+                        small footprints made with rice flour paste or rangoli powder from the entrance toward the puja
+                        room, pointing inward. You are literally marking the path for the goddess to walk into your
+                        home. This tradition is deeply moving.</p>
+                    <p style="margin-top:10px"><strong style="color:var(--text)">Setting Up the Altar:</strong> Drape
+                        the altar with red cloth. Place new Lakshmi and Ganesha idols — buy new ones every Diwali,
+                        representing fresh invitations to the divine. Ganesha on the left, Lakshmi on the right. Place
+                        new silver/gold coin, account books (Bahi Khata), lotus flowers, coins and currency, all
+                        jewelry, kaju katli, fruits, and panchamritam before the idols.</p>
+                    <p style="margin-top:12px;color:var(--gold);font-weight:600;font-size:.95rem">The Lakshmi Puja —
+                        Complete Process:</p>
+                    <ul class="step-list">
+                        <li><span class="step-num">1</span><span><strong style="color:var(--text)">Ganesh Puja first —
+                                    always.</strong> Offer flowers and akshat. Chant <em style="color:var(--gold)">"Om
+                                    Gam Ganapataye Namaha"</em> 11 times. No puja begins without Ganesha.</span></li>
+                        <li><span class="step-num">2</span><span><strong style="color:var(--text)">Kalash Puja</strong>
+                                — worship the filled Kalash with Gangajal, mango leaves, and coconut. The Kalash
+                                represents the cosmic ocean from which Lakshmi emerged.</span></li>
+                        <li><span class="step-num">3</span><span><strong style="color:var(--text)">Lakshmi
+                                    Abhishekam</strong> — pour Panchamritam gently over the Lakshmi idol while chanting
+                                <em style="color:var(--gold)">"Om Shri Mahalakshmyai Namaha"</em>. Then bathe with
+                                Gangajal. Dry the idol. Apply kumkum on the forehead. Apply chandan. Offer fresh lotus
+                                flowers — Lakshmi's most sacred flower.</span></li>
+                        <li><span class="step-num">4</span><span><strong style="color:var(--text)">Offer saffron and
+                                    gold</strong> — Lakshmi specifically loves saffron (kesar) and gold-colored items.
+                                Offer a pinch of saffron mixed in milk over the idol.</span></li>
+                        <li><span class="step-num">5</span><span><strong style="color:var(--text)">Chant the Lakshmi
+                                    Mantra 108 times:</strong> <em style="color:var(--gold)">"Om Shri Mahalakshmyai
+                                    Namaha"</em> — the primary mantra of the entire festival.</span></li>
+                        <li><span class="step-num">6</span><span><strong style="color:var(--text)">Recite Shri
+                                    Sukta</strong> — the most important Vedic hymn to Lakshmi, from the Rig Veda, 16
+                                verses. Reciting or listening to Shri Sukta on Diwali night is one of the most powerful
+                                acts of the festival. Available on YouTube in full recitation.</span></li>
+                        <li><span class="step-num">7</span><span><strong style="color:var(--text)">Lakshmi
+                                    Aarti</strong> — wave camphor clockwise with full voice and devotion: <em
+                                    style="color:var(--gold)">"Om Jai Lakshmi Mata, Maiya Jai Lakshmi Mata, Tumko
+                                    Nishdin Sevat, Hari Vishnu Vidhata..."</em></span></li>
+                        <li><span class="step-num">8</span><span><strong style="color:var(--text)">Offer Kaju Katli and
+                                    sweets</strong> as naivedyam. Kaju katli is specifically Lakshmi's favorite
+                                sweet.</span></li>
+                        <li><span class="step-num">9</span><span><strong style="color:var(--text)">Chopda Puja</strong>
+                                — if you run a business or keep accounts: open the new account book, write "Shri" at the
+                                top as the first word, and place it before Lakshmi asking for prosperity and integrity
+                                in your financial dealings throughout the coming year.</span></li>
+                        <li><span class="step-num">10</span><span><strong style="color:var(--text)">Prostrate
+                                    completely</strong> and pray for Lakshmi's blessings — not just for material wealth
+                                but for the abundance of health, happiness, wisdom, and love in your home.</span></li>
+                    </ul>
+                    <p style="margin-top:16px"><strong style="color:var(--text)">Lighting the Diyas:</strong> After puja
+                        — as night falls — light every single diya. Place them in rows along every windowsill, on every
+                        step, along every balcony railing, at the entrance, in the puja room, in the kitchen, in every
+                        room, in the garden. One diya faces outward at the front door to guide Lakshmi from the street.
+                        <strong style="color:var(--gold)">The principle: no darkness anywhere.</strong></p>
+                    <p style="margin-top:10px"><strong style="color:var(--text)">Sweet Distribution:</strong> On Diwali
+                        night take plates of sweets door to door wishing everyone <em style="color:var(--gold)">"Diwali
+                            ki Shubhkamnaayen."</em> This community sharing of sweets on the night of maximum light is
+                        one of the most beautiful social traditions of India.</p>
+                </div>
+
+                <div class="tl-item fu">
+                    <div class="tl-dot"></div>
+                    <div class="day-tag">Day 4 — Govardhan Puja</div>
+                    <h3>🏔 Govardhan Puja — Annakut</h3>
+                    <p>Celebrates <strong style="color:var(--gold)">Krishna lifting the Govardhan hill</strong> on his
+                        finger to shelter the people of Vrindavan from Indra's devastating rains — an act of protecting
+                        his community against the arrogance of power. A small hill of food — <strong
+                            style="color:var(--text)">Annakut</strong> (mountain of food) — is made from <strong
+                            style="color:var(--gold)">56 different food items (Chappan Bhog)</strong> and offered to
+                        Krishna, then distributed as prasad to the entire community.</p>
+                    <p style="margin-top:10px">In Maharashtra this day is celebrated as <strong
+                            style="color:var(--text)">Padwa / Pratipada</strong> — the first day of the new year in the
+                        Vikrama calendar. Husbands give gifts to wives and the marital bond is honored and celebrated.
+                    </p>
+                </div>
+
+                <div class="tl-item fu">
+                    <div class="tl-dot"></div>
+                    <div class="day-tag">Day 5 — Bhai Dooj</div>
+                    <h3>💝 Bhai Dooj — The Bond Between Siblings</h3>
+                    <p>The final day of Diwali — also called <strong style="color:var(--gold)">Bhai Phota or Yama
+                            Dwitiya</strong>. Yama (God of Death) visited his sister <strong
+                            style="color:var(--text)">Yamuna</strong> on this day. She welcomed him with great love —
+                        applied tilak on his forehead, fed him, and prayed for his wellbeing. Yama was so moved he
+                        declared: any brother who receives his sister's tilak on this day will be freed from the fear of
+                        death.</p>
+                    <p style="margin-top:10px">Unlike Raksha Bandhan where the sister asks for protection, <strong
+                            style="color:var(--gold)">Bhai Dooj is the sister giving protection</strong> — her love and
+                        prayer is the shield against death for her brother. Sisters apply tilak (kumkum, chandan, and
+                        rice) on brothers' foreheads and pray for their long life. Brothers give gifts. The family eats
+                        together.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- TRADITIONAL FOODS -->
+    <div class="wrap">
+        <div class="sec-over fu">TRADITIONAL FOODS</div>
+        <h2 class="sec-title fu">Tastes of <span>Diwali</span></h2>
+        <div class="divider fu"></div>
+        <div class="foods-grid">
+            <div class="food-card fu">
+                <div class="food-img"><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80"
+                        alt="Kaju Katli cashew barfi"></div>
+                <div class="food-body">
+                    <div class="food-badge">Most Iconic · Lakshmi's Favourite</div>
+                    <div class="food-name">Kaju Katli</div>
+                    <p class="food-desc">Diamond-shaped cashew and sugar fudge with edible silver vark (leaf). Lakshmi's
+                        favorite offering and the most gifted sweet of the entire Diwali season — distributed to
+                        neighbors, family, and colleagues in silver-foil boxes. The taste of Diwali in one
+                        diamond-shaped bite.</p>
+                </div>
+            </div>
+            <div class="food-card fu">
+                <div class="food-img"><img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?w=600&q=80"
+                        alt="Motichoor Laddoo"></div>
+                <div class="food-body">
+                    <div class="food-badge">North India Favourite</div>
+                    <div class="food-name">Motichoor Laddoo</div>
+                    <p class="food-desc">Tiny golden pearls of gram flour fried and bound into perfect spheres of
+                        sweetness with sugar syrup and aromatic cardamom. Distributed by the hundreds on Diwali night
+                        and offered in large quantities to Lakshmi as naivedyam.</p>
+                </div>
+            </div>
+            <div class="food-card fu">
+                <div class="food-img"><img src="https://images.unsplash.com/photo-1606506187617-36a0f25e7e6d?w=600&q=80"
+                        alt="Gulab Jamun"></div>
+                <div class="food-body">
+                    <div class="food-badge">Festival Classic</div>
+                    <div class="food-name">Gulab Jamun</div>
+                    <p class="food-desc">Soft milk-solid dumplings deep-fried to a rich golden brown and soaked in
+                        rose-flavored sugar syrup — served warm at the Diwali feast and offered as divine naivedyam. The
+                        fragrance of hot gulab jamun in sugar syrup is the fragrance of celebration.</p>
+                </div>
+            </div>
+            <div class="food-card fu">
+                <div class="food-img"><img src="https://images.unsplash.com/photo-1655204032956-8e2c82f9b6ff?w=600&q=80"
+                        alt="Jalebi"></div>
+                <div class="food-body">
+                    <div class="food-badge">Diwali Essential</div>
+                    <div class="food-name">Jalebi</div>
+                    <p class="food-desc">Pretzel-shaped spirals of fermented batter deep-fried and immediately dipped in
+                        saffron-infused sugar syrup. Crispy on the outside, syrup-laden inside — utterly festive and
+                        impossible to eat just one. Sold in huge quantities at every sweet shop during Diwali season.
+                    </p>
+                </div>
+            </div>
+            <div class="food-card fu">
+                <div class="food-img"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80"
+                        alt="Chakli Murukku crispy snack"></div>
+                <div class="food-body">
+                    <div class="food-badge">South &amp; West India</div>
+                    <div class="food-name">Chakli / Murukku</div>
+                    <p class="food-desc">Crispy spiral savory snack made from rice flour and spices — a Diwali essential
+                        in Maharashtra (Chakli) and South India (Murukku). Made at home in large quantities weeks before
+                        Diwali and packed into tins for gifting and sharing.</p>
+                </div>
+            </div>
+            <div class="food-card fu">
+                <div class="food-img"><img src="https://images.unsplash.com/photo-1528975604071-b4dc52a2d18c?w=600&q=80"
+                        alt="Mathri crackers"></div>
+                <div class="food-body">
+                    <div class="food-badge">North India Staple</div>
+                    <div class="food-name">Mathri</div>
+                    <p class="food-desc">Flaky, buttery, deep-fried savory crackers spiced with ajwain and black pepper
+                        — eaten with mango pickle as the quintessential North Indian Diwali snack. Made days in advance
+                        and stored in tins; the go-to accompaniment for tea during the Diwali season.</p>
+                </div>
+            </div>
+            <div class="food-card fu">
+                <div class="food-img"><img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&q=80"
+                        alt="Besan Laddoo gram flour sweet"></div>
+                <div class="food-body">
+                    <div class="food-badge">Homemade Favourite</div>
+                    <div class="food-name">Besan Laddoo</div>
+                    <p class="food-desc">Gram flour slowly roasted in ghee until fragrant and golden, then mixed with
+                        powdered sugar and cardamom and shaped into round laddoos. The warmth of ghee-roasted gram flour
+                        is the fragrance of Diwali kitchens across India — a homemade sweetness impossible to buy.</p>
+                </div>
+            </div>
+            <div class="food-card fu">
+                <div class="food-img"><img src="https://images.unsplash.com/photo-1596797038530-2c107aa8cec5?w=600&q=80"
+                        alt="Premium dry fruit gift box"></div>
+                <div class="food-body">
+                    <div class="food-badge">Corporate &amp; Family Gifting</div>
+                    <div class="food-name">Premium Dry Fruit Boxes</div>
+                    <p class="food-desc">Gifting elegant boxes of cashews, almonds, pistachios, raisins, dried figs, and
+                        saffron to family, friends, and colleagues is one of the most important Diwali gifting
+                        traditions. Diwali is India's biggest gifting season — and dry fruit boxes are its most
+                        auspicious offering.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIDEOS -->
+    <div class="band">
+        <div class="wrap">
+            <div class="sec-over fu">WATCH &amp; LEARN</div>
+            <h2 class="sec-title fu">Explore Diwali <span>Deeper</span></h2>
+            <div class="divider fu"></div>
+            <div class="vids-grid">
+                <div class="vid-card fu">
+                    <div class="vid-thumb">
+                        <img src="https://images.unsplash.com/photo-1574452056399-41a6b0a69e9c?w=600&q=80"
+                            alt="Lakshmi Puja Vidhi">
+                        <div class="vid-overlay">
+                            <div class="play-btn">▶</div>
+                        </div>
+                    </div>
+                    <div class="vid-info">
+                        <div class="vid-title">Lakshmi Puja Vidhi — Complete Step-by-Step</div>
+                        <div class="vid-meta">Full ritual guide with mantras · ~18 min</div>
+                        <a href="https://www.youtube.com/results?search_query=lakshmi+puja+diwali+complete+vidhi"
+                            target="_blank" class="vid-link">Watch on YouTube →</a>
+                    </div>
+                </div>
+                <div class="vid-card fu">
+                    <div class="vid-thumb">
+                        <img src="https://images.unsplash.com/photo-1603366615917-1fa6dad02d81?w=600&q=80"
+                            alt="Shri Sukta chant">
+                        <div class="vid-overlay">
+                            <div class="play-btn">▶</div>
+                        </div>
+                    </div>
+                    <div class="vid-info">
+                        <div class="vid-title">Shri Sukta — Full Vedic Recitation</div>
+                        <div class="vid-meta">Rig Veda hymn to Lakshmi, all 16 verses · ~12 min</div>
+                        <a href="https://www.youtube.com/results?search_query=shri+sukta+full+recitation+rig+veda"
+                            target="_blank" class="vid-link">Watch on YouTube →</a>
+                    </div>
+                </div>
+                <div class="vid-card fu">
+                    <div class="vid-thumb">
+                        <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80"
+                            alt="Rangoli tutorial">
+                        <div class="vid-overlay">
+                            <div class="play-btn">▶</div>
+                        </div>
+                    </div>
+                    <div class="vid-info">
+                        <div class="vid-title">Beautiful Diwali Rangoli Designs</div>
+                        <div class="vid-meta">Art tutorial for all skill levels · ~25 min</div>
+                        <a href="https://www.youtube.com/results?search_query=diwali+rangoli+designs+easy+lotus+footprints"
+                            target="_blank" class="vid-link">Watch on YouTube →</a>
+                    </div>
+                </div>
+                <div class="vid-card fu">
+                    <div class="vid-thumb">
+                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80"
+                            alt="Kaju Katli recipe">
+                        <div class="vid-overlay">
+                            <div class="play-btn">▶</div>
+                        </div>
+                    </div>
+                    <div class="vid-info">
+                        <div class="vid-title">Make Kaju Katli at Home</div>
+                        <div class="vid-meta">Traditional Diwali sweet recipe · ~20 min</div>
+                        <a href="https://www.youtube.com/results?search_query=kaju+katli+recipe+diwali+homemade+traditional"
+                            target="_blank" class="vid-link">Watch on YouTube →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRADITIONS -->
+    <div class="wrap">
+        <div class="sec-over fu">RITUALS &amp; TRADITIONS</div>
+        <h2 class="sec-title fu">Sacred <span>Practices</span></h2>
+        <div class="divider fu"></div>
+        <div class="trad-grid">
+            <div class="trad-card fu">
+                <span class="trad-icon">🏠</span>
+                <div class="trad-name">Diwali Safai — Deep Cleaning</div>
+                <p class="trad-desc">In the weeks before Diwali, every home undergoes the most thorough deep cleaning of
+                    the year. Every corner, shelf, and piece of furniture is cleaned. Old, broken, and unused items are
+                    discarded. This is not merely housekeeping — it is spiritual preparation. Lakshmi represents order,
+                    beauty, and abundance; a clean home already expresses her qualities and she recognizes herself in
+                    it.</p>
+            </div>
+            <div class="trad-card fu">
+                <span class="trad-icon">👣</span>
+                <div class="trad-name">Drawing Lakshmi's Footprints</div>
+                <p class="trad-desc">Small footprints are drawn with rice flour paste from the entrance toward the puja
+                    room, pointing inward — inviting Lakshmi to walk into your home. This tradition is deeply moving:
+                    you are literally marking the path for the goddess to enter. One of the most beautiful and intimate
+                    rituals of the entire festival.</p>
+            </div>
+            <div class="trad-card fu">
+                <span class="trad-icon">📒</span>
+                <div class="trad-name">Chopda Puja — Blessing the Books</div>
+                <p class="trad-desc">Businesspeople place their Bahi Khata (account books) before Lakshmi on Diwali
+                    night. The new account book is opened, the first word written is "Shri" as a blessing, and the first
+                    entry is made. This tradition — especially important in Gujarat and Rajasthan — invites Lakshmi's
+                    blessing into every financial transaction of the coming year.</p>
+            </div>
+            <div class="trad-card fu">
+                <span class="trad-icon">🛁</span>
+                <div class="trad-name">Abhyanga Snanam — The Oil Bath</div>
+                <p class="trad-desc">On Choti Diwali (Day 2), waking before sunrise for the ritual oil bath is
+                    essential. Warm sesame or coconut oil is applied all over the body and hair, massaged in deeply,
+                    then bathed off with warm water before the sun rises. This pre-dawn ritual connects you to Krishna's
+                    ancient celebration of Narakasura's defeat — liberation enacted in the body.</p>
+            </div>
+            <div class="trad-card fu">
+                <span class="trad-icon">🍬</span>
+                <div class="trad-name">Sweet Distribution — Door to Door</div>
+                <p class="trad-desc">On Diwali night, families take plates of sweets and go door to door wishing
+                    everyone "Diwali ki Shubhkamnaayen." This community sharing of sweets on the night of maximum light
+                    is one of the most beautiful social traditions in all of India — a gesture of abundance freely
+                    shared with every neighbor.</p>
+            </div>
+            <div class="trad-card fu">
+                <span class="trad-icon">🪙</span>
+                <div class="trad-name">Dhanteras Shopping</div>
+                <p class="trad-desc">Purchasing gold, silver, or new utensils on Dhanteras is considered extremely
+                    auspicious — even buying a small silver coin fulfills this tradition. Lakshmi is said to enter your
+                    home through new purchases made on this day. Diwali is India's biggest shopping season and Dhanteras
+                    marks its most sacred beginning.</p>
+            </div>
+            <div class="trad-card fu">
+                <span class="trad-icon">🎨</span>
+                <div class="trad-name">Rangoli at the Entrance</div>
+                <p class="trad-desc">The most elaborate rangoli of the year is made at the entrance on Diwali morning.
+                    Traditional motifs include lotus flowers (Lakshmi's sacred flower), diyas, Lakshmi's footprints,
+                    swastikas (ancient symbol of auspiciousness), and geometric patterns in vibrant colors. Rangoli is a
+                    visual welcome mat for the goddess herself.</p>
+            </div>
+            <div class="trad-card fu">
+                <span class="trad-icon">🪔</span>
+                <div class="trad-name">No Darkness Anywhere</div>
+                <p class="trad-desc">The guiding principle of Diwali lighting is absolute: no darkness anywhere in the
+                    home. Diyas are placed on every windowsill, every step, every balcony railing, in every room, in the
+                    kitchen, in the puja room, in the garden. One diya faces outward at the front door — to guide
+                    Lakshmi toward your home from the street itself.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHOPPING GUIDE -->
+    <div class="band">
+        <div class="wrap">
+            <div class="sec-over fu">PREPARATION</div>
+            <h2 class="sec-title fu">Diwali <span>Shopping Guide</span></h2>
+            <div class="divider fu"></div>
+            <div class="shop-grid">
+                <div class="shop-card fu">
+                    <div class="shop-icon">🏪</div>
+                    <div class="shop-title">General Store / Market</div>
+                    <ul class="shop-list">
+                        <li>Clay diyas — buy large quantities, more than you think you need</li>
+                        <li>Mustard oil or sesame oil for the diyas</li>
+                        <li>Cotton wicks</li>
+                        <li>Candles in various sizes</li>
+                        <li>Rangoli colors — red, yellow, white, green, orange powder</li>
+                        <li>Rice flour for rangoli base</li>
+                        <li>String lights for exterior decoration</li>
+                        <li>Marigold garlands for every doorway</li>
+                        <li>Paper lanterns for balconies</li>
+                    </ul>
+                </div>
+                <div class="shop-card fu">
+                    <div class="shop-icon">🛕</div>
+                    <div class="shop-title">Puja Shop</div>
+                    <ul class="shop-list">
+                        <li>New Lakshmi &amp; Ganesha idols — buy new ones every Diwali</li>
+                        <li>Kumkum, turmeric, chandan, camphor, incense</li>
+                        <li>Mauli thread, whole coconut, betel leaves, akshat</li>
+                        <li>Gangajal (Ganga water)</li>
+                        <li>Lotus flowers — Lakshmi's most sacred flower</li>
+                        <li>Panchamritam ingredients (milk, curd, honey, ghee, sugar)</li>
+                        <li>Silver or gold coin for Lakshmi puja</li>
+                        <li>Red cloth for the puja altar</li>
+                    </ul>
+                </div>
+                <div class="shop-card fu">
+                    <div class="shop-icon">🍬</div>
+                    <div class="shop-title">Sweet Shop</div>
+                    <ul class="shop-list">
+                        <li>Kaju katli — essential, buy large quantities for distribution</li>
+                        <li>Motichoor or besan laddoo</li>
+                        <li>Assorted barfi for gifting</li>
+                        <li>Gulab jamun and jalebi for the feast</li>
+                        <li>Dry fruit gift boxes for family &amp; colleagues</li>
+                        <li>Chakli / Murukku / Mathri — savory snacks</li>
+                        <li>Coconut laddoo for naivedyam</li>
+                    </ul>
+                </div>
+                <div class="shop-card fu">
+                    <div class="shop-icon">🥻</div>
+                    <div class="shop-title">Clothing &amp; Jewelry</div>
+                    <ul class="shop-list">
+                        <li>The most beautiful traditional clothes you own — Diwali demands it</li>
+                        <li>Women: sarees or lehengas in rich, deep colors</li>
+                        <li>Men: kurta-pajama or sherwani</li>
+                        <li>Gold jewelry is specifically auspicious on Diwali</li>
+                        <li>New clothes for children — worn first on Choti Diwali morning</li>
+                        <li>Buy gold or silver on Dhanteras — even one small coin counts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MANTRAS -->
+    <div class="wrap">
+        <div class="sec-over fu">SACRED MANTRAS &amp; PRAYERS</div>
+        <h2 class="sec-title fu">Words of <span>Light</span></h2>
+        <div class="divider fu"></div>
+
+        <div class="mantra-block fu">
+            <div class="m-label">Primary Lakshmi Mantra · Chant 108 Times During Puja</div>
+            <div class="m-sanskrit">"Om Shri Mahalakshmyai Namaha"</div>
+            <div class="m-meaning">I bow to the Great Goddess Lakshmi — source of all abundance, beauty, prosperity, and
+                grace. This is the most important mantra of Diwali, chanted 108 times during the Lakshmi puja. The
+                number 108 is sacred in Hindu tradition.</div>
+        </div>
+
+        <div class="mantra-block fu">
+            <div class="m-label">Shri Sukta Opening Verse · Rig Veda — Most Powerful Diwali Recitation</div>
+            <div class="m-sanskrit">"Hiranya Varnaam Harineem, Suvarna Rajata Srajaam<br>Chandraam Hiranmayeem
+                Lakshmeem, Jaatavedo Ma Aavaha"</div>
+            <div class="m-meaning"><strong style="color:var(--text)">Meaning:</strong> "O Agni — bring to me Lakshmi who
+                is golden complexioned, who wears garlands of gold and silver, who is radiant like the moon." Reciting
+                or listening to all 16 verses of Shri Sukta on Diwali night is one of the most powerful acts of the
+                festival. Available on YouTube — search "Shri Sukta full recitation."</div>
+        </div>
+
+        <div class="mantra-block fu">
+            <div class="m-label">Lakshmi Gayatri Mantra</div>
+            <div class="m-sanskrit">"Om Mahadevyai Cha Vidmahe, Vishnu Patnyai Cha Dheemahi<br>Tanno Lakshmi
+                Prachodayat"</div>
+            <div class="m-meaning"><strong style="color:var(--text)">Meaning:</strong> We meditate on the great goddess,
+                consort of Vishnu — may Lakshmi illuminate and inspire us toward abundance and wisdom.</div>
+        </div>
+
+        <div class="mantra-block fu">
+            <div class="m-label">Kubera Mantra · God of Wealth — Worshipped Alongside Lakshmi on Diwali</div>
+            <div class="m-sanskrit">"Om Yakshaya Kuberaya Vaishravanaya Dhana Dhanyadi Pataye<br>Dhana Dhanya Samriddhim
+                Me Dehi Dapaya Swaha"</div>
+            <div class="m-meaning"><strong style="color:var(--text)">Meaning:</strong> O Kubera — Lord of Yakshas, son
+                of Vishrava, master of wealth and grain — grant me abundance of wealth and grain. Kubera is the
+                treasurer of the Gods and is specifically worshipped alongside Lakshmi on Diwali night for material
+                abundance.</div>
+        </div>
+
+        <div class="mantra-block fu">
+            <div class="m-label">Lakshmi Aarti — Sung While Waving Camphor Flame</div>
+            <div class="m-sanskrit">"Om Jai Lakshmi Mata, Maiya Jai Lakshmi Mata<br>Tumko Nishdin Sevat, Hari Vishnu
+                Vidhata<br>Om Jai Lakshmi Mata"</div>
+            <div class="m-meaning">The most beloved Lakshmi aarti — sung while waving a lit camphor flame clockwise
+                before the goddess idol. Sing with full voice and devotion. The sound and the flame together are the
+                offering.</div>
+        </div>
+
+        <div class="mantra-block fu">
+            <div class="m-label">Dhanvantari Mantra · For Dhanteras — Praying for Health of All Family Members</div>
+            <div class="m-sanskrit">"Om Namo Bhagavate Vasudevaya Dhanvantaraye<br>Amrita Kalasha Hastaya Sarva Amaya
+                Vinashanaya<br>Trailokya Nathaya Sri Maha Vishnave Namaha"</div>
+            <div class="m-meaning"><strong style="color:var(--text)">Meaning:</strong> O Lord Dhanvantari — holding the
+                pot of immortal nectar, destroyer of all diseases, lord of the three worlds, the great Vishnu — I bow to
+                you. Chanted on Dhanteras while lighting the diya, praying specifically for the health and healing of
+                every family member.</div>
+        </div>
+
+        <div class="mantra-block fu">
+            <div class="m-label">Diwali Greeting Prayer</div>
+            <div class="m-sanskrit">"Deepavali ki Subhkamnaayein —<br>Aapke Jeevan mein Sukh, Samridhi, aur Prakash bana
+                rahe"</div>
+            <div class="m-meaning"><strong style="color:var(--text)">Meaning:</strong> Diwali greetings — may happiness,
+                prosperity, and light remain in your life always. The traditional greeting shared door to door when
+                distributing sweets on Diwali night.</div>
+        </div>
+    </div>
+
+    <!-- DOS & DONTS -->
+    <div class="band">
+        <div class="wrap">
+            <div class="sec-over fu">GUIDE</div>
+            <h2 class="sec-title fu">Do's &amp; <span>Don'ts</span></h2>
+            <div class="divider fu"></div>
+            <div class="dd-grid">
+                <div class="dd-card do-card fu">
+                    <div class="dd-title"><span>✅</span> Essential Do's</div>
+                    <ul class="dd-list">
+                        <li><span class="ico">🏠</span><span>Deep clean the entire home before Diwali — every corner,
+                                without exception</span></li>
+                        <li><span class="ico">🛕</span><span>Buy new Lakshmi and Ganesha idols specifically for this
+                                year's puja — fresh invitation</span></li>
+                        <li><span class="ico">⏰</span><span>Check and strictly follow the Lakshmi Puja Muhurta on
+                                drikpanchang.com — timing is everything</span></li>
+                        <li><span class="ico">👣</span><span>Draw Lakshmi's footprints from entrance to puja room —
+                                invite her to walk in</span></li>
+                        <li><span class="ico">🪔</span><span>Light maximum diyas — no darkness anywhere in the
+                                home</span></li>
+                        <li><span class="ico">📖</span><span>Recite Shri Sukta during Lakshmi puja — the most powerful
+                                Vedic offering of the night</span></li>
+                        <li><span class="ico">📒</span><span>Open new account book (Chopda Puja) if you run a business —
+                                write "Shri" first</span></li>
+                        <li><span class="ico">🍬</span><span>Distribute sweets to neighbors on Diwali night — go door to
+                                door</span></li>
+                        <li><span class="ico">🛁</span><span>Take oil bath before sunrise on Choti Diwali — this timing
+                                is essential</span></li>
+                        <li><span class="ico">🪙</span><span>Buy gold or silver on Dhanteras — even one small coin
+                                fulfills the tradition</span></li>
+                        <li><span class="ico">💝</span><span>Observe Bhai Dooj on the fifth day — the sister's tilak
+                                completes the festival</span></li>
+                        <li><span class="ico">♻️</span><span>Use eco-friendly / green crackers if observing the
+                                firecracker tradition</span></li>
+                    </ul>
+                </div>
+                <div class="dd-card dont-card fu">
+                    <div class="dd-title"><span>❌</span> Important Don'ts</div>
+                    <ul class="dd-list">
+                        <li><span class="ico">⏱</span><span>Do not perform Lakshmi Puja outside the Muhurta window if
+                                avoidable — the timing window is sacred</span></li>
+                        <li><span class="ico">🏭</span><span>Do not use Plaster of Paris or chemically painted diyas —
+                                use only natural clay diyas</span></li>
+                        <li><span class="ico">💨</span><span>Do not use excessive firecrackers — be deeply considerate
+                                of health, animals, and environment</span></li>
+                        <li><span class="ico">🃏</span><span>Do not gamble on Diwali — though common, it is not part of
+                                the authentic spiritual tradition</span></li>
+                        <li><span class="ico">📱</span><span>Do not let Diwali become only about shopping — the puja,
+                                diyas, and community are its true heart</span></li>
+                        <li><span class="ico">🚪</span><span>Do not skip the sweet distribution — going door to door
+                                with sweets is one of India's most beautiful human traditions</span></li>
+                        <li><span class="ico">🕯️</span><span>Do not leave diyas unattended near curtains or flammable
+                                materials — fire safety is non-negotiable</span></li>
+                        <li><span class="ico">🌑</span><span>Do not leave any room, corner, or space in darkness —
+                                Lakshmi does not enter dark places</span></li>
+                        <li><span class="ico">🐾</span><span>Do not light firecrackers near animals, elderly people, or
+                                those with respiratory conditions</span></li>
+                        <li><span class="ico">🧹</span><span>Do not perform Lakshmi Puja in an uncleaned space — prepare
+                                the home and altar first</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLOSING QUOTE -->
+    <div class="closing">
+        <p class="closing-text">
+            "Diwali is the festival that chose the darkest night of the year to light the most lights. It did not wait
+            for an easier night. It chose <span class="closing-em">Amavasya</span> — complete darkness — and said: <span
+                class="closing-em">this is exactly when we light every lamp we have.</span> Because that is what light
+            is for. Not for when it is already bright. But for the darkest night. For the most difficult moment. For the
+            place where darkness feels most permanent. That is when you light a diya."
+        </p>
+        <div style="font-size:2.4rem;margin:28px 0 16px">🪔 ✨ 🌺 🙏</div>
+        <p style="color:var(--muted);font-size:.88rem;letter-spacing:.07em">शुभ दीपावली · Happy Diwali · ਦੀਵਾਲੀ ਮੁਬਾਰਕ ·
+            ஸ்ரீ தீபாவளி நல்வாழ்த்துக்கள்</p>
+    </div>
+
+    <footer>
+        <p style="margin-bottom:8px;font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--muted)">
+            Celebrating Unity in Diversity</p>
+        <p>© 2026 <a href="festival-card.html">Festivals of India</a> · Made with 🪔 in India</p>
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div id="lb" onclick="closeLb()">
+        <button id="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="">
+    </div>
+
+    <script>
+        // Cursor glow
+        document.addEventListener('mousemove', e => {
+            const g = document.getElementById('cg');
+            g.style.left = e.clientX + 'px';
+            g.style.top = e.clientY + 'px';
+        });
+
+        // Sparkles
+        function makeSparkle() {
+            const s = document.createElement('div');
+            s.className = 'sp';
+            s.style.cssText = `left:${Math.random() * 100}vw;top:${Math.random() * 100}vh;animation-delay:${Math.random() * 1.5}s;animation-duration:${2.5 + Math.random() * 2.5}s;background:${['#ffd166', '#ff9f1c', '#ffffff', '#ffcc44', '#ff6b6b', '#fffde7'][Math.floor(Math.random() * 6)]}`;
+            document.body.appendChild(s);
+            setTimeout(() => s.remove(), 5500);
+        }
+        setInterval(makeSparkle, 380);
+
+        // Scroll reveal
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) setTimeout(() => e.target.classList.add('vis'), i * 75);
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+        // Lightbox
+        function openLb(el) {
+            const src = el.querySelector('img').src;
+            document.getElementById('lb-img').src = src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+    </script>
+</body>
+
+</html>

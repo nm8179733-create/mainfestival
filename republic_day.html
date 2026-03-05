@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Republic Day — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+       DESIGN TOKENS — your website's palette
+    ═══════════════════════════════════════════ */
+        :root {
+            --bg: #0d1117;
+            --bg-2: #111827;
+            --card: #161d2e;
+            --card-2: #1b2338;
+            --card-3: #1e2a40;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --yellow: #b45309;
+            /* Indian saffron — courage */
+            --yellow-lt: #f59e0b;
+            --yellow-dim: rgba(180, 83, 9, 0.10);
+            --yellow-glow: rgba(180, 83, 9, 0.22);
+            --pink: #1e3a8a;
+            /* Ashoka Chakra navy blue */
+            --pink-dim: rgba(30, 58, 138, 0.12);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ─── SCROLLBAR — matches your pink accent ─── */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 3px;
+        }
+
+        /* ══════════════════════════════════════
+       FLOATING PARTICLE BACKGROUND
+    ══════════════════════════════════════ */
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(22, 29, 46, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        /* Gradient mesh background on hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(244, 63, 94, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(245, 158, 11, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 20% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Animated grid lines */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 3.5s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 32px rgba(245, 158, 11, 0.35));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp 0.7s 0.15s var(--ease) both;
+        }
+
+        /* Split-text reveal for the title */
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp 0.7s 0.28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--yellow);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Underline swipe on accent word */
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--yellow), var(--pink));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn 0.8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp 0.7s 0.4s var(--ease) both;
+        }
+
+        /* Date pill */
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--yellow-lt);
+            animation: slideUp 0.7s 0.52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--pink);
+            border-radius: 50%;
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Hero quick-stats row */
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 0.7s 0.65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--yellow);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════ */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        /* ─── SECTION HEADING — identical to your site ─── */
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--pink) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ══════════════════════════════════════
+       ABOUT BLOCK
+    ══════════════════════════════════════ */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        /* Myth quote */
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--yellow);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--yellow-lt);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       REGION CARDS — matches your site layout
+    ══════════════════════════════════════ */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .region-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+            cursor: default;
+        }
+
+        .region-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .region-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: var(--card-2);
+        }
+
+        .region-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .region-also {
+            font-size: 11px;
+            color: var(--pink);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .region-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       CEREMONY STEPS — activities style
+    ══════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* Shimmer sweep */
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--yellow-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-mantra {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: var(--card-3);
+            border-left: 2px solid var(--yellow);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 12.5px;
+            color: var(--yellow-lt);
+            line-height: 1.65;
+            font-family: var(--font-serif);
+        }
+
+        /* ══════════════════════════════════════
+       WHAT YOU NEED — chip list
+    ══════════════════════════════════════ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition:
+                opacity 0.4s var(--ease),
+                transform 0.4s var(--ease),
+                border-color 0.2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--yellow);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       PHOTO GALLERY
+    ══════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition:
+                opacity 0.55s var(--ease),
+                transform 0.55s var(--ease),
+                border-color 0.2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.82) saturate(0.88);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.95) saturate(1.05);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(13, 17, 23, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Placeholder when no image */
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* ══════════════════════════════════════
+       VIDEO CARDS
+    ══════════════════════════════════════ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.7);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--yellow-lt);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(245, 158, 11, 0.25);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--pink);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       MANTRAS / PRAYERS BLOCK
+    ══════════════════════════════════════ */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--yellow-lt);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+       DO'S & DON'TS
+    ══════════════════════════════════════ */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: var(--pink);
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+       SIGNIFICANCE BLOCK — like your site
+    ══════════════════════════════════════ */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════════════
+       CLOSING QUOTE
+    ══════════════════════════════════════ */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: var(--yellow-lt);
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 17, 23, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn 0.25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Preamble quote */
+        .preamble-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--yellow-lt);
+            border-radius: var(--radius);
+            padding: 24px 26px;
+            margin-top: 16px;
+        }
+
+        .preamble-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--yellow-lt);
+            margin-bottom: 14px;
+        }
+
+        .preamble-text {
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text);
+            font-style: italic;
+        }
+
+        .preamble-text strong {
+            color: var(--yellow-lt);
+            font-style: normal;
+        }
+
+        /* Anthem block */
+        .anthem-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-top: 14px;
+            font-style: italic;
+            font-size: 13px;
+            line-height: 2;
+            color: var(--text-dim);
+        }
+
+        /* Awards grid */
+        .award-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .award-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .award-card:hover {
+            border-color: var(--border-md);
+            transform: translateY(-2px);
+        }
+
+        .award-medal {
+            font-size: 22px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .award-name {
+            font-weight: 700;
+            color: var(--yellow-lt);
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .award-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Particle canvas -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Back button -->
+    <a class="back-btn" href="festival-card.html">← Back</a>
+
+    <!-- Lightbox -->
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <span class="hero-emoji">🇮🇳</span>
+        <p class="hero-eyebrow">January 26 · Fixed Date · National Day · The Constitution of India</p>
+        <h1 class="hero-title">Re<span class="accent">public Day</span></h1>
+        <p class="hero-subtitle">The Day India's Constitution Came Alive — Justice, Liberty, Equality, Fraternity</p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            January 26, 2027 &nbsp;·&nbsp; 78th Republic Day
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">1950</div>
+                <div class="sl">Constitution Enacted</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">395</div>
+                <div class="sl">Articles</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">52s</div>
+                <div class="sl">National Anthem</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">∞</div>
+                <div class="sl">Rights of Every Indian</div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PAGE BODY
+  ══════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── ABOUT ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>On <strong>January 26, 1950</strong>, the Constitution of India came into effect — replacing the
+                    Government of India Act and making India a fully sovereign, democratic republic. The date was
+                    deliberately chosen: on January 26, 1930, the Indian National Congress had declared <strong>Purna
+                        Swaraj</strong> — complete independence — as its goal during the freedom struggle.</p>
+                <p>Republic Day is not a religious festival. It belongs equally to every Indian regardless of religion,
+                    caste, language, or region. It is a day to honor the Constitution, the armed forces, India's
+                    extraordinary diversity, and the sacrifices that made this nation free.</p>
+                <div class="myth-quote">
+                    "Independence Day marks freedom from British rule. Republic Day marks something equally profound —
+                    the moment India gave itself its own set of laws, values, and governance. Dr. B.R. Ambedkar and the
+                    Constituent Assembly spent 2 years, 11 months, and 18 days drafting the document. It remains the
+                    longest written constitution of any sovereign nation in the world."
+                </div>
+            </div>
+        </div>
+
+        <!-- ── PREAMBLE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📜</span> The Preamble — Read This Aloud as a Family</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>The Preamble is one of the most powerful statements of national values ever written. On Republic Day,
+                    reading it aloud as a family takes 60 seconds and means everything.</p>
+            </div>
+            <div class="preamble-block">
+                <div class="preamble-label">📜 Preamble to the Constitution of India</div>
+                <div class="preamble-text">
+                    WE, THE PEOPLE OF INDIA, having solemnly resolved to constitute India into a <strong>SOVEREIGN
+                        SOCIALIST SECULAR DEMOCRATIC REPUBLIC</strong> and to secure to all its citizens:<br><br>
+                    <strong>JUSTICE</strong>, social, economic and political;<br>
+                    <strong>LIBERTY</strong> of thought, expression, belief, faith and worship;<br>
+                    <strong>EQUALITY</strong> of status and of opportunity;<br>
+                    and to promote among them all <strong>FRATERNITY</strong> assuring the dignity of the individual and
+                    the unity and integrity of the Nation —<br><br>
+                    IN OUR CONSTITUENT ASSEMBLY this twenty-sixth day of November, 1949, do HEREBY <strong>ADOPT, ENACT
+                        AND GIVE TO OURSELVES THIS CONSTITUTION.</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SIGNIFICANCE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Republic Day is a reminder that India is not just a geography — it is an idea. An idea that people of
+                every religion, language, caste, and background can live together as equals under one Constitution, with
+                rights that no king or government can take away. <strong>That idea was written down on January 26, 1950.
+                    Our job, every year, is to make sure it stays alive.</strong>
+            </div>
+        </div>
+
+        <!-- ── THE PARADE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎖️</span> The Republic Day Parade — Kartavya Path, New Delhi</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Opening</div>
+                    <div class="step-title">Flag Unfurling &amp; 21-Gun Salute</div>
+                    <p class="step-desc">The President of India — constitutional head of the nation and Supreme
+                        Commander of the Armed Forces — arrives at Kartavya Path. The National Flag is unfurled and the
+                        National Anthem plays. <strong>21-gun salute rings out simultaneously.</strong> Every Indian
+                        present stands at complete attention for the full 52 seconds.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Armed Forces</div>
+                    <div class="step-title">Military March Past</div>
+                    <p class="step-desc">The parade opens with the armed forces — Army, Navy, and Air Force — marching
+                        in immaculate formation, displaying India's military strength and discipline. Regimental bands
+                        play as contingents pass the saluting base. The precision and pride in each marching step
+                        carries the weight of India's defense.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Most Beloved</div>
+                    <div class="step-title">State &amp; Ministry Tableaux</div>
+                    <p class="step-desc">Decorated floats from every state and Union Territory, each depicting the
+                        culture, heritage, art, and achievements of that region — Kerala's Kathakali, Rajasthan's forts,
+                        Assam's one-horned rhino, Gujarat's tribal arts, Ladakh's monasteries. A moving, visual
+                        celebration of India's extraordinary diversity passing in a single procession.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Youth &amp; Culture</div>
+                    <div class="step-title">School Children &amp; Folk Dancers</div>
+                    <p class="step-desc">School children perform synchronized mass drills and cultural displays. NSS and
+                        NCC cadets march in formation. Folk dancers from across India — each in their traditional
+                        costume — perform on the parade route. It is impossible to watch and not feel the sheer scope of
+                        what India contains.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Spectacular</div>
+                    <div class="step-title">Motorcycle Stunts &amp; BSF Camels</div>
+                    <p class="step-desc">BSF and armed forces jawans perform breathtaking motorcycle stunts — multiple
+                        people on a single moving motorcycle in formations. The BSF camel contingent in their ceremonial
+                        uniform is a beloved parade tradition. Each display is a testament to the skill and discipline
+                        of India's paramilitary forces.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Grand Finale</div>
+                    <div class="step-title">Air Force Flypast</div>
+                    <p class="step-desc">The parade concludes with the Indian Air Force flypast — fighter jets,
+                        helicopters, and transport aircraft flying in formation over Kartavya Path. Often in tricolor
+                        formations releasing <strong>saffron, white, and green smoke trails</strong> across the Delhi
+                        sky. The roar of the jets overhead is the punctuation mark of the entire day.</p>
+                </div>
+            </div>
+            <div class="about-block" style="margin-top:16px;">
+                <p><strong>How to watch:</strong> Live on <strong>Doordarshan (DD National)</strong> and all major news
+                    channels from ~10 AM, or on YouTube (Doordarshan News channel). Tickets for in-person viewing at
+                    Kartavya Path are available via <strong>aamantran.mod.gov.in</strong> from early January.</p>
+            </div>
+        </div>
+
+        <!-- ── GALLANTRY AWARDS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🏅</span> Gallantry Awards — The Heart of Republic Day</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>One of the most moving parts of Republic Day is the presentation of <strong>Gallantry Awards</strong>
+                    — honors given to military and civilian personnel for acts of extraordinary bravery. When a widow
+                    walks up to receive her husband's award posthumously, or a child receives it on behalf of a parent
+                    who gave their life — that moment is the true meaning of Republic Day. <strong>Watch for these
+                        moments in the telecast.</strong></p>
+            </div>
+            <div class="award-grid">
+                <div class="award-card">
+                    <span class="award-medal">⭐</span>
+                    <div class="award-name">Param Vir Chakra</div>
+                    <div class="award-desc">India's highest military honor — for the most conspicuous acts of bravery in
+                        the face of the enemy. Equivalent to the Victoria Cross or Medal of Honor.</div>
+                </div>
+                <div class="award-card">
+                    <span class="award-medal">🔵</span>
+                    <div class="award-name">Ashoka Chakra</div>
+                    <div class="award-desc">The highest peacetime gallantry award — for acts of bravery not in the
+                        presence of the enemy. Often awarded to police, CRPF, and intelligence officers.</div>
+                </div>
+                <div class="award-card">
+                    <span class="award-medal">🟡</span>
+                    <div class="award-name">Vir Chakra</div>
+                    <div class="award-desc">The third-highest wartime gallantry award — for acts of bravery in the
+                        presence of the enemy, on the battlefield or during operations.</div>
+                </div>
+                <div class="award-card">
+                    <span class="award-medal">🟢</span>
+                    <div class="award-name">Kirti &amp; Shaurya Chakra</div>
+                    <div class="award-desc">Second and third highest peacetime gallantry awards — for acts of bravery in
+                        peacetime operations, counter-insurgency, and civilian heroism.</div>
+                </div>
+                <div class="award-card">
+                    <span class="award-medal">🫡</span>
+                    <div class="award-name">Padma Awards</div>
+                    <div class="award-desc">Padma Vibhushan, Padma Bhushan, and Padma Shri — civilian honors announced
+                        on Republic Day for extraordinary contributions to arts, science, social service, and public
+                        affairs.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── FLAG HOISTING AT HOME ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🚩</span> Hoisting the Flag at Home — Correctly</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Your Right</div>
+                    <div class="step-title">Flag Code of India, 2002</div>
+                    <p class="step-desc">Hoisting the National Flag at your home on Republic Day is your right as a
+                        citizen — affirmed by the Flag Code of India, 2002. Buy a proper <strong>Khadi or polyester
+                            flag</strong> from a certified vendor, post office, or government-approved seller. The
+                        Bureau of Indian Standards has exact specifications — never buy a low-quality paper flag.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Hoisting</div>
+                    <div class="step-title">Hoist It — Don't Just Hang It</div>
+                    <p class="step-desc">The flag must be <strong>hoisted on a pole</strong> so it flies freely in the
+                        air — not draped limp against a wall. <strong>Saffron stripe always at the top.</strong> Never
+                        upside down (green on top). The Ashoka Chakra must be clearly visible on both sides. The flag is
+                        raised at sunrise and brought down at sunset — not left out overnight.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Respect</div>
+                    <div class="step-title">The Flag Must Be Pristine</div>
+                    <p class="step-desc">A torn, faded, or dirty flag must <strong>never</strong> be displayed — this is
+                        considered disrespectful. Do not let the flag touch the ground at any time during hoisting or
+                        lowering. If a flag is damaged or worn out, it must be disposed of privately and with dignity —
+                        not thrown in a bin or burned in public.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Community</div>
+                    <div class="step-title">Society &amp; School Flag Hoisting</div>
+                    <p class="step-desc">Attend your local housing society, school, or office flag hoisting. Stand at
+                        complete attention during the National Anthem — feet together, hands by sides, head straight, no
+                        movement for the full 52 seconds. After the hoisting, <strong>laddoos are distributed</strong>
+                        to all present — the small, sweet act of sharing that makes the national moment into a community
+                        moment.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── NATIONAL ANTHEM ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎵</span> Jana Gana Mana — The National Anthem</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Composed by <strong>Rabindranath Tagore</strong> and adopted as the National Anthem on January 24,
+                    1950 — just two days before the first Republic Day. Duration: exactly <strong>52 seconds.</strong>
+                    Stand straight, at complete attention, for the full 52 seconds. This is the law and the least we can
+                    do.</p>
+            </div>
+            <div class="anthem-block">
+                Jana gana mana adhinayaka jaya he &nbsp;·&nbsp; Bharata bhagya vidhata<br>
+                Punjab Sindhu Gujarata Maratha &nbsp;·&nbsp; Dravida Utkala Banga<br>
+                Vindhya Himachala Yamuna Ganga &nbsp;·&nbsp; Uchchhala jaladhi taranga<br>
+                Tava shubha name jage &nbsp;·&nbsp; Tava shubha asisa mage<br>
+                Gahe tava jaya gatha<br>
+                Jana gana mangala dayaka jaya he &nbsp;·&nbsp; Bharata bhagya vidhata<br>
+                <strong>Jaya he, jaya he, jaya he &nbsp;·&nbsp; Jaya jaya jaya jaya he</strong>
+            </div>
+        </div>
+
+        <!-- ── HOW TO CELEBRATE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎨</span> How to Celebrate — At Home &amp; Community</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Creative</div>
+                    <div class="step-title">Make a Tricolor Rangoli</div>
+                    <p class="step-desc">At your entrance, make a rangoli in <strong>saffron, white, and green</strong>
+                        — using colored powder, flower petals, or rice flour. Place an Ashoka Chakra at the center using
+                        blue flowers or powder. A beautiful, creative act of patriotic decoration that transforms your
+                        doorstep into a statement.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Community</div>
+                    <div class="step-title">Cook &amp; Share with Neighbors</div>
+                    <p class="step-desc">Prepare sweets or food and share with neighbors — especially those who live
+                        alone, the elderly, or families in need. Sharing food on a national day is a simple but powerful
+                        act of community. This is what the Constitution's fraternity looks like in practice — not in
+                        words but in a plate of sweets at someone's door.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Most Important</div>
+                    <div class="step-title">Teach Children the Meaning of Today</div>
+                    <p class="step-desc">Don't let Republic Day pass as just a holiday. Explain to children what the
+                        Constitution is, why January 26th matters, who Dr. Ambedkar was, what the fundamental rights
+                        are, and why freedom fighters sacrificed what they did. Even five minutes of this conversation
+                        is more valuable than any textbook. It is the most important thing you can do today.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Evening</div>
+                    <div class="step-title">Watch a Patriotic Film</div>
+                    <p class="step-desc">Spend the evening watching a film that honors India's history, freedom
+                        struggle, or armed forces — <strong>Rang De Basanti, Lagaan, URI: The Surgical Strike, Shershah,
+                            The Legend of Bhagat Singh,</strong> or <strong>12th Fail</strong> (about integrity and
+                        perseverance). Cinema carries what speeches cannot — the emotional truth of what this nation has
+                        been through.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── WHAT YOU NEED ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🛒</span> What You Need</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="items-grid">
+                <div class="item-chip"><span class="ic-dot"></span>Indian National Flag (BIS-certified Khadi or
+                    polyester)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Flag hoisting pole or stand</div>
+                <div class="item-chip"><span class="ic-dot"></span>Small handheld flags for children</div>
+                <div class="item-chip"><span class="ic-dot"></span>Tricolor rangoli colors (saffron, white, green, blue)
+                </div>
+                <div class="item-chip"><span class="ic-dot"></span>Laddoos or sweets to share</div>
+                <div class="item-chip"><span class="ic-dot"></span>A printed copy of the Preamble (read together)</div>
+                <div class="item-chip"><span class="ic-dot"></span>TV / device for watching the parade</div>
+                <div class="item-chip"><span class="ic-dot"></span>A story about Dr. Ambedkar or a freedom fighter to
+                    share with children</div>
+            </div>
+        </div>
+
+        <!-- ── GALLERY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Republic_Day_Parade_India_Rajpath_2015.jpg/1280px-Republic_Day_Parade_India_Rajpath_2015.jpg"
+                        alt="Republic Day Parade Kartavya Path New Delhi"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🇮🇳</span><span>Republic Day Parade</span></div>'">
+                    <div class="g-label">The Republic Day Parade on Kartavya Path — the grandest national spectacle in
+                        India</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Republic_Day_Parade_Tableaux_India.jpg/640px-Republic_Day_Parade_Tableaux_India.jpg"
+                        alt="State tableaux Republic Day parade India"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🎨</span><span>State Tableaux</span></div>'">
+                    <div class="g-label">State tableaux — India's diversity moving in a single, magnificent procession
+                    </div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/IAF_flypast_Republic_Day_India.jpg/640px-IAF_flypast_Republic_Day_India.jpg"
+                        alt="Indian Air Force flypast Republic Day tricolor smoke"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>✈️</span><span>IAF Flypast</span></div>'">
+                    <div class="g-label">IAF flypast — jets in tricolor formation, saffron-white-green smoke trails
+                        across Delhi</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Constitution_of_India_original.jpg/640px-Constitution_of_India_original.jpg"
+                        alt="Original Constitution of India handwritten"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>📜</span><span>The Constitution</span></div>'">
+                    <div class="g-label">The original handwritten Constitution of India — 2 years, 11 months, 18 days in
+                        the making</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── VIDEOS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card" href="https://www.youtube.com/watch?v=pMLJGXk3Npc" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/pMLJGXk3Npc/maxresdefault.jpg"
+                            alt="Republic Day parade full 2024 Doordarshan"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🇮🇳</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Full Parade</p>
+                        <p class="v-title">Republic Day Parade — Full Telecast</p>
+                        <p class="v-sub">Kartavya Path parade from flag hoisting to flypast</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=_SFfLVkFJiA" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/_SFfLVkFJiA/maxresdefault.jpg"
+                            alt="Dr Ambedkar Constitution of India story"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">📜</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">History</p>
+                        <p class="v-title">Dr. Ambedkar &amp; the Making of the Constitution</p>
+                        <p class="v-sub">The story of the document that defines India</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=KpHqSqBMFoU" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/KpHqSqBMFoU/maxresdefault.jpg"
+                            alt="Jana Gana Mana national anthem best version"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🎵</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">National Anthem</p>
+                        <p class="v-title">Jana Gana Mana — National Anthem</p>
+                        <p class="v-sub">Stand up, stand straight, and sing along</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── DO'S & DON'TS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li>Hoist or display the National Flag with full respect and correct orientation (saffron on
+                            top)</li>
+                        <li>Stand at complete attention — still, straight, silent — for the full 52 seconds of the
+                            National Anthem</li>
+                        <li>Watch the parade — the tableaux and gallantry awards especially</li>
+                        <li>Read the Preamble to the Constitution aloud as a family</li>
+                        <li>Attend your local school, society, or community flag hoisting ceremony</li>
+                        <li>Teach children what the Constitution is, who Dr. Ambedkar was, and why this day matters</li>
+                        <li>Share sweets with neighbors — make the national moment into a community moment</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li>Never display a damaged, torn, faded, or dirty flag</li>
+                        <li>Never let the flag touch the ground during hoisting or lowering</li>
+                        <li>Never sit, talk, or move during the National Anthem</li>
+                        <li>Never use the National Flag as decoration on clothing, tablecloths, or disposable items</li>
+                        <li>Do not treat Republic Day as just a holiday — it is a day of active, conscious citizenship
+                        </li>
+                        <li>Never burn or discard the National Flag disrespectfully</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CLOSING ── -->
+        <div class="closing">
+            <p class="closing-text">
+                The Constitution gave every Indian — regardless of birth, religion, caste, or background — rights that
+                no king or government could take away.
+                <em>That idea was written down on January 26, 1950. Our job, every single year, is to make sure it stays
+                    alive.</em>
+            </p>
+            <p class="closing-sub">🇮🇳 &nbsp; Jai Hind &nbsp; 🙏</p>
+        </div>
+
+    </div><!-- /page-body -->
+
+    <script>
+        /* ══════════════════════════════════════
+           PARTICLE CANVAS
+        ══════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+
+            const COLORS = ['#b45309', '#f59e0b', '#ffffff', '#16a34a', '#15803d', '#1e3a8a', '#3b82f6'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = Array.from({ length: 40 }, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: -(Math.random() * 0.4 + 0.1),
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.5 + 0.1,
+                    life: Math.random()
+                }));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life += 0.002;
+                    if (p.y < -10 || p.life > 1) {
+                        p.x = Math.random() * W;
+                        p.y = H + 10;
+                        p.life = 0;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha * Math.sin(p.life * Math.PI);
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize();
+            initParticles();
+            draw();
+        })();
+
+        /* ══════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════ */
+        (function () {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(
+                '.about-block, .significance-block, .region-card, .step-card, ' +
+                '.item-chip, .g-item, .v-card, .mantra-card, .dos-col, .closing, .sec-divider'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        /* ── Stagger delays on repeated elements ── */
+        ['.region-card', '.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card']
+            .forEach(sel => {
+                document.querySelectorAll(sel).forEach((el, i) => {
+                    el.style.transitionDelay = `${i * 0.07}s`;
+                });
+            });
+
+        /* ══════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        function openLb(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        /* ══════════════════════════════════════
+           ANIMATED TEXT — letter-by-letter on hero title
+        ══════════════════════════════════════ */
+        (function () {
+            // Split hero title into character spans for a staggered reveal
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            // Only animate plain text nodes
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) { // text node
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `
+              display:inline-block;
+              opacity:0;
+              transform:translateY(18px);
+              animation: slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;
+            `;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

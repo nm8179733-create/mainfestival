@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eid ul-Adha — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+       DESIGN TOKENS — Eid ul-Adha palette
+       Primary: Deep emerald green + gold/amber
+       (Islamic green + the gold of lanterns/stars)
+    ═══════════════════════════════════════════ */
+        :root {
+            --bg: #0a0f0d;
+            --bg-2: #0e1610;
+            --card: #111a14;
+            --card-2: #162019;
+            --card-3: #192418;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --gold: #b08d3c;
+            --gold-lt: #d4a843;
+            --gold-bright: #f0c060;
+            --gold-dim: rgba(176, 141, 60, 0.10);
+            --gold-glow: rgba(176, 141, 60, 0.20);
+            --green: #166534;
+            --green-lt: #22c55e;
+            --green-dim: rgba(22, 101, 52, 0.15);
+            --green-mid: #16a34a;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--green);
+            border-radius: 3px;
+        }
+
+        /* ══════════════════════════════════════
+       PARTICLE CANVAS — moon & stars theme
+    ══════════════════════════════════════ */
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.55;
+        }
+
+        /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(17, 26, 20, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(22, 101, 52, 0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(176, 141, 60, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 20% 80%, rgba(22, 101, 52, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        /* Crescent moon SVG decoration in hero */
+        .hero-crescent {
+            position: absolute;
+            top: 12%;
+            right: 8%;
+            width: 70px;
+            height: 70px;
+            opacity: 0.12;
+            animation: moonGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes moonGlow {
+
+            0%,
+            100% {
+                opacity: 0.12;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.22;
+                transform: scale(1.05);
+            }
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 3.5s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 32px rgba(176, 141, 60, 0.4));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp 0.7s 0.15s var(--ease) both;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp 0.7s 0.28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--gold-lt);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-lt), var(--green-lt));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn 0.8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp 0.7s 0.4s var(--ease) both;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gold-lt);
+            animation: slideUp 0.7s 0.52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--green-lt);
+            border-radius: 50%;
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 0.7s 0.65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--gold-lt);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════ */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--green-mid) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ══════════════════════════════════════
+       ABOUT / TEXT BLOCKS
+    ══════════════════════════════════════ */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--gold-lt);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--gold-lt);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--gold-bright);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       ARABIC PRAYER BLOCK — special styling
+    ══════════════════════════════════════ */
+        .prayer-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--gold-lt);
+            border-radius: var(--radius);
+            padding: 24px 26px;
+            margin-top: 16px;
+        }
+
+        .prayer-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold-lt);
+            margin-bottom: 10px;
+        }
+
+        .prayer-arabic {
+            font-size: 16px;
+            font-style: italic;
+            color: var(--gold-bright);
+            font-family: var(--font-serif);
+            line-height: 1.9;
+            margin-bottom: 10px;
+        }
+
+        .prayer-meaning {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        .prayer-meaning strong {
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       STEP CARDS
+    ══════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(176, 141, 60, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gold-lt);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--gold-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-desc strong {
+            color: var(--gold-lt);
+            font-weight: 600;
+        }
+
+        .step-inset {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: var(--card-3);
+            border-left: 2px solid var(--gold-lt);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 12.5px;
+            color: var(--gold-bright);
+            line-height: 1.65;
+            font-family: var(--font-serif);
+        }
+
+        .step-inset .meaning {
+            display: block;
+            font-style: normal;
+            font-size: 11.5px;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        /* ══════════════════════════════════════
+       QURBANI DISTRIBUTION — special 3-part
+    ══════════════════════════════════════ */
+        .dist-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dist-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dist-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-color 0.2s;
+        }
+
+        .dist-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dist-card:hover {
+            border-color: rgba(176, 141, 60, 0.3);
+        }
+
+        .dist-fraction {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: var(--font-serif);
+            color: var(--gold-lt);
+            margin-bottom: 8px;
+        }
+
+        .dist-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .dist-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+
+        .dist-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .dist-card.dist-poor {
+            border-color: rgba(34, 197, 94, 0.25);
+            background: rgba(22, 101, 52, 0.07);
+        }
+
+        .dist-card.dist-poor .dist-fraction {
+            color: var(--green-lt);
+        }
+
+        .dist-card.dist-poor .dist-title {
+            color: var(--green-lt);
+        }
+
+        /* ══════════════════════════════════════
+       ITEMS GRID
+    ══════════════════════════════════════ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), border-color 0.2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(176, 141, 60, 0.25);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--gold-lt);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       FOOD GRID
+    ══════════════════════════════════════ */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .food-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-color 0.2s;
+        }
+
+        .food-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .food-card:hover {
+            border-color: rgba(176, 141, 60, 0.3);
+            background: var(--card-2);
+        }
+
+        .food-emoji {
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .food-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold-lt);
+            margin-bottom: 6px;
+        }
+
+        .food-desc {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ══════════════════════════════════════
+       MANTRAS / PRAYERS
+    ══════════════════════════════════════ */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-color 0.2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(176, 141, 60, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--gold-lt);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--gold-bright);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+       GALLERY
+    ══════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition: opacity 0.55s var(--ease), transform 0.55s var(--ease), border-color 0.2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.82) saturate(0.88);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.95) saturate(1.05);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(10, 15, 13, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* ══════════════════════════════════════
+       VIDEO CARDS
+    ══════════════════════════════════════ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), border-color 0.2s, background 0.2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.7);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(176, 141, 60, 0.15);
+            border: 1.5px solid rgba(176, 141, 60, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--gold-lt);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(176, 141, 60, 0.25);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--green-lt);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       DO'S & DON'TS
+    ══════════════════════════════════════ */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: #f87171;
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: #f87171;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+       SIGNIFICANCE BLOCK
+    ══════════════════════════════════════ */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .significance-block strong {
+            color: var(--gold-lt);
+        }
+
+        /* ══════════════════════════════════════
+       HAJJ CONNECTION BLOCK
+    ══════════════════════════════════════ */
+        .hajj-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px 36px;
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .hajj-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hajj-icon {
+            font-size: 48px;
+            flex-shrink: 0;
+        }
+
+        .hajj-content {
+            font-size: 14.5px;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .hajj-content strong {
+            color: var(--gold-lt);
+            font-weight: 600;
+        }
+
+        .hajj-content h3 {
+            color: var(--white);
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .hajj-block {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       CLOSING QUOTE
+    ══════════════════════════════════════ */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 720px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: var(--gold-lt);
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 15, 13, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn 0.25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="canvas-bg"></canvas>
+
+    <a class="back-btn" href="festival-card.html">← Back</a>
+
+    <!-- Lightbox -->
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+
+        <!-- Crescent moon decoration -->
+        <svg class="hero-crescent" viewBox="0 0 100 100" fill="none">
+            <path
+                d="M70 50c0 22.09-17.91 40-40 40a40.07 40.07 0 01-15-2.89C27.83 91.6 42.5 95 58 95c22.09 0 40-17.91 40-40 0-18.01-11.92-33.3-28.37-38.37A39.87 39.87 0 0170 30c0 7.05-1.83 13.67-5.05 19.42A40 40 0 0170 50z"
+                fill="currentColor" stroke="none" style="color:#d4a843" />
+        </svg>
+
+        <span class="hero-emoji">🐑</span>
+        <p class="hero-eyebrow">10th Dhul Hijjah · Islamic Lunar Calendar · National Holiday · Festival of Sacrifice</p>
+        <h1 class="hero-title">Eid ul-<span class="accent">Adha</span></h1>
+        <p class="hero-subtitle">The Festival of Sacrifice — Faith, Surrender &amp; Gratitude</p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            ~June 6, 2026 &nbsp;·&nbsp; Confirm with islamicfinder.org
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">1/3</div>
+                <div class="sl">Meat to the Poor</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">4 Days</div>
+                <div class="sl">Qurbani Window</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">2M+</div>
+                <div class="sl">Hajj Pilgrims</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">5th Pillar</div>
+                <div class="sl">of Islam</div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PAGE BODY
+  ══════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── ABOUT ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Eid ul-Adha — <strong>"Festival of Sacrifice"</strong> — falls on the <strong>10th of Dhul
+                        Hijjah</strong>, the final month of the Islamic lunar calendar. It commemorates one of the most
+                    profound acts of faith in human history: Prophet Ibrahim (AS) received a command from Allah in a
+                    dream to sacrifice his beloved son <strong>Ismail (AS).</strong> Without hesitation, both father and
+                    son submitted completely to Allah's will. As Ibrahim raised the knife, Allah stopped him — replacing
+                    Ismail with a ram.</p>
+                <p>This was not a test of cruelty but of <strong>complete surrender (Islam) to the divine will.</strong>
+                    Allah declared that He never wanted the sacrifice of the son — He wanted the sacrifice of the ego,
+                    the attachment, the love of anything above God. This day also coincides with the <strong>climax of
+                        Hajj</strong> — the annual pilgrimage to Mecca, one of Islam's Five Pillars.</p>
+                <div class="myth-quote">
+                    "Eid ul-Adha asks every Muslim the hardest question faith can ask: what do you love most? And are
+                    you willing to place even that before God? Ibrahim answered with a knife raised over his son. Allah
+                    answered with a ram and the words: that is enough. Your surrender is complete."
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SIGNIFICANCE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Eid ul-Adha is not merely a ritual of sacrifice — it is a profound act of community justice. <strong>The
+                    Qurbani meat must be distributed: one third to the poor, one third to relatives, one third to the
+                    family.</strong> On this day, the poorest people eat meat. Eid ul-Adha is specifically designed so
+                that no one goes hungry. It transforms a personal act of faith into a collective act of care. Ibrahim's
+                surrender is meaningless unless it translates into your generosity toward others. <strong>That is the
+                    full meaning of this day.</strong>
+            </div>
+        </div>
+
+        <!-- ── EID MORNING ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🌅</span> Eid Morning — Step by Step</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ First</div>
+                    <div class="step-title">Ghusl &amp; Dressing</div>
+                    <p class="step-desc">Take a full body bath (Ghusl). Wear new or best clothes — <strong>traditional
+                            white</strong> for men. Apply attar (alcohol-free perfume). <strong>Do not eat
+                            anything</strong> before the Eid prayer — this is specifically the opposite of Eid ul-Fitr
+                        and is Sunnah. The fast begins with Qurbani, not with Fajr.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Always</div>
+                    <div class="step-title">Recite the Eid Takbeer</div>
+                    <p class="step-desc">From the eve of Eid until after the Eid prayer, recite the Takbeer continuously
+                        — while walking, at home, on the way to the mosque. This is one of the most spiritually charged
+                        acts of the entire day.</p>
+                    <div class="step-inset">
+                        "Allahu Akbar, Allahu Akbar, La ilaha illallah, Allahu Akbar, Allahu Akbar, Wa lillahil hamd"
+                        <span class="meaning">Allah is Greatest, Allah is Greatest, there is no god but Allah, Allah is
+                            Greatest, Allah is Greatest, and all praise belongs to Allah.</span>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Morning</div>
+                    <div class="step-title">Eid Prayer at Mosque or Eidgah</div>
+                    <p class="step-desc">The Eid prayer is <strong>2 Rakats with additional Takbeers</strong> — 7 in the
+                        first Rakat, 5 in the second. Simply follow the Imam. After prayer, the Imam delivers the
+                        <strong>Khutbah (sermon)</strong> — listen attentively. It covers the story of Ibrahim and
+                        Ismail and the meaning of Qurbani.</p>
+                    <div class="step-inset">
+                        "Taqabbal Allahu minna wa minkum"
+                        <span class="meaning">May Allah accept from us and from you. — The Eid greeting after
+                            prayer.</span>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ After Prayer</div>
+                    <div class="step-title">Qurbani — The Sacrifice</div>
+                    <p class="step-desc">Qurbani begins only <strong>after</strong> the Eid prayer is complete. The
+                        animal faces Qibla. The person says <em>"Bismillahi Allahu Akbar"</em> and cuts the throat
+                        swiftly in one clean motion, minimizing suffering. <strong>The earlier after the prayer, the
+                            better.</strong></p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ After Qurbani</div>
+                    <div class="step-title">Distribute the Meat — First to the Poor</div>
+                    <p class="step-desc">Divide the meat into <strong>three equal parts</strong>. In many communities,
+                        the poor portion is given out first — before the family even eats. Do not keep all the meat. The
+                        distribution is not optional — it is the <strong>entire point</strong> of the day.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Day</div>
+                    <div class="step-title">Visit Family, Feed Guests</div>
+                    <p class="step-desc">After Qurbani, the family sits for the first meal. Traditionally <strong>the
+                            liver (kaleji)</strong> is cooked and eaten first. Visit parents and grandparents first.
+                        Give <strong>Eidi</strong> to children. Visit the graves of loved ones — recite Surah Al-Fatiha.
+                        Keep your home open — every visitor is fed.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── QURBANI DETAILS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🐑</span> Qurbani — The Sacrifice in Detail</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Qurbani is <strong>Wajib (obligatory)</strong> for every adult Muslim who possesses wealth above the
+                    Nisab threshold. If you cannot perform it yourself, you can authorize a butcher or donate through an
+                    Islamic charity like <strong>Islamic Relief India</strong> — they perform Qurbani on your behalf and
+                    distribute the meat to the needy.</p>
+                <p><strong>The animal:</strong> Goat or sheep (minimum 1 year) counts for one person. Cow or camel
+                    counts for up to seven people — seven families can share one cow. The animal must be healthy, free
+                    of defects, and above minimum age. Purchase in advance from livestock markets available in every
+                    city in the days before Eid.</p>
+                <p><strong>Time window:</strong> Begins after Eid prayer on the 10th of Dhul Hijjah and can be performed
+                    until sunset of the 13th — four days total.</p>
+            </div>
+
+            <!-- Before Qurbani prayer -->
+            <div class="prayer-block">
+                <div class="prayer-label">🤲 Before Qurbani — Say This</div>
+                <div class="prayer-arabic">"Bismillahi Allahu Akbar, Allahumma haaza minka wa laka"</div>
+                <div class="prayer-meaning">In the name of Allah, Allah is Greatest. <strong>O Allah, this is from You
+                        and for You.</strong></div>
+            </div>
+
+            <!-- Meat distribution -->
+            <div class="dist-grid">
+                <div class="dist-card">
+                    <div class="dist-icon">🏠</div>
+                    <div class="dist-fraction">1/3</div>
+                    <div class="dist-title">Your Family</div>
+                    <div class="dist-desc">One third is kept for your own household to cook and eat on Eid and the days
+                        that follow.</div>
+                </div>
+                <div class="dist-card">
+                    <div class="dist-icon">👨‍👩‍👧‍👦</div>
+                    <div class="dist-fraction">1/3</div>
+                    <div class="dist-title">Relatives &amp; Friends</div>
+                    <div class="dist-desc">One third is gifted to relatives and neighbors — strengthening bonds and
+                        sharing the blessing.</div>
+                </div>
+                <div class="dist-card dist-poor">
+                    <div class="dist-icon">🤲</div>
+                    <div class="dist-fraction">1/3</div>
+                    <div class="dist-title">The Poor — First</div>
+                    <div class="dist-desc">One third for those in need — often given out <strong>first</strong> before
+                        the family even eats. This is the heart of Eid ul-Adha.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── WHAT YOU NEED ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🛒</span> What You Need</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="items-grid">
+                <div class="item-chip"><span class="ic-dot"></span>New or best clean clothes — white for men</div>
+                <div class="item-chip"><span class="ic-dot"></span>Attar (alcohol-free perfume)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Prayer mat and topi / hijab</div>
+                <div class="item-chip"><span class="ic-dot"></span>Do NOT eat before Eid prayer</div>
+                <div class="item-chip"><span class="ic-dot"></span>Qurbani animal — booked in advance</div>
+                <div class="item-chip"><span class="ic-dot"></span>Sharp knife for Qurbani</div>
+                <div class="item-chip"><span class="ic-dot"></span>Containers / bags for meat distribution</div>
+                <div class="item-chip"><span class="ic-dot"></span>Eidi envelopes for children</div>
+                <div class="item-chip"><span class="ic-dot"></span>Sheer Khurma ingredients (for guests)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Or: Islamic Relief India donation for Qurbani</div>
+            </div>
+        </div>
+
+        <!-- ── TRADITIONAL FOODS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🍽️</span> Traditional Eid ul-Adha Foods</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="food-grid">
+                <div class="food-card">
+                    <span class="food-emoji">🫀</span>
+                    <div class="food-name">Kaleji (Liver Fry)</div>
+                    <div class="food-desc">The liver of the sacrificed animal fried with onions, spices, and green chili
+                        — traditionally the <strong>very first dish</strong> cooked and eaten on Eid morning after
+                        Qurbani.</div>
+                </div>
+                <div class="food-card">
+                    <span class="food-emoji">🍛</span>
+                    <div class="food-name">Mutton Biryani</div>
+                    <div class="food-desc">Fragrant rice layered with fresh mutton from the Qurbani — the centerpiece of
+                        the Eid feast and an expression of the day's abundance and generosity.</div>
+                </div>
+                <div class="food-card">
+                    <span class="food-emoji">🥩</span>
+                    <div class="food-name">Nihari &amp; Korma</div>
+                    <div class="food-desc">Slow-cooked rich meat gravies — nihari simmered overnight, korma slow-braised
+                        in yogurt and spices. The slow cooking honors the depth of the day.</div>
+                </div>
+                <div class="food-card">
+                    <span class="food-emoji">🍢</span>
+                    <div class="food-name">Seekh &amp; Shami Kebabs</div>
+                    <div class="food-desc">Minced meat kebabs seasoned with whole spices and grilled over coals or
+                        pan-fried — a beloved Eid snack shared with visitors throughout the day.</div>
+                </div>
+                <div class="food-card">
+                    <span class="food-emoji">🍜</span>
+                    <div class="food-name">Haleem</div>
+                    <div class="food-desc">Slow-cooked meat and lentil stew — beloved Eid ul-Adha specialty across
+                        Hyderabad and Deccan communities. Requires hours of cooking and communal effort.</div>
+                </div>
+                <div class="food-card">
+                    <span class="food-emoji">🍮</span>
+                    <div class="food-name">Sheer Khurma</div>
+                    <div class="food-desc">Sweet vermicelli cooked in milk with dates, saffron, and dry fruits. Served
+                        to every visitor throughout the day — the sweet gesture of Eid hospitality.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── HAJJ CONNECTION ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🕋</span> The Hajj Connection</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="hajj-block">
+                <div class="hajj-icon">🕋</div>
+                <div class="hajj-content">
+                    <h3>2 Million Muslims — One Moment</h3>
+                    While most Muslims celebrate Eid ul-Adha at home, approximately <strong>2 million Muslims</strong>
+                    from across the world are simultaneously performing <strong>Hajj</strong> in Mecca — the fifth
+                    Pillar of Islam. On the day of Eid, Hajj pilgrims stand at <strong>Muzdalifah</strong> and
+                    <strong>Mina,</strong> perform their Qurbani, shave their heads, and complete the remaining Hajj
+                    rituals.<br><br>
+                    On Eid ul-Adha, remember those performing Hajj in your prayers. And if Hajj is financially and
+                    physically possible for you, it is an obligation to perform it <strong>once in your
+                        lifetime.</strong> Every Muslim worldwide performing Qurbani today is spiritually connected to
+                    those 2 million pilgrims at Mina.
+                </div>
+            </div>
+        </div>
+
+        <!-- ── KEY PRAYERS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🙏</span> Key Prayers</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="mantra-list">
+                <div class="mantra-card">
+                    <div class="mantra-icon">🌙</div>
+                    <div>
+                        <div class="mantra-label">Eid Takbeer — Recite from Eve of Eid Until After Prayer</div>
+                        <div class="mantra-text">"Allahu Akbar, Allahu Akbar, La ilaha illallah, Allahu Akbar, Allahu
+                            Akbar, Wa lillahil hamd"</div>
+                        <div class="mantra-meaning">Allah is Greatest, Allah is Greatest, there is no god but Allah,
+                            Allah is Greatest, Allah is Greatest, and all praise belongs to Allah.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <div class="mantra-icon">🐑</div>
+                    <div>
+                        <div class="mantra-label">Before Qurbani</div>
+                        <div class="mantra-text">"Bismillahi Allahu Akbar, Allahumma haaza minka wa laka"</div>
+                        <div class="mantra-meaning">In Allah's name, Allah is Greatest. O Allah, this is from You and
+                            for You. — Said before the act of sacrifice.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <div class="mantra-icon">🤲</div>
+                    <div>
+                        <div class="mantra-label">Dua of Ibrahim (AS) — The Prayer of Complete Surrender</div>
+                        <div class="mantra-text">"Inni wajjahtu wajhiya lillazi fataras samawati wal arda hanifan wa ma
+                            ana minal mushrikeen"</div>
+                        <div class="mantra-meaning">I have turned my face toward the One who created the heavens and the
+                            earth — as a pure monotheist, and I am not of the polytheists. — The prayer that represents
+                            complete surrender.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <div class="mantra-icon">🫂</div>
+                    <div>
+                        <div class="mantra-label">Eid Greeting — After Prayer, to Everyone You Meet</div>
+                        <div class="mantra-text">"Taqabbal Allahu minna wa minkum" &nbsp;·&nbsp; "Eid Mubarak"</div>
+                        <div class="mantra-meaning">May Allah accept from us and from you. — The greeting exchanged
+                            after Eid prayer with family, friends, and strangers alike.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── GALLERY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Muslim_Family_Eid_al-Adha.jpg/1280px-Muslim_Family_Eid_al-Adha.jpg"
+                        alt="Eid ul-Adha family celebration"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🐑</span><span>Eid ul-Adha Celebration</span></div>'">
+                    <div class="g-label">Eid ul-Adha — families gathering for prayer, sacrifice, and the feast that
+                        follows</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Eid_Mubarak_prayer.jpg/640px-Eid_Mubarak_prayer.jpg"
+                        alt="Eid prayer congregation outdoor"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🕌</span><span>Eid Prayer</span></div>'">
+                    <div class="g-label">Eid prayer in congregation — thousands standing in rows at the Eidgah at dawn
+                    </div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Hajj-Mecca.jpg/640px-Hajj-Mecca.jpg"
+                        alt="Hajj pilgrims Mecca Kaaba"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🕋</span><span>Hajj — Mecca</span></div>'">
+                    <div class="g-label">2 million Hajj pilgrims simultaneously performing Qurbani at Mina on this very
+                        day</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Sheer_khurma.jpg/640px-Sheer_khurma.jpg"
+                        alt="Sheer khurma Eid sweet dish"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🍮</span><span>Sheer Khurma</span></div>'">
+                    <div class="g-label">Sheer Khurma — the sweet vermicelli and milk dish served to every guest on Eid
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── VIDEOS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card" href="https://www.youtube.com/watch?v=Y-YFR2sXdPE" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/Y-YFR2sXdPE/maxresdefault.jpg"
+                            alt="Eid ul-Adha meaning explained">
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Meaning &amp; Story</p>
+                        <p class="v-title">The Story of Ibrahim &amp; Ismail</p>
+                        <p class="v-sub">The sacrifice that became the foundation of this festival</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=p2H5TNBlMZI" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/p2H5TNBlMZI/maxresdefault.jpg"
+                            alt="How to perform Qurbani correctly">
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Guide</p>
+                        <p class="v-title">How to Perform Qurbani Correctly</p>
+                        <p class="v-sub">Step-by-step guide to the sacrifice and meat distribution</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=AIOlS3Kd9mc" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/AIOlS3Kd9mc/maxresdefault.jpg"
+                            alt="Hajj pilgrimage Mecca documentary">
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Hajj</p>
+                        <p class="v-title">Inside Hajj — The Pilgrimage to Mecca</p>
+                        <p class="v-sub">2 million pilgrims performing Hajj on this same day</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── DO'S & DON'TS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li>Take Ghusl and wear new or best clothes</li>
+                        <li>Recite Takbeer continuously from the eve of Eid until after prayer</li>
+                        <li>Do NOT eat before Eid prayer — opposite of Eid ul-Fitr</li>
+                        <li>Attend Eid prayer in congregation at mosque or Eidgah</li>
+                        <li>Perform Qurbani after prayer — within the four-day window</li>
+                        <li>Distribute one third of meat to the poor — give this out first</li>
+                        <li>Visit parents, grandparents, and elders first</li>
+                        <li>Give Eidi to children; feed every visitor who comes to your home</li>
+                        <li>Visit graves of loved ones and recite Surah Al-Fatiha</li>
+                        <li>If unable to do Qurbani yourself, donate through Islamic Relief India</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li>Do not eat before Eid prayer — this is Sunnah and mandatory</li>
+                        <li>Do not perform Qurbani before the Eid prayer is completed</li>
+                        <li>Do not keep all the meat for yourself — distribution to the poor is obligatory</li>
+                        <li>Do not waste any part of the sacrificed animal</li>
+                        <li>Do not purchase a sick, defective, or underage animal for Qurbani</li>
+                        <li>Do not treat Qurbani as merely a ritual — reflect on what Ibrahim surrendered and what you
+                            are willing to surrender</li>
+                        <li>Do not forget that this day is equally about the 2 million pilgrims at Mina — remember them
+                            in your prayers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CLOSING ── -->
+        <div class="closing">
+            <p class="closing-text">
+                The Festival of Sacrifice asks the hardest question faith can ask — what do you love most? And are you
+                willing to place even that before God? Ibrahim answered with a knife raised over his son. Allah answered
+                with a ram and the words:
+                <em>that is enough. Your surrender is complete.</em>
+            </p>
+            <p class="closing-sub">🌙 &nbsp; Eid Mubarak &nbsp; · &nbsp; Taqabbal Allahu minna wa minkum &nbsp; 🤲</p>
+        </div>
+
+    </div><!-- /page-body -->
+
+    <script>
+        /* ══════════════════════════════════════
+           PARTICLE CANVAS — stars & crescent
+           Colors: gold, emerald green, white
+        ══════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+
+            const COLORS = ['#d4a843', '#f0c060', '#ffffff', '#22c55e', '#16a34a', '#b08d3c', '#86efac'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = Array.from({ length: 45 }, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2 + 0.4,
+                    vx: (Math.random() - 0.5) * 0.25,
+                    vy: -(Math.random() * 0.35 + 0.08),
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.5 + 0.08,
+                    life: Math.random(),
+                    // some particles are stars (4-pointed)
+                    isStar: Math.random() > 0.7
+                }));
+            }
+
+            function drawStar(cx, cy, r, color, alpha) {
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                for (let i = 0; i < 4; i++) {
+                    const angle = (i / 4) * Math.PI * 2;
+                    const innerAngle = angle + Math.PI / 4;
+                    ctx.lineTo(cx + Math.cos(angle) * r * 2, cy + Math.sin(angle) * r * 2);
+                    ctx.lineTo(cx + Math.cos(innerAngle) * r * 0.5, cy + Math.sin(innerAngle) * r * 0.5);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life += 0.0018;
+                    if (p.y < -10 || p.life > 1) {
+                        p.x = Math.random() * W;
+                        p.y = H + 10;
+                        p.life = 0;
+                    }
+                    const a = p.alpha * Math.sin(p.life * Math.PI);
+                    if (p.isStar) {
+                        drawStar(p.x, p.y, p.r, p.color, a);
+                    } else {
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                        ctx.fillStyle = p.color;
+                        ctx.globalAlpha = a;
+                        ctx.fill();
+                        ctx.globalAlpha = 1;
+                    }
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize(); initParticles(); draw();
+        })();
+
+        /* ══════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════ */
+        (function () {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(
+                '.about-block, .significance-block, .step-card, ' +
+                '.item-chip, .g-item, .v-card, .mantra-card, .dos-col, ' +
+                '.closing, .sec-divider, .dist-card, .food-card, .hajj-block'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        /* Stagger delays */
+        ['.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card', '.dist-card', '.food-card']
+            .forEach(sel => {
+                document.querySelectorAll(sel).forEach((el, i) => {
+                    el.style.transitionDelay = `${i * 0.07}s`;
+                });
+            });
+
+        /* ══════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        function openLb(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        /* ══════════════════════════════════════
+           ANIMATED HERO TITLE — letter stagger
+        ══════════════════════════════════════ */
+        (function () {
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) {
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `
+              display:inline-block;
+              opacity:0;
+              transform:translateY(18px);
+              animation: slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;
+            `;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ugadi — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+       DESIGN TOKENS — your website's palette
+    ═══════════════════════════════════════════ */
+        :root {
+            --bg: #0d1117;
+            --bg-2: #111827;
+            --card: #161d2e;
+            --card-2: #1b2338;
+            --card-3: #1e2a40;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --yellow: #15803d;
+            /* spring mango leaf green */
+            --yellow-lt: #4ade80;
+            --yellow-dim: rgba(21, 128, 61, 0.10);
+            --yellow-glow: rgba(21, 128, 61, 0.22);
+            --pink: #d97706;
+            /* ripe mango / saffron gold */
+            --pink-dim: rgba(217, 119, 6, 0.12);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ─── SCROLLBAR — matches your pink accent ─── */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 3px;
+        }
+
+        /* ══════════════════════════════════════
+       FLOATING PARTICLE BACKGROUND
+    ══════════════════════════════════════ */
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(22, 29, 46, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        /* Gradient mesh background on hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(244, 63, 94, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(245, 158, 11, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 20% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Animated grid lines */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 3.5s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 32px rgba(245, 158, 11, 0.35));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp 0.7s 0.15s var(--ease) both;
+        }
+
+        /* Split-text reveal for the title */
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp 0.7s 0.28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--yellow);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Underline swipe on accent word */
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--yellow), var(--pink));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn 0.8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp 0.7s 0.4s var(--ease) both;
+        }
+
+        /* Date pill */
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--yellow-lt);
+            animation: slideUp 0.7s 0.52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--pink);
+            border-radius: 50%;
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Hero quick-stats row */
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 0.7s 0.65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--yellow);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════ */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        /* ─── SECTION HEADING — identical to your site ─── */
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--pink) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ══════════════════════════════════════
+       ABOUT BLOCK
+    ══════════════════════════════════════ */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        /* Myth quote */
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--yellow);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--yellow-lt);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       REGION CARDS — matches your site layout
+    ══════════════════════════════════════ */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .region-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+            cursor: default;
+        }
+
+        .region-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .region-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: var(--card-2);
+        }
+
+        .region-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .region-also {
+            font-size: 11px;
+            color: var(--pink);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .region-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       CEREMONY STEPS — activities style
+    ══════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* Shimmer sweep */
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--yellow-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-mantra {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: var(--card-3);
+            border-left: 2px solid var(--yellow);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 12.5px;
+            color: var(--yellow-lt);
+            line-height: 1.65;
+            font-family: var(--font-serif);
+        }
+
+        /* ══════════════════════════════════════
+       WHAT YOU NEED — chip list
+    ══════════════════════════════════════ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition:
+                opacity 0.4s var(--ease),
+                transform 0.4s var(--ease),
+                border-color 0.2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--yellow);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       PHOTO GALLERY
+    ══════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition:
+                opacity 0.55s var(--ease),
+                transform 0.55s var(--ease),
+                border-color 0.2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.82) saturate(0.88);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.95) saturate(1.05);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(13, 17, 23, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Placeholder when no image */
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* ══════════════════════════════════════
+       VIDEO CARDS
+    ══════════════════════════════════════ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.7);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--yellow-lt);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(245, 158, 11, 0.25);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--pink);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       MANTRAS / PRAYERS BLOCK
+    ══════════════════════════════════════ */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--yellow-lt);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+       DO'S & DON'TS
+    ══════════════════════════════════════ */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: var(--pink);
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+       SIGNIFICANCE BLOCK — like your site
+    ══════════════════════════════════════ */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════════════
+       CLOSING QUOTE
+    ══════════════════════════════════════ */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: var(--yellow-lt);
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 17, 23, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn 0.25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Ugadi tables */
+        .ugadi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+            font-size: 13px;
+        }
+
+        .ugadi-table th {
+            background: var(--card-2);
+            color: var(--text-dim);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ugadi-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-lt);
+            color: var(--text);
+            vertical-align: middle;
+        }
+
+        .ugadi-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .ugadi-table tr:hover td {
+            background: var(--card-2);
+        }
+
+        .flavor-name {
+            font-weight: 700;
+            color: var(--yellow-lt);
+        }
+
+        .timeline-time {
+            color: var(--pink);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Particle canvas -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Back button -->
+    <a class="back-btn" href="festival-card.html">← Back</a>
+
+    <!-- Lightbox -->
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <span class="hero-emoji">🌸</span>
+        <p class="hero-eyebrow">Chaitra · Shukla Pratipada · Telugu &amp; Kannada New Year</p>
+        <h1 class="hero-title">Ug<span class="accent">adi</span></h1>
+        <p class="hero-subtitle">Beginning of a New Era — Gratitude, Cleansing &amp; the Philosophy of All Six Flavours
+        </p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            March 19, 2026 &nbsp;·&nbsp; Chaitra Shukla 1
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">6</div>
+                <div class="sl">Flavours of Life</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">11</div>
+                <div class="sl">Day Steps</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">60</div>
+                <div class="sl">Year Cycle</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">∞</div>
+                <div class="sl">New Beginnings</div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PAGE BODY
+  ══════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── ABOUT ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p><strong>"Ugadi"</strong> comes from two Sanskrit words — <strong>Yuga</strong> (era) and
+                    <strong>Adi</strong> (beginning) — meaning <em>"Beginning of a New Era."</em> It is believed that on
+                    this day Lord Brahma began the creation of the world, and Lord Vishnu took his Matsya avatar to save
+                    it. Ugadi marks the beginning of a new Hindu year, a new season (spring), and new beginnings —
+                    financially, spiritually, and personally — for Telugu and Kannada communities.</p>
+                <div class="myth-quote">
+                    "It is a day of gratitude, cleansing, prayer, hope, and celebration — where every single ritual has
+                    a deep meaning behind it. Even the food is philosophy."
+                </div>
+                <p style="margin-top:16px;">The festival is celebrated across <strong>Andhra Pradesh, Telangana,
+                        Karnataka</strong> and wherever these communities live. Its equivalent festivals are Gudi Padwa
+                    (Maharashtra), Navreh (Kashmir), and Sajibu Nongmapanba (Manipur) — all marking the same Chaitra new
+                    year.</p>
+            </div>
+        </div>
+
+        <!-- ── SIGNIFICANCE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Ugadi Pachadi — the six-flavored chutney — is the most honest festival food in all of Indian tradition.
+                It says: this year will bring sweetness and bitterness, joy and sorrow, the expected and the shocking.
+                <strong>You will taste all of it. And you accept all of it. That is the prayer.</strong>
+            </div>
+        </div>
+
+        <!-- ── UGADI PACHADI ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🌿</span> Ugadi Pachadi — The Six Flavours of Life</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Ugadi Pachadi is the most unique and spiritually significant dish of Ugadi — a mixture of <strong>6
+                        ingredients</strong>, each representing one of the six experiences of life in the coming year.
+                    Just as this dish contains all flavours, life too will bring all kinds of experiences. You accept
+                    and embrace all of them with gratitude.</p>
+            </div>
+            <table class="ugadi-table">
+                <thead>
+                    <tr>
+                        <th>Ingredient</th>
+                        <th>Taste</th>
+                        <th>Life Experience It Represents</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="flavor-name">Jaggery</span></td>
+                        <td>Sweet</td>
+                        <td>Happiness, joy, and good moments</td>
+                    </tr>
+                    <tr>
+                        <td><span class="flavor-name">Raw mango</span></td>
+                        <td>Sour</td>
+                        <td>Surprises and unexpected challenges</td>
+                    </tr>
+                    <tr>
+                        <td><span class="flavor-name">Neem flowers</span></td>
+                        <td>Bitter</td>
+                        <td>Sadness, difficulties, and loss</td>
+                    </tr>
+                    <tr>
+                        <td><span class="flavor-name">Tamarind</span></td>
+                        <td>Tangy</td>
+                        <td>Disgust and unpleasant events</td>
+                    </tr>
+                    <tr>
+                        <td><span class="flavor-name">Salt</span></td>
+                        <td>Salty</td>
+                        <td>Fear and anxiety</td>
+                    </tr>
+                    <tr>
+                        <td><span class="flavor-name">Green chili / pepper</span></td>
+                        <td>Spicy / Hot</td>
+                        <td>Anger, passion, and intensity</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="about-block" style="margin-top:16px;">
+                <p>Mix all six together with a little water into a semi-liquid chutney. First offer to God, then every
+                    family member eats one or two spoons together. <strong>This is not primarily food — it is a ritual
+                        offering and a philosophy eaten with a spoon.</strong></p>
+            </div>
+        </div>
+
+        <!-- ── REGIONS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🗺️</span> Regions</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="region-grid">
+                <div class="region-card">
+                    <div class="region-name">Andhra Pradesh &amp; Telangana</div>
+                    <div class="region-also">Ugadi</div>
+                    <p class="region-desc">The full 11-step ritual with oil bath, Kalash Sthapana, Pachadi, Panchanga
+                        reading, Bevu-Bella, and the feast. Special dishes: Bobbatlu (sweet flatbread), Pulihora
+                        (tamarind rice), Kosambari.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Karnataka</div>
+                    <div class="region-also">Ugadi / Bevu-Bella</div>
+                    <p class="region-desc">Karnataka's Ugadi is especially known for the <strong>Bevu-Bella</strong>
+                        tradition — neem flowers and jaggery eaten together. The Obbattu (puran poli) and Kosambri are
+                        the signature feast dishes.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Maharashtra</div>
+                    <div class="region-also">Gudi Padwa</div>
+                    <p class="region-desc">The same day, celebrated as Gudi Padwa — a Gudi (flag-like symbol of victory)
+                        is raised outside the home. Shrikhand and Puran Poli are the feast foods. The Gudi represents
+                        Lord Brahma's creation.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Kashmir</div>
+                    <div class="region-also">Navreh</div>
+                    <p class="region-desc">Kashmiri Pandits celebrate Navreh — a thali of rice, walnuts, bread, salt,
+                        and a Panchanga is placed near the head before sleeping on Ugadi eve. First sight on waking is
+                        this auspicious thali.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Telugu Diaspora</div>
+                    <div class="region-also">Global Ugadi</div>
+                    <p class="region-desc">Large Telugu and Kannada communities across the US, UK, Australia, and Gulf
+                        celebrate with elaborate cultural programs, Pachadi-making competitions, Panchanga readings, and
+                        classical music performances.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CEREMONY STEPS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎭</span> The Full Ugadi Day — 11 Steps</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Night Before</div>
+                    <div class="step-title">Clean House &amp; Tie Mango Torana</div>
+                    <p class="step-desc">Clean every corner of the house (Gruha Shuddhi — purification). Draw Rangoli /
+                        Kolam at the entrance. Tie fresh mango leaves on a string above the main door — the Torana
+                        purifies the air and invites prosperity. Keep new clothes ready for morning.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ 4–6 AM</div>
+                    <div class="step-title">Wake at Brahma Muhurta</div>
+                    <p class="step-desc">The most sacred time of day. Wake without looking at your phone. Place your
+                        palm flat and look at it while chanting the morning palm prayer. This is the most auspicious way
+                        to begin a new year — with discipline and devotion.</p>
+                    <div class="step-mantra">"Karagre vasate Lakshmi, Karamadhye Saraswati, Karamule tu Govinda,
+                        Prabhate kara darshanam"</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ 6–7 AM</div>
+                    <div class="step-title">Abhyanga Snanam — Oil Bath</div>
+                    <p class="step-desc">Warm sesame oil slightly. Massage generously over the entire body — head, hair,
+                        scalp, arms, legs. Leave for 15 minutes. Then bathe with warm water. This oil bath washes away
+                        all sins and negative karma of the past year. Bathing today is considered equal to bathing in
+                        the Ganga.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ 7 AM</div>
+                    <div class="step-title">Wear New Clothes</div>
+                    <p class="step-desc">Wear new clothes immediately after the oil bath. Yellow (most auspicious),
+                        green, orange, pink, or red. Apply kumkum bindi, chandan on the forehead. Women traditionally
+                        add fresh flowers in hair. New clothes represent the shedding of the old year and a fresh
+                        beginning.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ 7–8 AM</div>
+                    <div class="step-title">Kalash Sthapana &amp; Puja Setup</div>
+                    <p class="step-desc">Fill a brass or clay Kalash with water, turmeric, gangajal, a coin, and betel
+                        nuts. Crown with 5 mango leaves and a whole coconut. Tie mauli thread around its neck. Apply
+                        kumkum dots. Place Goddess and God idols. Arrange puja thali with flowers, neem flowers,
+                        Pachadi, fruits, kumkum, camphor, incense.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ 8 AM</div>
+                    <div class="step-title">Make Ugadi Pachadi</div>
+                    <p class="step-desc">Mix raw mango + jaggery + neem flowers + tamarind + salt + green chili with a
+                        little water into a semi-liquid chutney. All six tastes together — no skipping any. This is
+                        philosophy prepared in a bowl.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ 8–9 AM</div>
+                    <div class="step-title">Morning Puja &amp; Aarti</div>
+                    <p class="step-desc">Light diya and incense. Offer flowers, apply kumkum and turmeric on the idol.
+                        Offer Pachadi as naivedyam. Chant <em>"Om Gam Ganapataye Namaha"</em> first. Chant Lakshmi and
+                        Vishnu mantras. Perform Aarti with camphor — wave clockwise while all family sings together.
+                        Receive aarti warmth on forehead. Full prostration.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ 9–10 AM</div>
+                    <div class="step-title">Panchanga Shravanam</div>
+                    <p class="step-desc">Listen to or read the Hindu almanac for the new year. Each Ugadi begins a new
+                        named year in the 60-year Hindu cycle. The Panchanga gives planetary positions, auspicious
+                        dates, and forecasts. Attend temple reading, use a Panchanga app, or watch a YouTube live
+                        stream.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ 10 AM</div>
+                    <div class="step-title">Eat Bevu-Bella — Neem &amp; Jaggery</div>
+                    <p class="step-desc">Before any meal — every family member eats neem flowers mixed with jaggery
+                        together. Bitter and sweet simultaneously. Karnataka's "Bevu-Bella." The philosophical statement
+                        you make through taste: I accept life's bitterness and sweetness with equal grace.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ 12–2 PM</div>
+                    <div class="step-title">The Ugadi Feast on Banana Leaf</div>
+                    <p class="step-desc">Served on a banana leaf — the most pure and auspicious way to eat during
+                        festivals. Obbattu / Bobbatlu (sweet dal flatbread), Pulihora (tamarind rice), Kosambari,
+                        sambar, dal, traditional curries, sweet Payasam. The full abundance of the new year expressed in
+                        food.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ 2–5 PM</div>
+                    <div class="step-title">Visit Elders — Seek Blessings</div>
+                    <p class="step-desc">Touch the feet of grandparents, parents, and elder relatives (Charanaasparsha).
+                        The elder places their hand on your head in blessing. If not in person — call and seek
+                        blessings. Give gifts to children and younger relatives. Donate food, clothes, or money to those
+                        in need — what you give on the first day of the new year multiplies throughout it.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── WHAT YOU NEED ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🛒</span> What You Need</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="items-grid">
+                <div class="item-chip"><span class="ic-dot"></span>Fresh mango leaves (Torana)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Neem flowers</div>
+                <div class="item-chip"><span class="ic-dot"></span>Raw green mango</div>
+                <div class="item-chip"><span class="ic-dot"></span>Jaggery</div>
+                <div class="item-chip"><span class="ic-dot"></span>Tamarind</div>
+                <div class="item-chip"><span class="ic-dot"></span>Sesame oil (for oil bath)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Brass or clay Kalash</div>
+                <div class="item-chip"><span class="ic-dot"></span>5 mango leaves + coconut</div>
+                <div class="item-chip"><span class="ic-dot"></span>Marigold &amp; jasmine flowers</div>
+                <div class="item-chip"><span class="ic-dot"></span>Kumkum, turmeric, chandan</div>
+                <div class="item-chip"><span class="ic-dot"></span>Camphor, incense, diya, ghee</div>
+                <div class="item-chip"><span class="ic-dot"></span>Betel leaves &amp; betel nuts</div>
+                <div class="item-chip"><span class="ic-dot"></span>New yellow / green clothes</div>
+                <div class="item-chip"><span class="ic-dot"></span>Banana leaf (for feast)</div>
+            </div>
+        </div>
+
+        <!-- ── GALLERY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Ugadi_Pachadi.jpg/1280px-Ugadi_Pachadi.jpg"
+                        alt="Ugadi Pachadi six flavours bowl"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🌿</span><span>Ugadi Pachadi</span></div>'">
+                    <div class="g-label">Ugadi Pachadi — all six flavours of life in one bowl</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Mango_leaf_torana.jpg/640px-Mango_leaf_torana.jpg"
+                        alt="Mango leaf torana entrance decoration"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🍃</span><span>Mango Torana</span></div>'">
+                    <div class="g-label">Mango leaf Torana — tied above the entrance to welcome the New Year</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Ugadi_rangoli_kolam.jpg/640px-Ugadi_rangoli_kolam.jpg"
+                        alt="Ugadi rangoli kolam entrance floor"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🌸</span><span>Ugadi Kolam</span></div>'">
+                    <div class="g-label">Kolam / Rangoli — welcoming the new year at the threshold</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Obbattu_bobbatlu_ugadi.jpg/640px-Obbattu_bobbatlu_ugadi.jpg"
+                        alt="Obbattu Bobbatlu sweet flatbread Ugadi"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🫓</span><span>Obbattu</span></div>'">
+                    <div class="g-label">Obbattu / Bobbatlu — the signature Ugadi sweet flatbread</div>
+                </div>
+            </div>
+            <p style="font-size:11px;color:var(--text-dim);margin-top:10px;">
+                Replace <code>src</code> values with your own photos for best results.
+            </p>
+        </div>
+
+        <!-- ── VIDEOS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card" href="https://www.youtube.com/watch?v=NQolONqJzYQ" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/NQolONqJzYQ/maxresdefault.jpg"
+                            alt="Ugadi puja complete guide"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🎬</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Puja Guide</p>
+                        <p class="v-title">Ugadi Puja — Complete Step-by-Step</p>
+                        <p class="v-sub">Full morning ritual from oil bath to aarti</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=3CWHnSuP8kk" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/3CWHnSuP8kk/maxresdefault.jpg"
+                            alt="Ugadi Pachadi recipe how to make"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🌿</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Recipe</p>
+                        <p class="v-title">How to Make Ugadi Pachadi</p>
+                        <p class="v-sub">The six-flavour chutney — step by step</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=dHxVnCZEnhs" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/dHxVnCZEnhs/maxresdefault.jpg"
+                            alt="Obbattu Bobbatlu recipe Ugadi"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🫓</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Recipe</p>
+                        <p class="v-title">Obbattu / Bobbatlu — Ugadi Sweet</p>
+                        <p class="v-sub">The signature Ugadi sweet flatbread recipe</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── DAY TIMELINE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🕐</span> Complete Day Timeline</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <table class="ugadi-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="timeline-time">Night before</td>
+                        <td>Clean house, tie mango leaf Torana, draw Rangoli, prepare Sargi</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">4–6 AM</td>
+                        <td>Wake up at Brahma Muhurta — palm prayer</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">6–7 AM</td>
+                        <td>Oil bath (Abhyanga Snanam) with warm sesame oil</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">7 AM</td>
+                        <td>Wear new clothes — yellow or green preferred</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">7–8 AM</td>
+                        <td>Set up Kalash Sthapana and puja area</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">8 AM</td>
+                        <td>Make Ugadi Pachadi — all six ingredients</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">8–9 AM</td>
+                        <td>Morning puja and aarti — all family together</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">9–10 AM</td>
+                        <td>Panchanga Shravanam — new year almanac reading</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">10 AM</td>
+                        <td>Eat Bevu-Bella — neem flowers and jaggery together</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">10 AM–12 PM</td>
+                        <td>Temple visit</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">12–2 PM</td>
+                        <td>Ugadi feast on banana leaf</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">2–5 PM</td>
+                        <td>Visit elders, seek blessings, give gifts, give to charity</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">5–6 PM</td>
+                        <td>Community / cultural programs</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">6–7 PM</td>
+                        <td>Evening puja — light diyas at entrance and Tulsi</td>
+                    </tr>
+                    <tr>
+                        <td class="timeline-time">Night</td>
+                        <td>Family time, reflection, gratitude</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ── PRAYERS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🙏</span> Key Prayers &amp; Mantras</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="mantra-list">
+                <div class="mantra-card">
+                    <span class="mantra-icon">🌅</span>
+                    <div>
+                        <div class="mantra-label">Morning Prayer — Said on Waking, Looking at Your Palm</div>
+                        <div class="mantra-text">"Karagre vasate Lakshmi, Karamadhye Saraswati, Karamule tu Govinda,
+                            Prabhate kara darshanam"</div>
+                        <div class="mantra-meaning">At the tip of the hand lives Lakshmi (prosperity), in the middle
+                            lives Saraswati (knowledge), at the base lives Govinda (God). I look at my palms first thing
+                            in the morning — remembering that my hands are divine and what I do with them today matters.
+                        </div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🌿</span>
+                    <div>
+                        <div class="mantra-label">Pachadi Prayer — Said Before Eating Neem</div>
+                        <div class="mantra-text">"Shatayuh Vajradehaya, Sarvasampat Karaya Cha, Sarvarishtam Vinashaya,
+                            Nimbakam Dalaambhakshyathe"</div>
+                        <div class="mantra-meaning">For a life of 100 years, a body strong as diamond, for all-round
+                            prosperity, to destroy all misfortune — I consume these neem leaves. Said before eating
+                            Bevu-Bella.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🪔</span>
+                    <div>
+                        <div class="mantra-label">Lamp Prayer — Said During Aarti</div>
+                        <div class="mantra-text">"Shubham Karoti Kalyanam, Arogyam Dhana Sampadah, Shatru Buddhi
+                            Vinashaya, Deepa Jyotir Namostute"</div>
+                        <div class="mantra-meaning">May this lamp bring auspiciousness, good health, and wealth. May it
+                            destroy the intellect of enemies. I bow to the light of this lamp.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🐘</span>
+                    <div>
+                        <div class="mantra-label">New Beginnings Prayer — Said at Start of Puja</div>
+                        <div class="mantra-text">"Om Gam Ganapataye Namaha"</div>
+                        <div class="mantra-meaning">Salutation to Lord Ganesha — always chanted at the beginning of any
+                            new endeavor. On Ugadi — the beginning of the entire new year — Ganesha is invoked first to
+                            remove all obstacles from the coming year.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── DO'S & DON'TS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li>Wake up early — Brahma Muhurta (4–6 AM)</li>
+                        <li>Take oil bath with sesame oil without fail</li>
+                        <li>Wear only new or freshly washed clean clothes</li>
+                        <li>Eat Ugadi Pachadi — all 6 flavours, no skipping any</li>
+                        <li>Listen to the Panchanga reading for the new year</li>
+                        <li>Visit temple and touch elders' feet for blessings</li>
+                        <li>Give to charity — food, clothes, or money to those in need</li>
+                        <li>Be joyful and forgiving — start the year with a clean heart</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li>Do not consume non-vegetarian food on Ugadi day</li>
+                        <li>Do not consume alcohol</li>
+                        <li>Do not speak harsh words or fight — start the year clean</li>
+                        <li>Do not cut hair or nails on this day (inauspicious)</li>
+                        <li>Do not sleep during the daytime on Ugadi</li>
+                        <li>Do not skip any of the 6 ingredients in the Pachadi — the philosophy is incomplete without
+                            all</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CLOSING ── -->
+        <div class="closing">
+            <p class="closing-text">
+                The most honest thing Ugadi says is this: the new year will bring sweetness and bitterness both. You
+                will taste all of it.
+                <em>And the only prayer worth making is the one that says — I accept all of it, with a full heart.</em>
+            </p>
+            <p class="closing-sub">🌸 &nbsp; Ugadi Subhakankshalu &nbsp; 🌿</p>
+        </div>
+
+    </div><!-- /page-body -->
+
+    <script>
+        /* ══════════════════════════════════════
+           PARTICLE CANVAS
+        ══════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+
+            const COLORS = ['#15803d', '#4ade80', '#d97706', '#fbbf24', '#ffffff'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = Array.from({ length: 40 }, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: -(Math.random() * 0.4 + 0.1),
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.5 + 0.1,
+                    life: Math.random()
+                }));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life += 0.002;
+                    if (p.y < -10 || p.life > 1) {
+                        p.x = Math.random() * W;
+                        p.y = H + 10;
+                        p.life = 0;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha * Math.sin(p.life * Math.PI);
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize();
+            initParticles();
+            draw();
+        })();
+
+        /* ══════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════ */
+        (function () {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(
+                '.about-block, .significance-block, .region-card, .step-card, ' +
+                '.item-chip, .g-item, .v-card, .mantra-card, .dos-col, .closing, .sec-divider'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        /* ── Stagger delays on repeated elements ── */
+        ['.region-card', '.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card']
+            .forEach(sel => {
+                document.querySelectorAll(sel).forEach((el, i) => {
+                    el.style.transitionDelay = `${i * 0.07}s`;
+                });
+            });
+
+        /* ══════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        function openLb(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        /* ══════════════════════════════════════
+           ANIMATED TEXT — letter-by-letter on hero title
+        ══════════════════════════════════════ */
+        (function () {
+            // Split hero title into character spans for a staggered reveal
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            // Only animate plain text nodes
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) { // text node
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `
+              display:inline-block;
+              opacity:0;
+              transform:translateY(18px);
+              animation: slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;
+            `;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

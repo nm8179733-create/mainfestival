@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festivals of India Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="5.css">
+    <script src="/_sdk/element_sdk.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Poppins:wght@300;400;500;600&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        @view-transition {
+            navigation: auto;
+        }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+    <div id="app" class="h-full overflow-auto">
+        <div class="page-transition"></div>
+
+        <!-- Navigation -->
+        <nav>
+            <div class="nav-container" style="padding: 1rem;">
+                <div class="nav-logo">
+                    <svg class="w-10 h-10" viewbox="0 0 64 64" fill="none">
+                        <ellipse cx="32" cy="48" rx="20" ry="8" fill="#e94560" />
+                        <path d="M20 48c0-8 5.4-14.5 12-14.5S44 40 44 48" fill="#ff6b6b" />
+                        <path d="M32 33c-2 0-3.5-8-3.5-12s1.5-8 3.5-8 3.5 4 3.5 8-1.5 12-3.5 12z" fill="#feca57" />
+                    </svg><span id="nav-title" class="nav-logo-text">Festivals of India</span>
+                </div>
+                <div class="search-container">
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg><input type="text" id="searchInput" class="search-input" placeholder="Search festivals...">
+                    <button class="search-btn" id="searchBtn" onclick="performSearch()">Search</button>
+                </div>
+                <div class="language-selector"><button class="language-btn" onclick="toggleLanguageDropdown()">
+                        <span>🌐</span> <span id="currentLang">EN</span> </button>
+                    <div id="languageDropdown" class="language-dropdown">
+                        <div class="language-option active" data-lang="en" onclick="changeLanguage('en')">
+                            English
+                        </div>
+                        <div class="language-option" data-lang="hi" onclick="changeLanguage('hi')">
+                            हिन्दी
+                        </div>
+                        <div class="language-option" data-lang="ta" onclick="changeLanguage('ta')">
+                            தமிழ்
+                        </div>
+                        <div class="language-option" data-lang="te" onclick="changeLanguage('te')">
+                            తెలుగు
+                        </div>
+                        <div class="language-option" data-lang="kn" onclick="changeLanguage('kn')">
+                            ಕನ್ನಡ
+                        </div>
+                        <div class="language-option" data-lang="ml" onclick="changeLanguage('ml')">
+                            മലയാളം
+                        </div>
+                        <div class="language-option" data-lang="mr" onclick="changeLanguage('mr')">
+                            मराठी
+                        </div>
+                        <div class="language-option" data-lang="gu" onclick="changeLanguage('gu')">
+                            ગુજરાતી
+                        </div>
+                        <div class="language-option" data-lang="bn" onclick="changeLanguage('bn')">
+                            বাংলা
+                        </div>
+                        <div class="language-option" data-lang="pa" onclick="changeLanguage('pa')">
+                            ਪੰਜਾਬੀ
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav><!-- Search Results -->
+        <div id="searchResults" class="search-results">
+            <div style="max-width: 1200px; margin: 2rem auto; width: 100%; padding: 0 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2 id="searchResultsTitle"
+                        style="font-size: 1.75rem; font-weight: 600; color: #feca57; margin: 0;">Search Results</h2>
+                    <button onclick="closeSearchResults()"
+                        style="background: rgba(255,255,255,0.1); border: none; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer;">Close</button>
+                </div>
+                <div id="searchResultsList"></div>
+            </div>
+        </div><!-- Hero Section -->
+        <section
+            style="position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding-top: 4rem;">
+            <div class="floating-shape w-64 h-64 bg-pink-500 top-20 left-10"
+                style="position: absolute; border-radius: 50%; opacity: 0.1; animation: float 6s ease-in-out infinite; animation-delay: 0s;">
+            </div>
+            <div class="floating-shape w-48 h-48 bg-yellow-500 top-40 right-20"
+                style="position: absolute; border-radius: 50%; opacity: 0.1; animation: float 6s ease-in-out infinite; animation-delay: 2s;">
+            </div>
+            <div class="floating-shape w-32 h-32 bg-blue-500 bottom-40 left-1/4"
+                style="position: absolute; border-radius: 50%; opacity: 0.1; animation: float 6s ease-in-out infinite; animation-delay: 4s;">
+            </div>
+            <div
+                style="position: relative; z-index: 10; text-align: center; padding: 0 1rem; max-width: 56rem; margin: 0 auto;">
+                <h1 id="hero-title"
+                    style="font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: bold; margin-bottom: 1.5rem; animation: fadeInUp 0.6s ease-out forwards; animation-delay: 0.2s;">
+                    <span class="text-gradient">Festivals of India</span>
+                </h1>
+                <p id="hero-tagline"
+                    style="font-size: 1.25rem; color: #d1d5db; margin-bottom: 2rem; animation: fadeInUp 0.6s ease-out forwards; animation-delay: 0.4s;">
+                    Celebrating Unity in Diversity</p>
+            </div>
+        </section>
+        <!-- Grid View Section -->
+        <section style="padding: 5rem 1rem;">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h2 id="gridViewTitle"
+                    style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">
+                    <span class="text-gradient">Festival Gallery</span>
+                </h2>
+                <p id="gridViewDesc" style="text-align: center; color: #9ca3af; margin-bottom: 3rem;">Explore festivals
+                    by categories</p>
+                <div id="festivalsContainer"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                </div>
+            </div>
+        </section><!-- Timeline View Section -->
+        <section style="padding: 5rem 1rem; background: rgba(255,255,255,0.02);">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h2 id="timelineTitle"
+                    style="text-align: center; font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">
+                    <span class="text-gradient">Festival Calendar</span>
+                </h2>
+                <p id="timelineDesc" style="text-align: center; color: #9ca3af; margin-bottom: 3rem;">Journey through
+                    the year of celebrations</p>
+                <div id="timelineContainer" class="timeline"></div>
+            </div>
+        </section><!-- Footer -->
+        <footer
+            style="padding: 3rem 1rem; border-top: 1px solid rgba(75, 85, 99, 0.2); text-align: center; color: #9ca3af;">
+            <p id="footerText" style="margin: 0;">© 2024 Festivals of India Explorer</p>
+        </footer>
+    </div>
+    <script>
+        // Smooth page load animation
+        window.addEventListener("load", () => {
+            document.querySelector(".page-transition").classList.add("hide");
+        });
+        const festivalsData = {
+            newyear: {
+                emoji: "🎉",
+                title: "New Year",
+                month: "January",
+                date: "January 1st",
+                description: "The beginning of the Gregorian calendar year, celebrated with fireworks, parties, and cultural events across India.",
+                detailsPage: "new_year.html"
+            },
+
+            lohri: {
+                emoji: "🔥",
+                title: "Lohri",
+                month: "January",
+                date: "January 13th (Pausha last day)",
+                description: "A Punjabi festival marking the end of winter, celebrated with bonfires, traditional dances, and songs.",
+                detailsPage: "lohri.html"
+            },
+
+            makarSankranti: {
+                emoji: "🪁",
+                title: "Makar Sankranti (solar calendar)",
+                month: "January",
+                date: "14-15 January",
+                description: "A harvest festival celebrated across India, marking the sun's transition into Capricorn, with kite flying, feasts, and cultural events.",
+                detailsPage: "makar_sankranti.html"
+            },
+
+            gurugobind: {
+                emoji: "🙏",
+                title: "Guru Gobind Singh Jayanti",
+                month: "January",
+                date: "January (varies by lunar calendar)",
+                description: "The birth anniversary of Guru Gobind Singh, the tenth Sikh Guru, celebrated with prayers, processions, and community service.",
+                detailsPage: "guru_gobind.html"
+            },
+
+            republicDay: {
+                emoji: "🇮🇳",
+                title: "Republic Day",
+                month: "January",
+                date: "26 January",
+                description: "Commemorates the adoption of the Indian Constitution, celebrated with parades, cultural events, and patriotic displays across the country.",
+                detailsPage: "republic_day.html"
+            },
+
+            vasantPanchami: {
+                emoji: "🌼",
+                title: "Vasant Panchami",
+                month: "February",
+                date: "Magha Shukla Panchami",
+                description: "A Hindu festival dedicated to the worship of Goddess Saraswati, celebrated with prayers, educational activities, and cultural events.",
+                detailsPage: "vasant_panchami.html"
+            },
+
+            thaipusam: {
+                emoji: "⚡",
+                title: "Thaipusam",
+                month: "January-February",
+                date: "February (varies)",
+                description: "A Tamil festival celebrated in honor of Lord Murugan, marked by acts of devotion such as carrying kavadis and piercing the skin, celebrated with prayers and cultural events.",
+                detailsPage: "thaipusam.html"
+            },
+
+            mahaSivaratri: {
+                emoji: "🔱",
+                title: "Maha Shivaratri",
+                month: "February-March (Magha Krishna Chaturdashi)",
+                date: "Phalgun Krishna Chaturdashi",
+                description: "A Hindu festival dedicated to Lord Shiva, celebrated with night-long vigils, prayers, and cultural events at temples across India.",
+                detailsPage: "maha_sivaratri.html"
+            },
+
+            holi: {
+                emoji: "🎨",
+                title: "Holi",
+                month: "March",
+                date: "Phalgun Purnima",
+                description: "The festival of colors, celebrated with vibrant powder, water fights, music, and dance, symbolizing the victory of good over evil and the arrival of spring.",
+                detailsPage: "holi.html"
+            },
+
+            ramadan: {
+                emoji: "☪️",
+                title: "Ramadan",
+                month: "March-April",
+                date: "9th month of Islamic calendar",
+                description: "A holy month of fasting, prayer, and reflection observed by Muslims worldwide, commemorating the first revelation of the Quran to Prophet Muhammad.",
+                detailsPage: "ramadan.html"
+            },
+
+            ugadi: {
+                emoji: "🌺",
+                title: "Ugadi / Gudi Padwa",
+                month: "March-April",
+                date: "March/April (Chaitra Shukla Pratipada)",
+                description: "The New Year festival for people in Andhra Pradesh, Telangana, Karnataka, and Maharashtra, celebrated with traditional rituals, feasts, and cultural events.",
+                detailsPage: "ugadi.html"
+            },
+
+            ramNavami: {
+                emoji: "🏹",
+                title: "Ram Navami",
+                month: "March-April",
+                date: "Chaitra Shukla Navami",
+                description: "The birth anniversary of Lord Rama, celebrated with prayers, processions, and cultural events at temples across India.",
+                detailsPage: "ram_navami.html"
+            },
+
+            mahavirJayanti: {
+                emoji: "☸️",
+                title: "Mahavir Jayanti",
+                month: "April",
+                date: "Chaitra Shukla Trayodashi",
+                description: "The birth anniversary of Lord Mahavir, the 24th Tirthankara in Jainism, celebrated with prayers, processions, and cultural events at Jain temples across India.",
+                detailsPage: "mahavirjayanti.html"
+            },
+
+            baisakhi: {
+                emoji: "🌾",
+                title: "Baisakhi",
+                month: "April",
+                date: "April 13 or 14",
+                description: "A Punjabi harvest festival marking the Sikh New Year and the formation of the Khalsa, celebrated with prayers, processions, and cultural events.",
+                detailsPage: "baisakhi.html"
+            },
+
+            eiduladha: {
+                emoji: "🐏",
+                title: "Eid-Ul-Adha/ (Bakrid)",
+                month: "june",
+                date: "june 6th(12th final month of islamic calendar)",
+                description: "An Important Islamic festival that commemorates Prophet Ibrahim's willingness to sacrifice his son in obedience to Allah and is celebrated with prayers, animal sacrificeand charity.",
+                detailsPage: "eid_ul_adha.html"
+            },
+
+            muharram: {
+                emoji: "🏴",
+                title: "Muharram",
+                month: "July-August",
+                date: "1st month of Islamic calendar",
+                description: "The Islamic New Year, observed with prayers, processions, and cultural events by Muslims across India, commemorating the martyrdom of Imam Hussain.",
+                detailsPage: "muharram.html"
+            },
+
+            rakshabandhan: {
+                emoji: "🎀",
+                title: "Raksha Bandhan",
+                month: "August",
+                date: "Full Moon of Shravana (August)",
+                description: "A festival celebrating the bond between brothers and sisters, where sisters tie a protective thread (rakhi) on their brothers' wrists, and brothers give gifts in return.",
+                detailsPage: "rakshabandhan.html"
+            },
+
+
+            independenceDay: {
+                emoji: "🇮🇳",
+                title: "Independence Day",
+                month: "August",
+                date: "15 August",
+                description: "Commemorates India's independence from British rule in 1947, celebrated with flag hoisting, parades, and cultural events across the country.",
+                detailsPage: "independence_day.html"
+            },
+
+            janmashtami: {
+                emoji: "🪈",
+                title: "Janmashtami",
+                month: "August",
+                date: "Krishna Paksha Ashtami",
+                description: "The birth anniversary of Lord Krishna, celebrated with prayers, fasting, and cultural events at temples across India.",
+                detailsPage: "janmashtami.html"
+            },
+
+            onam: {
+                emoji: "🛶",
+                title: "Onam",
+                date: "August/September (Chingam month)",
+                description: "A harvest festival celebrated in Kerala, marking the homecoming of the mythical King Mahabali, with traditional rituals, feasts, and cultural events.",
+                detailsPage: "onam.html"
+            },
+
+            ganeshChaturthi: {
+                emoji: "🐘",
+                title: "Ganesh Chaturthi",
+                month: "August-September",
+                date: "Bhadrapad Shukla Chaturthi",
+                description: "A Hindu festival celebrating the birth of Lord Ganesha, marked by the installation of Ganesha idols, prayers, and cultural events at homes and public spaces across India.",
+                detailsPage: "ganesh_chaturthi.html"
+            },
+
+            miladunnabi: {
+                emoji: "🌟",
+                title: "Milad-un-Nabi",
+                month: "October-November",
+                date: "12th of Rabi' al-Awwal",
+                description: "The birth anniversary of Prophet Muhammad, observed with prayers, processions, and cultural events by Muslims across India.",
+                detailsPage: "miladunnabi.html"
+            },
+
+            navratri: {
+                emoji: "💃",
+                title: "Navratri",
+                month: "September-October",
+                date: "Ashwin Shukla Pratipada to Dashami",
+                description: "A nine-night Hindu festival dedicated to the worship of Goddess Durga, celebrated with prayers, fasting, and cultural events including traditional dances like Garba and Dandiya.",
+                detailsPage: "navratri.html"
+            },
+
+            dussehra: {
+                emoji: "🏹",
+                title: "Dussehra",
+                month: "September-October",
+                date: "Ashwin Shukla Dashami",
+                description: "Also known as Vijayadashami, it celebrates the victory of good over evil, marking Lord Rama's victory over Ravana, with prayers, processions, and cultural events across India.",
+                detailsPage: "dussehra.html"
+            },
+
+            karvachauth: {
+                emoji: "🌕",
+                title: "Karva Chauth",
+                month: "October-November",
+                date: "Fourth day after Purnima in Kartik (October/November)",
+                description: "A fasting ritual observed by married women in North India, where they fast for the well-being and longevity of their husbands.",
+                detailsPage: "karvachauth.html"
+            },
+
+            diwali: {
+                emoji: "🪔",
+                title: "Diwali",
+                month: "October-November",
+                date: "Kartik Amavasya",
+                description: "The festival of lights, celebrating the victory of light over darkness and good over evil, marked by lighting oil lamps, fireworks, feasts, and cultural events across India.",
+                detailsPage: "diwali.html"
+            },
+
+            govardhanPuja: {
+                emoji: "⛰️",
+                title: "Govardhan Puja",
+                month: "November",
+                date: "Kartik Shukla Pratipada",
+                description: "A Hindu festival celebrated the day after Diwali, commemorating Lord Krishna's lifting of Govardhan Hill to protect villagers from a storm, with prayers and cultural events at temples across India.",
+                detailsPage: "govardhan_puja.html"
+            },
+
+            bhaiBij: {
+                emoji: "👫",
+                title: "Bhai Dooj (Bhai Bij)",
+                month: "November",
+                date: "Kartik Shukla Dwitiya",
+                description: "A festival celebrating the bond between brothers and sisters, where sisters perform aarti and pray for their brothers' well-being, and brothers give gifts in return.",
+                detailsPage: "bhai_bij.html"
+            },
+
+            chhathpuja: {
+                emoji: "☀️",
+                title: "Chhath Puja",
+                month: "November",
+                date: "6th day after Diwali (Kartik Shukla Shashthi)",
+                description: "A Hindu festival dedicated to the Sun God, celebrated primarily in Bihar, Jharkhand, and Uttar Pradesh, with rituals performed at riverbanks and water bodies.",
+                detailsPage: "chhath_puja.html"
+            },
+
+            tulsivivah: {
+                emoji: "🌿",
+                title: "Tulsi Vivah",
+                month: "November",
+                date: "Kartik Shukla Ekadashi (November)",
+                description: "A Hindu festival marking the ceremonial marriage of the Tulsi plant (holy basil) to Lord Vishnu, celebrated with rituals and cultural events at homes and temples across India.",
+                detailsPage: "tulsivivah.html"
+            },
+
+            gurunanak: {
+                emoji: "☮️",
+                title: "Guru Nanak Jayanti",
+                month: "November",
+                date: "Kartik Purnima (November)",
+                description: "The birth anniversary of Guru Nanak, the founder of Sikhism, celebrated with prayers, processions, and cultural events at gurdwaras across India.",
+                detailsPage: "guru_nanak.html"
+            },
+
+            christmas: {
+                emoji: "🎄",
+                title: "Christmas",
+                month: "December",
+                date: "December 25th",
+                description: "Celebrates the birth of Jesus Christ, observed with prayers, feasts, and cultural events by Christians across India, marked by decorations, gift-giving, and community gatherings.",
+                detailsPage: "christmas.html"
+            }
+        };
+
+        // ===== COMPREHENSIVE LANGUAGE TRANSLATIONS =====
+        const translations = {
+            en: {
+                search_placeholder: "Search festivals...",
+                search_btn: "Search",
+                festival_selected: "Festival selected",
+                language_changed: "Language changed successfully",
+                no_results: "No festivals found",
+                loading: "Loading...",
+                welcome: "Welcome to Festivals of India Explorer!",
+                searchResults: "Search Results",
+                close: "Close",
+                description: "Description",
+                gridViewTitle: "Festival Gallery",
+                gridViewDesc: "Explore festivals by categories",
+                timelineTitle: "Festival Calendar",
+                timelineDesc: "Journey through the year of celebrations",
+                footer: "© 2024 Festivals of India Explorer",
+                nav_title: "Festivals of India",
+
+            },
+
+            hi: {
+                search_placeholder: "त्योहारों की खोज करें...",
+                search_btn: "खोजें",
+                festival_selected: "त्योहार चुना: ",
+                language_changed: "भाषा बदल गई: ",
+                no_results: "कोई परिणाम नहीं मिला",
+                loading: "लोड हो रहा है...",
+                welcome: "भारत के त्योहारों के अनुभव के लिए स्वागत है!",
+                searchResults: "खोज परिणाम",
+                close: "बंद करें",
+                description: "विवरण",
+                gridViewTitle: "त्योहार गैलरी",
+                gridViewDesc: "श्रेणियों के अनुसार त्योहारों का अन्वेषण करें",
+                timelineTitle: "त्योहार कैलेंडर",
+                timelineDesc: "उत्सवों की सालभर की यात्रा करें",
+                footer: "© 2024 फेस्टिवल्स ऑफ इंडिया एक्सप्लोरर",
+            },
+            ta: {
+                search_placeholder: "திருவிழாக்களைத் தேடுங்கள்...",
+                search_btn: "தேடுக",
+                festival_selected: "திருவிழா தேர்ந்தெடுக்கப்பட்டது",
+                language_changed: "மொழி வெற்றிகரமாக மாற்றப்பட்டது",
+                no_results: "திருவிழாக்கள் காணப்படவில்லை",
+                loading: "ஏற்றுதல்...",
+                welcome: "இந்தியாவின் திருவிழா ஆய்வாளருக்கு வரவேற்பு!",
+                searchResults: "தேடல் முடிவுகள்",
+                close: "மூடுக",
+                description: "விவரம்",
+                gridViewTitle: "திருவிழா தொகுப்பு",
+                gridViewDesc: "வகைப்படுத்தப்பட்ட திருவிழாக்களை ஆய்வு செய்யுங்கள்",
+                timelineTitle: "திருவிழா நாட்காட்டி",
+                timelineDesc: "வருட முழுவதும் கொண்டாட்டங்களின் பயணம்",
+                footer: "© 2024 இந்தியாவின் திருவிழா ஆய்வாளர்",
+                nav_title: "இந்தியாவின் திருவிழாக்கள்"
+            },
+            te: {
+                search_placeholder: "పండుగలను వెతకండి...",
+                search_btn: "వెతకండి",
+                festival_selected: "పండుగ ఎంచుకోబడింది",
+                language_changed: "భాష విజయవంతంగా మార్చబడింది",
+                no_results: "పండుగలు కనుగొనబడలేదు",
+                loading: "లోడ్ చేస్తోంది...",
+                welcome: "భారతదేశ పండుగ ఎక్సప్లోరర్‌కు స్వాగతం!",
+                searchResults: "శోధన ఫలితాలు",
+                close: "మూసివేయండి",
+                description: "వివరణ",
+                gridViewTitle: "పండుగ గ్యాలరీ",
+                gridViewDesc: "వర్గాల ద్వారా పండుగలను ఆయా చేయండి",
+                timelineTitle: "పండుగ క్యాలెండర్",
+                timelineDesc: "సంవత్సర చరిత్రలో కోసరిపులు",
+                footer: "© 2024 భారతదేశ పండుగ ఎక్సప్లోరర్",
+                nav_title: "భారతదేశ పండుగలు"
+            },
+            kn: {
+                search_placeholder: "ಉತ್ಸವಗಳನ್ನು ಹುಡುಕಿ...",
+                search_btn: "ಹುಡುಕಿ",
+                festival_selected: "ಉತ್ಸವ ಆಯ್ಕೆ ಮಾಡಲಾಯಿತು",
+                language_changed: "ಭಾಷೆ ಯಶಸ್ವಿಯಾಗಿ ಬದಲಾದೆ",
+                no_results: "ಉತ್ಸವಗಳು ಕಂಡುಬಂದಿಲ್ಲ",
+                loading: "ಲೋಡ್ ಮಾಡುತ್ತಿದೆ...",
+                welcome: "ಭಾರತದ ಉತ್ಸವ ಎಕ್ಸ್ಪ್ಲೋರರ್‌ಗೆ ಸ್ವಾಗತ!",
+                searchResults: "ಹುಡುಕಾಟ ಫಲಿತಾಂಶಗಳು",
+                close: "ಮುಚ್ಚಿ",
+                description: "ವಿವರಣ",
+                gridViewTitle: "ಉತ್ಸವ ಗ್ಯಾಲರಿ",
+                gridViewDesc: "ವಿಭಾಗಗಳ ಮೂಲಕ ಉತ್ಸವಗಳನ್ನು ಅನ್ವೇಷಿಸಿ",
+                timelineTitle: "ಉತ್ಸವ ಪಂಚಾಂಗ",
+                timelineDesc: "ವರ್ಷಭರ ಆಚರಣೆಯ ಯಾತ್ರೆ",
+                footer: "© 2024 ಭಾರತದ ಉತ್ಸವ ಎಕ್ಸ್ಪ್ಲೋರರ್",
+                nav_title: "ಭಾರತದ ಉತ್ಸವಗಳು"
+            },
+            ml: {
+                search_placeholder: "ത്യോഹാരങ്ങൾ തിരയുക...",
+                search_btn: "തിരയുക",
+                festival_selected: "ത്യോഹാരം തിരഞ്ഞെടുക്കപ്പെട്ടു",
+                language_changed: "ഭാഷ വിജയകരമായി മാറ്റി",
+                no_results: "ത്യോഹാരങ്ങൾ കണ്ടെത്തിയില്ല",
+                loading: "ലോഡ് ചെയ്യുന്നു...",
+                welcome: "ഇന്ത്യയുടെ ത്യോഹാര എക്സ്പ്ലോററിലേക്ക് സ്വാഗതം!",
+                searchResults: "തിരയാനുള്ള ഫലങ്ങൾ",
+                close: "അടയ്ക്കുക",
+                description: "വിവരണം",
+                gridViewTitle: "ത്യോഹാര ഗ്യാലറി",
+                gridViewDesc: "വിഭാഗങ്ങൾ ബാധകമായ തിരയുക",
+                timelineTitle: "ത്യോഹാര കലണ്ടർ",
+                timelineDesc: "വര്ഷത്തെ ആഘോഷത്തിൽ ദേങ്കിയ യാത്ര",
+                footer: "© 2024 ഇന്ത്യയുടെ ത്യോഹാര എക്സ്പ്ലോറർ",
+                nav_title: "ഇന്ത്യയുടെ ത്യോഹാരങ്ങൾ"
+            },
+            mr: {
+                search_placeholder: "सणांची शोध घ्या...",
+                search_btn: "शोध",
+                festival_selected: "सण निवडला गेला",
+                language_changed: "भाषा यशस्वीरित्या बदलली",
+                no_results: "सण सापडले नाहीत",
+                loading: "लोड होत आहे...",
+                welcome: "भारतीय सणांच्या एक्सप्लोररला स्वागत आहे!",
+                searchResults: "शोध परिणाम",
+                close: "बंद करा",
+                description: "विवरण",
+                gridViewTitle: "सण गॅलरी",
+                gridViewDesc: "श्रेणींद्वारे सणांची शोधाभिरुची करा",
+                timelineTitle: "सण कॅलेंडर",
+                timelineDesc: "वर्षभर उत्सवाची यात्रा",
+                footer: "© 2024 भारतीय सणांचा एक्सप्लोरर",
+                nav_title: "भारतीय सण"
+            },
+            gu: {
+                search_placeholder: "તહેવારો શોધો...",
+                search_btn: "શોધો",
+                festival_selected: "તહેવાર પસંદ કર્યો",
+                language_changed: "ભાષા સફળતાપૂર્વક બદલાઈ",
+                no_results: "તહેવારો મળ્યા નહીં",
+                loading: "લોડ થઈ રહ્યું છે...",
+                welcome: "ભારતીય તહેવારો એક્સપ્લોરર માટે આપનું સ્વાગત છે!",
+                searchResults: "શોધ પરિણામો",
+                close: "બંધ કરો",
+                description: "વિવરણ",
+                gridViewTitle: "તહેવાર ગૅલરી",
+                gridViewDesc: "શ્રેણીઓ દ્વારા તહેવારોની શોધ કરો",
+                timelineTitle: "તહેવાર કૅલેન્ડર",
+                timelineDesc: "સમગ્ર વર્ષ ઉત્સવની યાત્રા",
+                footer: "© 2024 ભારતીય તહેવારો એક્સપ્લોરર",
+                nav_title: "ભારતીય તહેવારો"
+            },
+            bn: {
+                search_placeholder: "উৎসব খুঁজুন...",
+                search_btn: "খুঁজুন",
+                festival_selected: "উৎসব নির্বাচিত হয়েছে",
+                language_changed: "ভাষা সফলভাবে পরিবর্তিত হয়েছে",
+                no_results: "কোনো উৎসব পাওয়া যায়নি",
+                loading: "লোড হচ্ছে...",
+                welcome: "ভারত উৎসব এক্সপ্লোরারে স্বাগতম!",
+                searchResults: "অনুসন্ধান ফলাফল",
+                close: "বন্ধ করুন",
+                description: "বিবরণ",
+                gridViewTitle: "উৎসব গ্যালারি",
+                gridViewDesc: "বিভাগ অনুযায়ী উৎসবগুলি অন্বেষণ করুন",
+                timelineTitle: "উৎসব ক্যালেন্ডার",
+                timelineDesc: "সারা বছর জুড়ে উদযাপনের যাত্রা",
+                footer: "© 2024 ভারত উৎসব এক্সপ্লোরার",
+                nav_title: "ভারত উৎসব"
+            },
+            pa: {
+                search_placeholder: "ਤਿਉਹਾਰ ਖੋਜੋ...",
+                search_btn: "ਖੋਜ",
+                festival_selected: "ਤਿਉਹਾਰ ਨਿਰਧਾਰਿਤ ਕੀਤਾ ਗਿਆ",
+                language_changed: "ਭਾਸ਼ਾ ਸਫਲਤਾ ਨਾਲ ਬਦਲੀ",
+                no_results: "ਕੋਈ ਤਿਉਹਾਰ ਨਹੀਂ ਮਿਲਿਆ",
+                loading: "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...",
+                welcome: "ਭਾਰਤ ਤਿਉਹਾਰ ਐਕਸਪਲੋਰਰ ਲਈ ਸਵਾਗਤ ਹੈ!",
+                searchResults: "ਖੋਜ ਨਤੀਜੇ",
+                close: "ਬੰਦ ਕਰੋ",
+                description: "ਵਿਵਰਣ",
+                gridViewTitle: "ਤਿਉਹਾਰ ਗ੍ਰੰਥਾਲਾ",
+                gridViewDesc: "ਵਿਭਾਗ ਅਨੁਸਾਰ ਤਿਉਹਾਰਾਂ ਦੀ ਖੋਜ ਕਰੋ",
+                timelineTitle: "ਤਿਉਹਾਰ ਕੈਲੰਡਰ",
+                timelineDesc: "ਸਾਲ ਭਰ ਆਭਾਸਾਂ ਦੀ ਯਾਤਰਾ",
+                footer: "© 2024 ਭਾਰਤ ਤਿਉਹਾਰ ਐਕਸਪਲੋਰਰ",
+                nav_title: "ਭਾਰਤੀ ਤਿਉਹਾਰ"
+            }
+        };
+
+        // ===== STATE MANAGEMENT =====
+        const appState = {
+            currentLanguage: localStorage.getItem('preferredLanguage') || 'en',
+            searchTerm: '',
+            selectedFestival: null
+        };
+
+        // ===== UTILITY FUNCTION =====
+        function t(key) {
+            return translations[appState.currentLanguage]?.[key] || translations['en'][key] || key;
+        }
+
+        // ===== SEARCH FUNCTIONALITY =====
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            appState.searchTerm = searchTerm;
+
+            if (!searchTerm) {
+                closeSearchResults();
+                showNotification('Enter search term', 'info');
+                return;
+            }
+
+            animateSearchStart();
+            setTimeout(() => {
+                const results = searchFestivals(searchTerm);
+                displaySearchResults(results);
+                animateSearchEnd();
+                showNotification(`Found ${results.length} festival(s)`, 'success');
+            }, 300);
+        }
+
+        function searchFestivals(term) {
+            const results = [];
+            Object.entries(festivalsData).forEach(([id, festival]) => {
+                let matchScore = 0;
+                if (festival.title.toLowerCase().includes(term)) matchScore += 10;
+                const regionsText = Object.values(festival.regions).join(' ').toLowerCase();
+                matchScore += (regionsText.match(new RegExp(term, 'g')) || []).length * 3;
+                const activitiesText = Object.keys(festival.activities).join(' ').toLowerCase();
+                matchScore += (activitiesText.match(new RegExp(term, 'g')) || []).length * 2;
+                if (festival.description && festival.description.toLowerCase().includes(term)) matchScore += 5;
+                if (matchScore > 0) results.push({ id, festival, matchScore });
+            });
+            results.sort((a, b) => b.matchScore - a.matchScore);
+            return results;
+        }
+
+        function displaySearchResults(results) {
+            const resultsContainer = document.getElementById('searchResultsList');
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `<div style="text-align:center;padding:3rem;color:#9ca3af;"><div style="font-size:3rem;margin-bottom:1rem;">🔍</div>${t('no_results')}</div>`;
+            } else {
+                resultsContainer.innerHTML = results.map(({ id, festival }) => `
+          <div class="search-result-item" onclick="openFestivalModal('${id}'); closeSearchResults();" style="animation:fadeInUp 0.4s ease-out;">
+            <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;">
+              <span style="font-size:2.5rem;">${festival.emoji}</span>
+              <div><div style="font-size:1.5rem;font-weight:600;color:#feca57;">${festival.title}</div>
+              <div style="color:#9ca3af;font-size:0.875rem;">${festival.date}</div></div>
+            </div>
+            <p style="color:#d1d5db;margin:0;font-size:0.875rem;">${festival.description.substring(0, 150)}...</p>
+          </div>
+        `).join('');
+            }
+            document.getElementById('searchResults').classList.add('active');
+        }
+
+        function closeSearchResults() {
+            document.getElementById('searchResults').classList.remove('active');
+            document.getElementById('searchInput').value = '';
+        }
+
+        // ===== LANGUAGE MANAGEMENT =====
+        function toggleLanguageDropdown() {
+            document.getElementById('languageDropdown').classList.toggle('active');
+        }
+
+        function changeLanguage(lang) {
+            appState.currentLanguage = lang;
+            localStorage.setItem('preferredLanguage', lang);
+            document.getElementById('languageDropdown').classList.remove('active');
+            document.getElementById('currentLang').textContent = lang.toUpperCase();
+            document.querySelectorAll('.language-option').forEach(opt => opt.classList.remove('active'));
+            event.target.classList.add('active');
+            updateUILanguage();
+            renderFestivals();
+            renderTimeline();
+            showNotification(t('language_changed'), 'success');
+        }
+
+        function updateUILanguage() {
+            document.getElementById('nav-title').textContent = t('nav_title');
+            document.getElementById('searchInput').placeholder = t('search_placeholder');
+            document.getElementById('searchBtn').textContent = t('search_btn');
+            document.getElementById('searchResultsTitle').textContent = t('searchResults');
+            document.getElementById('gridViewTitle').innerHTML = `<span class="text-gradient">${t('gridViewTitle')}</span>`;
+            document.getElementById('gridViewDesc').textContent = t('gridViewDesc');
+            document.getElementById('timelineTitle').innerHTML = `<span class="text-gradient">${t('timelineTitle')}</span>`;
+            document.getElementById('timelineDesc').textContent = t('timelineDesc');
+            document.getElementById('footerText').textContent = t('footer');
+        }
+        // INDEX PAGE LOGIC
+        const container = document.getElementById("festivalContainer");
+
+        if (container) {
+
+            function loadMonths(filter = "all") {
+
+                container.innerHTML = "";
+
+                Object.keys(data).forEach(month => {
+
+                    if (filter !== "all" && filter !== month) return;
+
+                    const monthDiv = document.createElement("div");
+                    monthDiv.classList.add("month-card");
+
+                    monthDiv.innerHTML = `<h2>${month}</h2>`;
+
+                    data[month].forEach(festival => {
+                        const festDiv = document.createElement("div");
+                        festDiv.classList.add("festival-item");
+                        festDiv.innerText = festival.name;
+
+                        festDiv.onclick = () => {
+                            document.querySelector(".page-transition").classList.remove("hide");
+                            setTimeout(() => {
+                                window.location.href = "festival.html?festival=" + festival.key;
+                            }, 600);
+                        };
+
+                        monthDiv.appendChild(festDiv);
+                    });
+
+                    container.appendChild(monthDiv);
+                });
+            }
+
+            loadMonths();
+
+            document.getElementById("monthFilter").addEventListener("change", function () {
+                loadMonths(this.value);
+            });
+        }
+
+        // ===== MODAL FUNCTIONS =====
+        function openFestivalModal(festivalId) {
+            const festival = festivalsData[festivalId];
+            if (!festival || !festival.detailsPage) return;
+            window.location.href = festival.detailsPage;
+
+        }
+
+        // ===== NOTIFICATIONS =====
+        function showNotification(message, type = 'info') {
+            let container = document.getElementById('toastContainer');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toastContainer';
+                document.body.appendChild(container);
+            }
+
+            const toast = document.createElement('div');
+            const colors = { success: '#10b981', error: '#ef4444', warning: '#f59e0b', info: '#3b82f6' };
+            const icons = { success: '✓', error: '✕', warning: '⚠', info: 'ℹ' };
+
+            toast.style.cssText = `background:${colors[type]}20;border-left:4px solid ${colors[type]};padding:1rem;border-radius:0.5rem;color:white;display:flex;align-items:center;gap:0.75rem;animation:slideInRight 0.4s ease-out;max-width:300px;font-size:0.875rem;`;
+            toast.innerHTML = `<span style="font-weight:bold;font-size:1.25rem;">${icons[type]}</span><span>${message}</span>`;
+
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.4s ease-out';
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        // ===== ANIMATIONS =====
+        function animateSearchStart() {
+            const btn = document.getElementById('searchBtn');
+            if (btn) btn.style.animation = 'pulse 0.6s ease-out';
+        }
+
+        function animateSearchEnd() {
+            const btn = document.getElementById('searchBtn');
+            if (btn) btn.style.animation = 'none';
+        }
+
+        // ===== RENDER FESTIVALS GRID =====
+        function renderFestivals() {
+            const container = document.getElementById('festivalsContainer');
+            container.innerHTML = '';
+            const festivalList = Object.entries(festivalsData);
+
+            festivalList.forEach(([id, festival], i) => {
+                const card = document.createElement('div');
+                card.className = 'festival-card';
+                card.style.animation = `fadeInUp 0.6s ease-out ${i * 0.05}s`;
+                card.style.opacity = '0';
+                card.style.animationFillMode = 'forwards';
+                card.innerHTML = `
+          <div class="festival-emoji">${festival.emoji}</div>
+          <div class="festival-title">${festival.title}</div>
+          <div style="color:#9ca3af;font-size:0.875rem;margin-bottom:1rem;"><strong>${festival.month}</strong> • ${festival.date}</div>
+          <div style="font-size:0.8rem;color:#9ca3af;"><strong style="color:#feca57;"></strong> ${festival.description.substring(0, 80)}...</div>
+        `;
+                card.addEventListener('click', () => openFestivalModal(id));
+                container.appendChild(card);
+            });
+        }
+
+        // ===== RENDER TIMELINE =====
+        function renderTimeline() {
+            const container = document.getElementById('timelineContainer');
+            container.innerHTML = '';
+            const festivalList = Object.entries(festivalsData);
+
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const sortedFestivals = festivalList.sort((a, b) => {
+                const monthA = months.indexOf(a[1].month.split('-')[0]);
+                const monthB = months.indexOf(b[1].month.split('-')[0]);
+                return monthA - monthB;
+            });
+
+            sortedFestivals.forEach(([id, festival], i) => {
+                const item = document.createElement('div');
+                item.className = 'timeline-item';
+                item.style.animationDelay = `${i * 0.1}s`;
+                item.innerHTML = `
+          <div class="timeline-dot"></div>
+          <div class="festival-card" onclick="openFestivalModal('${id}')" style="margin: 0; cursor: pointer;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span class="festival-emoji">${festival.emoji}</span>
+              <div style="flex: 1;">
+                <div class="festival-title" style="margin: 0; font-size: 1.25rem;">${festival.title}</div>
+                <div style="color: #feca57; font-size: 0.875rem; margin-top: 0.5rem;">📅 ${festival.date}</div>
+              </div>
+            </div>
+          </div>
+        `;
+                container.appendChild(item);
+            });
+        }
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🎉 Festivals Explorer Initialized');
+            updateUILanguage();
+            renderFestivals();
+            renderTimeline();
+
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') performSearch();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeSearchResults();
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.language-selector')) {
+                    document.getElementById('languageDropdown').classList.remove('active');
+                }
+            });
+
+            showNotification(t('welcome'), 'success');
+
+            // Element SDK Configuration
+            const defaultConfig = {
+                site_title: "Festivals of India Explorer",
+                tagline: "Celebrating Unity in Diversity",
+                contact_email: "info@festivalsofindia.com",
+                contact_phone: "+91 98765 43210"
+            };
+
+            let config = { ...defaultConfig };
+
+            async function onConfigChange(newConfig) {
+                config = { ...config, ...newConfig };
+                const heroTitle = document.getElementById('hero-title');
+                const heroTagline = document.getElementById('hero-tagline');
+                if (heroTitle) {
+                    heroTitle.innerHTML = `<span class="text-gradient">${config.site_title || defaultConfig.site_title}</span>`;
+                }
+                if (heroTagline) heroTagline.textContent = config.tagline || defaultConfig.tagline;
+            }
+
+            function mapToCapabilities(config) {
+                return { recolorables: [], borderables: [], fontEditable: undefined, fontSizeable: undefined };
+            }
+
+            function mapToEditPanelValues(config) {
+                return new Map([
+                    ["site_title", config.site_title || defaultConfig.site_title],
+                    ["tagline", config.tagline || defaultConfig.tagline],
+                    ["contact_email", config.contact_email || defaultConfig.contact_email],
+                    ["contact_phone", config.contact_phone || defaultConfig.contact_phone]
+                ]);
+            }
+
+            if (window.elementSdk) {
+                window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange,
+                    mapToCapabilities,
+                    mapToEditPanelValues
+                });
+            }
+        });
+
+        // CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+      @keyframes float { 0%,100%{transform:translateY(0)rotate(0deg)} 50%{transform:translateY(-20px)rotate(180deg)} }
+      @keyframes slideInRight { from{opacity:0;transform:translateX(400px)} to{opacity:1;transform:translateX(0)} }
+      @keyframes slideOutRight { from{opacity:1;transform:translateX(0)} to{opacity:0;transform:translateX(400px)} }
+      @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    `;
+        document.head.appendChild(style);
+    </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9cad7737e00fdc75',t:'MTc3MDU3ODIzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>

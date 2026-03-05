@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chhath Puja - Festivals of India</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ========================================
+           ALL CSS STYLES - MODERN FESTIVAL PAGE
+           ======================================== */
+
+        /* CSS Variables for Easy Customization */
+        :root {
+            /* Colors - Change these for different festivals */
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f2e;
+            --bg-card: #232938;
+            --bg-hover: #2d3548;
+
+            --text-primary: #ffffff;
+            --text-secondary: #a8b3cf;
+            --text-muted: #6b7b9c;
+
+            --accent-primary: #fbbf24;
+            --accent-secondary: #f97316;
+            --accent-tertiary: #fb923c;
+
+            --success: #10b981;
+            --error: #ef4444;
+            --info: #3b82f6;
+
+            --gradient-primary: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+            --gradient-secondary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 3rem);
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 2rem);
+        }
+
+        h4 {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-primary);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(251, 191, 36, 0.1);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-logo i {
+            font-size: 1.5rem;
+            animation: spin 10s linear infinite;
+        }
+
+        .nav-logo:hover {
+            transform: translateX(-5px);
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: var(--border-radius-sm);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-back:hover {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            transform: translateX(-5px);
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #232938 100%);
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+            animation: heroGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes heroGlow {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(251,191,36,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-icon {
+            font-size: clamp(4rem, 10vw, 8rem);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.5));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero-title {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 3vw, 2rem);
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+        }
+
+        .meta-item i {
+            color: var(--accent-primary);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .section-title {
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(251, 191, 36, 0.1);
+            transition: var(--transition);
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+
+        .lead-text {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .date-highlight {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--gradient-primary);
+            border-radius: var(--border-radius-sm);
+            color: var(--bg-primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .info-box {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--info);
+            border-radius: var(--border-radius-sm);
+            margin-top: 2rem;
+        }
+
+        .info-box i {
+            color: var(--info);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Feature Grid */
+        .unique-features {
+            margin-top: 3rem;
+        }
+
+        .unique-features h3 {
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(249, 115, 22, 0.05) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-primary);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h4 {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Stories Grid */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .story-card {
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(251, 191, 36, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .story-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .story-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .story-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-icon {
+            font-size: 2.5rem;
+        }
+
+        .story-header h3 {
+            color: var(--accent-primary);
+            margin-bottom: 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    var(--accent-primary) 10%,
+                    var(--accent-primary) 90%,
+                    transparent 100%);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            text-align: left;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bg-primary);
+            box-shadow: 0 0 0 10px var(--bg-primary), var(--shadow-lg);
+            z-index: 2;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(251, 191, 36, 0.1);
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-primary);
+        }
+
+        .timeline-content h3 {
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-subtitle {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-details {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .detail-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            color: var(--accent-primary);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .timeline-item.highlight .timeline-marker {
+            background: var(--gradient-secondary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 10px var(--bg-primary), 0 0 0 20px rgba(99, 102, 241, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 0 10px var(--bg-primary), 0 0 0 20px rgba(99, 102, 241, 0.3);
+            }
+        }
+
+        .highlight-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(251, 191, 36, 0.05);
+            border-left: 3px solid var(--accent-primary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .highlight-box i {
+            color: var(--accent-primary);
+            font-size: 1.25rem;
+        }
+
+        /* Shopping Grid */
+        .shopping-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .shopping-card {
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(251, 191, 36, 0.1);
+            transition: var(--transition);
+        }
+
+        .shopping-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-primary);
+        }
+
+        .shopping-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .shopping-card ul {
+            list-style: none;
+        }
+
+        .shopping-card li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(251, 191, 36, 0.05);
+        }
+
+        .shopping-card li:last-child {
+            border-bottom: none;
+        }
+
+        .shopping-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay p {
+            margin: 0;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Video Section */
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-caption {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Guidelines */
+        .guidelines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .guidelines-column {
+            padding: 2.5rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            border: 2px solid rgba(251, 191, 36, 0.1);
+        }
+
+        .guidelines-column h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .do-column {
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .do-column h3 {
+            color: var(--success);
+        }
+
+        .dont-column {
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .dont-column h3 {
+            color: var(--error);
+        }
+
+        .guidelines-column ul {
+            list-style: none;
+        }
+
+        .guidelines-column li {
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: rgba(251, 191, 36, 0.03);
+            border-radius: var(--border-radius-sm);
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .guidelines-column li:hover {
+            background: rgba(251, 191, 36, 0.08);
+            transform: translateX(10px);
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            position: relative;
+        }
+
+        .quote-section::before {
+            content: '"';
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 15rem;
+            color: rgba(251, 191, 36, 0.05);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .quote-card {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .quote-card blockquote {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-style: italic;
+            text-align: center;
+        }
+
+        .quote-card em {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .quote-icon {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(251, 191, 36, 0.1);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo i {
+            animation: spin 10s linear infinite;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: var(--bg-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: row !important;
+                padding-left: 80px;
+            }
+
+            .timeline-marker {
+                left: 30px !important;
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content {
+                text-align: left !important;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .nav-logo span {
+                display: none;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-grid,
+            .stories-grid,
+            .shopping-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-icon {
+                font-size: 4rem;
+            }
+
+            .content-card {
+                padding: 1.5rem;
+            }
+
+            .quote-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .quote-card blockquote {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-dharmachakra"></i>
+                <span>Festivals of India</span>
+            </a>
+            <button class="nav-back" onclick="window.history.back()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-icon">🌅</div>
+            <h1 class="hero-title">Chhath Puja</h1>
+            <p class="hero-subtitle">The Most Ancient Sun Festival</p>
+            <p class="hero-description">Gratitude, Purity & the Worship of Life's Source</p>
+            <div class="hero-meta">
+                <span class="meta-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    October 25-28, 2026
+                </span>
+                <span class="meta-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Bihar, Jharkhand, UP
+                </span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Significance Section -->
+    <section class="section significance-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">⭐</span>
+                <h2 class="section-title">Significance</h2>
+            </div>
+            <div class="content-card animate-on-scroll">
+                <p class="lead-text">New Year symbolizes new beginnings, hope, and the opportunity for growth. It
+                    fosters unity as people from diverse backgrounds come together to celebrate.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- When Section -->
+    <section class="section when-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">📅</span>
+                <h2 class="section-title">When is it?</h2>
+            </div>
+            <div class="content-card animate-on-scroll">
+                <p>Chhath Puja is a <strong>4-day festival</strong> beginning on the <strong>4th day (Chaturthi) of the
+                        bright fortnight (Shukla Paksha) of the Hindu month of Kartika</strong> — four days after
+                    Diwali.</p>
+                <div class="date-highlight">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>In 2026: October 25th–28th</span>
+                </div>
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Check <strong>drikpanchang.com</strong> for exact Sandhya Arghya and Usha Arghya timings for your
+                        city — these are the most critical timings of the entire festival.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What & Why Section -->
+    <section class="section what-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">🌟</span>
+                <h2 class="section-title">What and Why?</h2>
+            </div>
+            <div class="content-card animate-on-scroll">
+                <p>Chhath Puja is the worship of <strong>Surya (the Sun God)</strong> and his consort <strong>Chhathi
+                        Maiya (Goddess Shashti)</strong> — the sixth form of Devi and the divine mother of life. It is
+                    one of the oldest surviving Vedic festivals — predating even most temple-based Hindu worship.</p>
+
+                <div class="unique-features">
+                    <h3>What makes Chhath unique:</h3>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🌅</div>
+                            <h4>Setting Sun Worship</h4>
+                            <p>The only Hindu festival where the setting sun is specifically worshipped — honoring the
+                                sun even as it descends</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💧</div>
+                            <h4>Standing in Water</h4>
+                            <p>Requires standing in water for extended periods during offerings — connecting directly
+                                with nature</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🙏</div>
+                            <h4>No Priests</h4>
+                            <p>The devotee worships directly — no intermediary needed. The most democratic of all Hindu
+                                pujas</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⏱️</div>
+                            <h4>Rigorous Fast</h4>
+                            <p>36 hours of complete Nirjala (no food, no water) fast — one of the most rigorous in
+                                Hinduism</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stories Section -->
+    <section class="section stories-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">📖</span>
+                <h2 class="section-title">The Stories Behind Chhath</h2>
+            </div>
+            <div class="stories-grid">
+                <div class="story-card animate-on-scroll">
+                    <div class="story-header">
+                        <span class="story-icon">👸</span>
+                        <h3>Draupadi's Chhath</h3>
+                    </div>
+                    <p>When the Pandavas were in exile and in desperate need, Draupadi observed Chhath Puja on the
+                        advice of the sage Dhaumya — worshipping the Sun God for the restoration of their kingdom and
+                        wellbeing. Her prayers were answered.</p>
+                </div>
+                <div class="story-card animate-on-scroll">
+                    <div class="story-header">
+                        <span class="story-icon">⚔️</span>
+                        <h3>Karna's Chhath</h3>
+                    </div>
+                    <p>Karna — the great warrior son of Surya in the Mahabharata — worshipped his divine father every
+                        day by standing waist-deep in water offering Arghya to the sun. Chhath's standing-in-water
+                        tradition is directly connected to Karna's daily worship.</p>
+                </div>
+                <div class="story-card animate-on-scroll">
+                    <div class="story-header">
+                        <span class="story-icon">🏹</span>
+                        <h3>Rama and Sita's Chhath</h3>
+                    </div>
+                    <p>After returning from Lanka, Rama and Sita observed Chhath on Kartika Shukla Shashti — worshipping
+                        the sun together. This is why the main day of Chhath is called Shashti (the sixth day).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4 Days Timeline -->
+    <section class="section timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">📅</span>
+                <h2 class="section-title">The 4 Days Journey</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>Nahay Khay</h3>
+                        <span class="timeline-subtitle">Bath and Eat</span>
+                        <p>The purification day. Take a complete ritual bath in sacred water. Eat one simple sattvic
+                            meal — Chana dal and Lauki with rice. After this meal, the Nirjala fast begins.</p>
+                        <div class="timeline-details">
+                            <span class="detail-tag">🛁 Ritual Bath</span>
+                            <span class="detail-tag">🍚 One Sattvic Meal</span>
+                            <span class="detail-tag">🧘 Begin Purity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>Kharna</h3>
+                        <span class="timeline-subtitle">Fasting and Evening Prasad</span>
+                        <p>Complete Nirjala fast all day. In the evening, break the fast with Kharna Prasad (Rasiyaav -
+                            rice cooked in jaggery and milk). After this, no food or water for 36 hours.</p>
+                        <div class="timeline-details">
+                            <span class="detail-tag">🚫 No Food/Water</span>
+                            <span class="detail-tag">🌅 Evening Prasad</span>
+                            <span class="detail-tag">⏱️ 36hr Fast Begins</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item animate-on-scroll highlight">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>Sandhya Arghya</h3>
+                        <span class="timeline-subtitle">Evening Offering to Setting Sun</span>
+                        <p>The most spectacular day. Prepare the Soop (bamboo basket) with offerings. Go to the ghat
+                            before sunset. Stand waist-deep in water and offer Arghya to the setting sun.</p>
+                        <div class="timeline-details">
+                            <span class="detail-tag">🧺 Prepare Soop</span>
+                            <span class="detail-tag">🌊 Water Offering</span>
+                            <span class="detail-tag">🌅 Setting Sun</span>
+                        </div>
+                        <div class="highlight-box">
+                            <i class="fas fa-star"></i>
+                            <p>The only festival that worships the setting sun — gratitude even in its fading</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item animate-on-scroll highlight">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h3>Usha Arghya</h3>
+                        <span class="timeline-subtitle">Morning Offering to Rising Sun</span>
+                        <p>Wake before dawn. Return to the ghat. Offer Arghya to the rising sun. Break the 36-hour fast
+                            with prasad. The most sacred and powerful moment of the festival.</p>
+                        <div class="timeline-details">
+                            <span class="detail-tag">🌄 Pre-dawn</span>
+                            <span class="detail-tag">☀️ Rising Sun</span>
+                            <span class="detail-tag">🍽️ Break Fast</span>
+                        </div>
+                        <div class="highlight-box">
+                            <i class="fas fa-heart"></i>
+                            <p>Standing in water at sunrise after 36 hours fasting — the culmination of devotion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping List -->
+    <section class="section shopping-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">🛒</span>
+                <h2 class="section-title">What You Need</h2>
+            </div>
+            <div class="shopping-grid">
+                <div class="shopping-card animate-on-scroll">
+                    <h3><i class="fas fa-shopping-basket"></i> The Chhath Soop</h3>
+                    <p>Large bamboo winnowing basket — the primary vessel for offerings. Buy at least two.</p>
+                </div>
+                <div class="shopping-card animate-on-scroll">
+                    <h3><i class="fas fa-seedling"></i> From Market</h3>
+                    <ul>
+                        <li>Sugarcane stalks with leaves</li>
+                        <li>Thekua (wheat flour cookies)</li>
+                        <li>Banana bunches</li>
+                        <li>Coconut, pomelo, pear, lemon</li>
+                        <li>Raw turmeric and ginger root</li>
+                        <li>Jaggery, wheat flour, ghee</li>
+                    </ul>
+                </div>
+                <div class="shopping-card animate-on-scroll">
+                    <h3><i class="fas fa-spa"></i> Flowers & Puja Items</h3>
+                    <ul>
+                        <li>Marigold and loose petals</li>
+                        <li>Brass/copper Kalash vessels</li>
+                        <li>Diyas, incense, camphor</li>
+                        <li>Kumkum, chandan, mauli thread</li>
+                    </ul>
+                </div>
+                <div class="shopping-card animate-on-scroll">
+                    <h3><i class="fas fa-tshirt"></i> What to Wear</h3>
+                    <ul>
+                        <li><strong>Women:</strong> New yellow/orange saree</li>
+                        <li><strong>Men:</strong> White/yellow dhoti-kurta</li>
+                        <li><strong>Important:</strong> No leather at ghat!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">📸</span>
+                <h2 class="section-title">Festival Gallery</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800"
+                        alt="Chhath Puja at Ghat">
+                    <div class="gallery-overlay">
+                        <p>Devotees at the Ghat</p>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1517094388445-b58b1c2a5962?w=800"
+                        alt="Sunset Offerings">
+                    <div class="gallery-overlay">
+                        <p>Sandhya Arghya - Setting Sun</p>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1544980919-e17526d4ed0a?w=800" alt="Thekua Prasad">
+                    <div class="gallery-overlay">
+                        <p>Thekua - Sacred Prasad</p>
+                    </div>
+                </div>
+                <div class="gallery-item animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1609619385002-491fff49db05?w=800" alt="Chhath Soop">
+                    <div class="gallery-overlay">
+                        <p>Decorated Chhath Soop</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="section video-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">🎥</span>
+                <h2 class="section-title">Experience Chhath</h2>
+            </div>
+            <div class="video-container animate-on-scroll">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Chhath Puja Documentary"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+                <p class="video-caption">Witness the grandeur of Chhath Puja celebrations at the ghats of Bihar</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Do's and Don'ts -->
+    <section class="section guidelines-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">📌</span>
+                <h2 class="section-title">Do's and Don'ts</h2>
+            </div>
+            <div class="guidelines-grid">
+                <div class="guidelines-column do-column animate-on-scroll">
+                    <h3><i class="fas fa-check-circle"></i> Do's</h3>
+                    <ul>
+                        <li>Maintain complete purity for all 4 days</li>
+                        <li>Sleep on the floor, no bed</li>
+                        <li>Observe Nirjala fast completely</li>
+                        <li>Carry Soop on your head to ghat</li>
+                        <li>Stand in water for both Arghya offerings</li>
+                        <li>Offer three Arghayas each time</li>
+                        <li>Distribute prasad to all at ghat</li>
+                        <li>Make Thekua at home</li>
+                        <li>Sing Chhath Geet at the ghat</li>
+                        <li>Break fast with prasad first</li>
+                    </ul>
+                </div>
+                <div class="guidelines-column dont-column animate-on-scroll">
+                    <h3><i class="fas fa-times-circle"></i> Don'ts</h3>
+                    <ul>
+                        <li>Don't wear leather at the ghat</li>
+                        <li>Don't eat non-veg, onion, or garlic</li>
+                        <li>Don't sleep on a bed during 4 days</li>
+                        <li>Don't break Nirjala fast early</li>
+                        <li>Don't use plastic or pollute ghat</li>
+                        <li>Don't skip Sandhya Arghya</li>
+                        <li>Don't treat it as a spectacle</li>
+                        <li>Don't push or rush at crowded ghats</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Quote -->
+    <section class="quote-section">
+        <div class="container">
+            <div class="quote-card animate-on-scroll">
+                <blockquote>
+                    <p>"Chhath Puja is the festival that chooses to worship the sun not at noon — not at its most
+                        glorious, most powerful, most obvious moment — but at sunset, when it is leaving. Standing in
+                        cold water, fasting for 36 hours, facing a sun that is disappearing — and saying: <em>thank you.
+                            Even now. Especially now.</em> That is not just devotion. That is wisdom."</p>
+                </blockquote>
+                <div class="quote-icon">🌅🌊🙏</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-dharmachakra"></i>
+                    <span>Festivals of India</span>
+                </div>
+                <p>Celebrating Unity in Diversity</p>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        /* ========================================
+           ALL JAVASCRIPT - INTERACTIVE FEATURES
+           ======================================== */
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // ============================================
+            // SCROLL PROGRESS BAR
+            // ============================================
+            const progressBar = document.getElementById('scroll-progress');
+
+            window.addEventListener('scroll', function () {
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = (window.pageYOffset / scrollHeight) * 100;
+                progressBar.style.width = scrolled + '%';
+            });
+
+
+            // ============================================
+            // SCROLL ANIMATIONS
+            // ============================================
+            const observerOptions = {
+                root: null,
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const animateOnScroll = new IntersectionObserver(function (entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                animateOnScroll.observe(el);
+            });
+
+
+            // ============================================
+            // BACK TO TOP BUTTON
+            // ============================================
+            const backToTopButton = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+
+            backToTopButton.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+
+            // ============================================
+            // NAVBAR SCROLL EFFECT
+            // ============================================
+            const navbar = document.querySelector('.navbar');
+
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 100) {
+                    navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.6)';
+                } else {
+                    navbar.style.boxShadow = 'none';
+                }
+            });
+
+
+            // ============================================
+            // PARALLAX EFFECT FOR HERO
+            // ============================================
+            const heroSection = document.querySelector('.hero-section');
+
+            window.addEventListener('scroll', function () {
+                const scrolled = window.pageYOffset;
+                if (heroSection && scrolled < window.innerHeight) {
+                    heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+
+
+            // ============================================
+            // GALLERY CLICK TO VIEW
+            // ============================================
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const img = this.querySelector('img');
+                    const caption = this.querySelector('.gallery-overlay p').textContent;
+
+                    // Create modal
+                    const modal = document.createElement('div');
+                    modal.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.95);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 10000;
+                        animation: fadeIn 0.3s ease-out;
+                    `;
+
+                    modal.innerHTML = `
+                        <div style="position: relative; max-width: 90%; max-height: 90%;">
+                            <span style="position: absolute; top: -50px; right: 0; font-size: 3rem; color: white; cursor: pointer; transition: all 0.3s ease;" onclick="this.parentElement.parentElement.remove(); document.body.style.overflow='auto';">&times;</span>
+                            <img src="${img.src}" alt="${caption}" style="max-width: 100%; max-height: 80vh; border-radius: 16px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);">
+                            <p style="text-align: center; margin-top: 1rem; color: white; font-size: 1.25rem;">${caption}</p>
+                        </div>
+                    `;
+
+                    document.body.appendChild(modal);
+                    document.body.style.overflow = 'hidden';
+
+                    modal.addEventListener('click', function (e) {
+                        if (e.target === modal) {
+                            modal.remove();
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                });
+            });
+
+
+            // ============================================
+            // SMOOTH SCROLL FOR ANCHOR LINKS
+            // ============================================
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+
+            // ============================================
+            // KEYBOARD NAVIGATION
+            // ============================================
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    const modals = document.querySelectorAll('[style*="position: fixed"]');
+                    modals.forEach(modal => {
+                        if (modal.style.zIndex === '10000') {
+                            modal.remove();
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                }
+            });
+
+
+            console.log('🎉 Festival Page Loaded Successfully!');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maha Shivratri — Festivals of India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════
+       DESIGN TOKENS — your website's palette
+    ═══════════════════════════════════════════ */
+        :root {
+            --bg: #0d1117;
+            --bg-2: #111827;
+            --card: #161d2e;
+            --card-2: #1b2338;
+            --card-3: #1e2a40;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-md: rgba(255, 255, 255, 0.12);
+            --yellow: #4c1d95;
+            /* deep Shiva violet — night consciousness */
+            --yellow-lt: #a78bfa;
+            --yellow-dim: rgba(76, 29, 149, 0.10);
+            --yellow-glow: rgba(76, 29, 149, 0.22);
+            --pink: #374151;
+            /* vibhuti ash grey */
+            --pink-dim: rgba(55, 65, 81, 0.15);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --white: #ffffff;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ─── SCROLLBAR — matches your pink accent ─── */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 3px;
+        }
+
+        /* ══════════════════════════════════════
+       FLOATING PARTICLE BACKGROUND
+    ══════════════════════════════════════ */
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 9px 16px;
+            background: rgba(22, 29, 46, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(12px);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+
+        /* Gradient mesh background on hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(244, 63, 94, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(245, 158, 11, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 30% at 20% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Animated grid lines */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 80%);
+        }
+
+        .hero-emoji {
+            font-size: 88px;
+            display: block;
+            margin-bottom: 24px;
+            animation: heroFloat 3.5s ease-in-out infinite, heroFadeIn 0.8s both;
+            filter: drop-shadow(0 0 32px rgba(245, 158, 11, 0.35));
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+            animation: slideUp 0.7s 0.15s var(--ease) both;
+        }
+
+        /* Split-text reveal for the title */
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: slideUp 0.7s 0.28s var(--ease) both;
+        }
+
+        .hero-title .accent {
+            color: var(--yellow);
+            font-style: italic;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Underline swipe on accent word */
+        .hero-title .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--yellow), var(--pink));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: swipeIn 0.8s 1s var(--ease) forwards;
+        }
+
+        @keyframes swipeIn {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            margin-top: 10px;
+            animation: slideUp 0.7s 0.4s var(--ease) both;
+        }
+
+        /* Date pill */
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--yellow-lt);
+            animation: slideUp 0.7s 0.52s var(--ease) both;
+        }
+
+        .pill-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--pink);
+            border-radius: 50%;
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Hero quick-stats row */
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 0.7s 0.65s var(--ease) both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .sv {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--yellow);
+        }
+
+        .hero-stat .sl {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-sep {
+            width: 1px;
+            background: var(--border-md);
+            align-self: stretch;
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeIn 1s 1.4s both;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: rotate(45deg) translateY(5px);
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════ */
+        .page-body {
+            position: relative;
+            z-index: 1;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        /* ─── SECTION HEADING — identical to your site ─── */
+        .sec-head {
+            margin-bottom: 24px;
+        }
+
+        .sec-head h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-head h2 .sec-emoji {
+            font-size: 22px;
+        }
+
+        .sec-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--pink) 0%, transparent 55%);
+            margin-top: 8px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .sec-divider.visible {
+            transform: scaleX(1);
+        }
+
+        .content-section {
+            margin-bottom: 72px;
+        }
+
+        /* ══════════════════════════════════════
+       ABOUT BLOCK
+    ══════════════════════════════════════ */
+        .about-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .about-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-block strong {
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .about-block p+p {
+            margin-top: 16px;
+        }
+
+        /* Myth quote */
+        .myth-quote {
+            margin: 20px 0 0;
+            padding: 18px 22px;
+            background: var(--card-2);
+            border-left: 3px solid var(--yellow);
+            border-radius: 0 10px 10px 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--yellow-lt);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+       REGION CARDS — matches your site layout
+    ══════════════════════════════════════ */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .region-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+            cursor: default;
+        }
+
+        .region-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .region-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: var(--card-2);
+        }
+
+        .region-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .region-also {
+            font-size: 11px;
+            color: var(--pink);
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .region-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       CEREMONY STEPS — activities style
+    ══════════════════════════════════════ */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        /* Shimmer sweep */
+        .step-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--ease);
+        }
+
+        .step-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: var(--yellow-dim);
+            border-radius: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        .step-mantra {
+            margin-top: 12px;
+            padding: 12px 14px;
+            background: var(--card-3);
+            border-left: 2px solid var(--yellow);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 12.5px;
+            color: var(--yellow-lt);
+            line-height: 1.65;
+            font-family: var(--font-serif);
+        }
+
+        /* ══════════════════════════════════════
+       WHAT YOU NEED — chip list
+    ══════════════════════════════════════ */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .item-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            transition:
+                opacity 0.4s var(--ease),
+                transform 0.4s var(--ease),
+                border-color 0.2s;
+        }
+
+        .item-chip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .item-chip:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .item-chip .ic-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--yellow);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       PHOTO GALLERY
+    ══════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 12px;
+        }
+
+        .gallery-grid .g-wide {
+            grid-column: span 2;
+        }
+
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.96);
+            transition:
+                opacity 0.55s var(--ease),
+                transform 0.55s var(--ease),
+                border-color 0.2s;
+        }
+
+        .g-item.g-wide {
+            aspect-ratio: 16/9;
+        }
+
+        .g-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .g-item:hover {
+            border-color: var(--border-md);
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.82) saturate(0.88);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(0.95) saturate(1.05);
+        }
+
+        .g-item .g-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 14px 12px;
+            background: linear-gradient(to top, rgba(13, 17, 23, 0.92), transparent);
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .g-item:hover .g-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Placeholder when no image */
+        .g-ph {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 12px;
+        }
+
+        .g-ph .ph-e {
+            font-size: 36px;
+        }
+
+        /* ══════════════════════════════════════
+       VIDEO CARDS
+    ══════════════════════════════════════ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .v-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s,
+                background 0.2s;
+        }
+
+        .v-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-card:hover {
+            border-color: var(--border-md);
+            background: var(--card-2);
+        }
+
+        .v-thumb {
+            aspect-ratio: 16/9;
+            background: var(--card-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease), filter 0.4s;
+            filter: brightness(0.7);
+        }
+
+        .v-card:hover .v-thumb img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        .play-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--yellow-lt);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-ring::after {
+            content: '▶';
+            margin-left: 3px;
+        }
+
+        .v-card:hover .play-ring {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(245, 158, 11, 0.25);
+        }
+
+        .v-info {
+            padding: 16px 18px;
+        }
+
+        .v-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--pink);
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .v-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ══════════════════════════════════════
+       MANTRAS / PRAYERS BLOCK
+    ══════════════════════════════════════ */
+        .mantra-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mantra-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition:
+                opacity 0.5s var(--ease),
+                transform 0.5s var(--ease),
+                border-color 0.2s;
+        }
+
+        .mantra-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mantra-card:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+        }
+
+        .mantra-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .mantra-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .mantra-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--yellow-lt);
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .mantra-meaning {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+       DO'S & DON'TS
+    ══════════════════════════════════════ */
+        .dos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dos-col {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+        }
+
+        .dos-col.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dos-col h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dos-col.do-col h3 {
+            color: #34d399;
+        }
+
+        .dos-col.dont-col h3 {
+            color: var(--pink);
+        }
+
+        .dos-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .dos-col li {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .dos-col li::before {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .do-col li::before {
+            content: '✓';
+            color: #34d399;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .dont-col li::before {
+            content: '✕';
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* ══════════════════════════════════════
+       SIGNIFICANCE BLOCK — like your site
+    ══════════════════════════════════════ */
+        .significance-block {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+
+        .significance-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════════════
+       CLOSING QUOTE
+    ══════════════════════════════════════ */
+        .closing {
+            text-align: center;
+            padding: 60px 24px;
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+        }
+
+        .closing.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        .closing-text em {
+            color: var(--yellow-lt);
+            font-style: normal;
+        }
+
+        .closing-sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════ */
+        .lb {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 17, 23, 0.97);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .lb.open {
+            display: flex;
+            animation: fadeIn 0.25s;
+        }
+
+        .lb img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card);
+            border: 1px solid var(--border-md);
+            color: var(--text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lb-close:hover {
+            background: var(--card-2);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid .g-wide {
+                grid-column: span 2;
+            }
+
+            .about-block,
+            .significance-block {
+                padding: 22px;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Prahar / Abhishekam grid */
+        .prahar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .prahar-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .prahar-card:hover {
+            border-color: var(--border-md);
+            transform: translateY(-2px);
+        }
+
+        .prahar-num {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+
+        .prahar-time {
+            font-weight: 700;
+            color: var(--yellow-lt);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .prahar-substance {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .prahar-meaning {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Jyotirlinga list */
+        .jyotir-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .jyotir-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 12px;
+        }
+
+        .jyotir-name {
+            font-weight: 700;
+            color: var(--yellow-lt);
+            margin-bottom: 2px;
+        }
+
+        .jyotir-loc {
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Particle canvas -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Back button -->
+    <a class="back-btn" href="festival-card.html">← Back</a>
+
+    <!-- Lightbox -->
+    <div class="lb" id="lb" onclick="closeLb()">
+        <button class="lb-close" onclick="closeLb()">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <span class="hero-emoji">🔱</span>
+        <p class="hero-eyebrow">Phalguna · Krishna Chaturdashi · The Great Night of Lord Shiva</p>
+        <h1 class="hero-title">Maha <span class="accent">Shivratri</span></h1>
+        <p class="hero-subtitle">Four Pujas Through the Night — Abhishekam, Bilva, Vigil &amp; the Divine Darkness</p>
+        <div class="hero-pill">
+            <span class="pill-dot"></span>
+            February 15, 2026 &nbsp;·&nbsp; Phalguna Krishna 14
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="sv">4</div>
+                <div class="sl">Prahar Pujas</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">108</div>
+                <div class="sl">Bilva Leaves</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">🌑</div>
+                <div class="sl">Night Vigil</div>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="hero-stat">
+                <div class="sv">∞</div>
+                <div class="sl">Om Namah Shivaya</div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       PAGE BODY
+  ══════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── ABOUT ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📖</span> About</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Unlike most Hindu festivals celebrated with light, color, and daytime joy, Maha Shivratri is
+                    celebrated <strong>in darkness, in silence, in fasting, and through the night</strong> — because
+                    Shiva himself is the God of darkness, dissolution, and the profound stillness that lies beyond all
+                    creation.</p>
+                <p><strong>The Samudra Manthan:</strong> When the Gods and Demons churned the cosmic ocean, a terrifying
+                    poison called Halahala emerged that threatened to destroy all of creation. Lord Shiva consumed the
+                    entire poison to save the universe — holding it in his throat (giving him the name
+                    <em>Neelakantha</em> — the blue-throated one). The Gods stayed awake all night keeping Shiva
+                    conscious by singing his praises, offering water and Bilva leaves. Maha Shivratri commemorates this
+                    night of cosmic sacrifice.</p>
+                <div class="myth-quote">
+                    "A hunter accidentally spent the night in a Bilva tree above a Shivalinga — dropping Bilva leaves on
+                    it throughout the night, staying awake. Without intending to perform any ritual, he accidentally
+                    performed the perfect Maha Shivratri puja — and attained liberation. On this night, even accidental
+                    devotion works. Intentional devotion is infinitely more powerful."
+                </div>
+                <p style="margin-top:16px;"><strong>Yogically:</strong> Shivratri — the darkest night near the new moon
+                    — is when planetary positions are most conducive to raising kundalini energy upward through the
+                    spine. Staying upright (not sleeping) and fasting keeps the body light and the spine erect, allowing
+                    this energy to move. This is why Shiva is the patron of yogis.</p>
+            </div>
+        </div>
+
+        <!-- ── SIGNIFICANCE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">⭐</span> Significance</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="significance-block">
+                Maha Shivratri is the one night of the year when the boundary between the human and the divine becomes
+                the thinnest. While the world sleeps, Shiva's devotees stay awake — not to be seen, not to perform, but
+                because they know something the sleeping world does not: <strong>that in the deepest darkness of the
+                    night, if you are awake, still, and calling his name, Shiva will come. He always comes.</strong>
+            </div>
+        </div>
+
+        <!-- ── FOUR PRAHARS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🌑</span> The Four Prahar Pujas — Heart of Shivratri</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>The entire night is divided into <strong>four equal parts called Prahar</strong> (~3 hours each), and
+                    a complete, separate puja is performed during each one. This means <strong>four full pujas through
+                        the night</strong> — staying awake from sunset to sunrise. The Abhishekam substance changes each
+                    Prahar.</p>
+                <p>Check <strong>drikpanchang.com</strong> for your city's exact Prahar timings each year. These are
+                    approximate:</p>
+            </div>
+            <div class="prahar-grid">
+                <div class="prahar-card">
+                    <div class="prahar-num">First Prahar</div>
+                    <div class="prahar-time">~6 PM – 9 PM</div>
+                    <div class="prahar-substance">🥛 Abhishekam: Milk (Dugdha)</div>
+                    <div class="prahar-meaning">Milk represents purity, nourishment, and the cooling of the cosmic
+                        poison Halahala that Shiva holds in his throat. Pour in a slow, steady, continuous stream.</div>
+                </div>
+                <div class="prahar-card">
+                    <div class="prahar-num">Second Prahar</div>
+                    <div class="prahar-time">~9 PM – 12 AM</div>
+                    <div class="prahar-substance">🥣 Abhishekam: Curd (Dadhi)</div>
+                    <div class="prahar-meaning">Curd represents prosperity and the earth's abundance. The deepening of
+                        the night deepens the devotion — the midnight Prahar is the most intense.</div>
+                </div>
+                <div class="prahar-card">
+                    <div class="prahar-num">Third Prahar</div>
+                    <div class="prahar-time">~12 AM – 3 AM</div>
+                    <div class="prahar-substance">🧈 Abhishekam: Ghee</div>
+                    <div class="prahar-meaning">Ghee represents strength, power, and victory. Past midnight — this is
+                        the deepest moment of the night, the Shivalinga glowing in the lamplight, the chanting
+                        continuous.</div>
+                </div>
+                <div class="prahar-card">
+                    <div class="prahar-num">Fourth Prahar</div>
+                    <div class="prahar-time">~3 AM – 6 AM</div>
+                    <div class="prahar-substance">🍯 Abhishekam: Honey (Madhu)</div>
+                    <div class="prahar-meaning">Honey represents sweetness, liberation, and the nectar of immortality.
+                        The pre-dawn Prahar — the body exhausted, the mind surrendered, the prayer most pure.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── COMPLETE PUJA STEPS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎭</span> The Complete Prahar Puja — 13 Steps (×4)</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 1</div>
+                    <div class="step-title">Achamana &amp; Pranayama</div>
+                    <p class="step-desc">Sit before the Shivalinga on a clean mat. Take a small spoon of water
+                        (uddharini) and sip three times saying "Om Achyutaya Namaha, Om Anantaya Namaha, Om Govindaya
+                        Namaha." Close your eyes — three slow, deep breaths. Inhale fully, hold briefly, exhale
+                        completely. This calms the mind and prepares it for worship.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 2</div>
+                    <div class="step-title">Sankalpa — Taking the Vow</div>
+                    <p class="step-desc">Take water in your right palm and state your intention. You may say sincerely
+                        in your own language: "I am performing this Maha Shivratri puja with complete devotion, seeking
+                        Lord Shiva's blessings for myself and my family." Pour the water from your palm. The Sankalpa is
+                        the sacred contract between you and the divine for this puja.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 3</div>
+                    <div class="step-title">Ganesh Puja First — Always</div>
+                    <p class="step-desc">Offer a flower, akshat (turmeric-tinted rice), and say: <em>"Om Gam Ganapataye
+                            Namaha"</em> — 11 times. Ganesha is invoked before every Hindu puja without exception. On
+                        Shivratri, invoking Ganesha (Shiva's own son) before worshipping Shiva carries special meaning.
+                    </p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 4 — Core</div>
+                    <div class="step-title">Abhishekam — Bathing the Shivalinga</div>
+                    <p class="step-desc">The single most important ritual of Maha Shivratri. Pour the Prahar's specific
+                        substance (milk / curd / ghee / honey) slowly over the Shivalinga in a thin, steady stream from
+                        above — not a splash but a flowing stream. Keep eyes on the Shivalinga. Chant continuously
+                        throughout. This is a conversation — you are cooling Shiva's throat, nourishing him, honoring
+                        him. After each substance, pour Gangajal to rinse and wipe gently with a clean white cloth.</p>
+                    <div class="step-mantra">"Om Namah Shivaya" — chanted throughout the pour</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 5</div>
+                    <div class="step-title">Apply Vibhuti — Sacred Ash</div>
+                    <p class="step-desc">Apply vibhuti (sacred white ash) on the Shivalinga in <strong>three horizontal
+                            lines</strong> using your ring finger. Vibhuti is Shiva's most sacred substance — it
+                        represents the ultimate truth that everything returns to ash. Then apply vibhuti on your own
+                        forehead in three horizontal lines (Tripundra). This is the mark of a Shiva devotee.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 6</div>
+                    <div class="step-title">Apply Chandan — Sandalwood Paste</div>
+                    <p class="step-desc">Apply a small amount of sandalwood paste on the Shivalinga. Sandalwood is
+                        cooling and fragrant — it cools the heat of the cosmic poison Halahala and represents purity and
+                        the cooling of worldly desires. The fragrance of chandan in the puja room at midnight is one of
+                        the most distinctive sensory memories of Shivratri.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 7 — Sacred</div>
+                    <div class="step-title">Offer Bilva Leaves — The Most Important Offering</div>
+                    <p class="step-desc">Bilva is to Shiva what Tulsi is to Vishnu — the most sacred plant offering.
+                        Take a Bilva leaf (three leaflets intact, not broken). Hold with the smooth side facing down
+                        toward the Shivalinga. Place gently while saying <em>"Om Namah Shivaya."</em> The three leaflets
+                        represent Shiva's three eyes, his Trishul, and the destruction of the three types of pain. Offer
+                        11, 21, 108, or 1008 leaves total through the night.</p>
+                    <div class="step-mantra">"Tridalam Trigunaakaram Trinetram Cha Triyayudham — Trijanma Papa Samharam
+                        Eka Bilwam Shivarpanam"</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 8</div>
+                    <div class="step-title">Offer Dhatura</div>
+                    <p class="step-desc">Place Dhatura fruit and/or Dhatura flower before the Shivalinga. This is
+                        uniquely Shiva's offering — no other deity receives it. It is poisonous to humans but sacred to
+                        Shiva — the one who consumed the greatest poison of all. Offering Dhatura represents offering
+                        your own poisons — anger, ego, jealousy — to Shiva for dissolution. <strong>Never eat Dhatura.
+                            Offered only, never consumed.</strong></p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Steps 9–10</div>
+                    <div class="step-title">White Flowers, Diya &amp; Incense</div>
+                    <p class="step-desc">Offer white flowers — Dhatura flowers, white Akanda, jasmine — placed gently on
+                        the Shivalinga. White represents purity and the dissolution of ego. Light a ghee diya on the
+                        right side of the Shivalinga — it represents Shiva as Jyoti (light), the infinite column of
+                        light that Brahma and Vishnu could not measure. Light sandalwood incense to purify and
+                        consecrate the space.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 11 — Heart</div>
+                    <div class="step-title">Chanting — Om Namah Shivaya × 108</div>
+                    <p class="step-desc">The Panchakshara Mantra: <strong>"Na Ma Shi Va Ya"</strong> — five syllables
+                        corresponding to the five elements: Na = Earth, Ma = Water, Shi = Fire, Va = Air, Ya = Space.
+                        Chanting this is chanting the entire universe back to its source. Chant 108 times per Prahar
+                        with your Rudraksha mala. Also chant the Maha Mrityunjaya Mantra 108 times. This is where ritual
+                        becomes transformation.</p>
+                    <div class="step-mantra">"Om Tryambakam Yajamahe, Sugandhim Pushtivardhanam — Urvarukamiva
+                        Bandhanan, Mrityor Mukshiya Maamritat"</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 12</div>
+                    <div class="step-title">Aarti — Jai Shiv Omkara</div>
+                    <p class="step-desc">Light camphor and wave clockwise before the Shivalinga — the camphor flame
+                        represents consciousness dissolving completely into Shiva, leaving no residue. Sing <em>"Jai
+                            Shiv Omkara, Swami Jai Shiv Omkara — Brahma Vishnu Sadashiv, Ardhangi Dhara..."</em> After
+                        aarti, hold both palms over the flame and bring to the forehead.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Step 13</div>
+                    <div class="step-title">Pradakshina &amp; Sashtanga Namaskaram</div>
+                    <p class="step-desc">Walk clockwise around the Shivalinga 3 or 7 times — right side toward the
+                        Shivalinga, as planets orbit the sun. Then bow completely — forehead, chest, both hands, both
+                        knees, both feet touching the earth (Sashtanga Namaskaram). Stay in this position for a few
+                        moments in complete surrender. This prostration, performed four times through the night, is the
+                        essence of Shivratri.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── FASTING ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🌿</span> The Fast — Upvas</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Fasting on Maha Shivratri is one of the most powerful fasts in Hinduism. When the stomach is empty
+                    and light, the body's energy is not diverted toward digestion — this makes the body lighter and more
+                    receptive to spiritual practice. Shiva himself is the Adiyogi who lived on nothing but meditation.
+                </p>
+            </div>
+            <div class="region-grid">
+                <div class="region-card">
+                    <div class="region-name">Nirjala Vrat</div>
+                    <div class="region-also">Strictest — No food, no water</div>
+                    <p class="region-desc">The most intense and meritorious fast — no food and no water for the entire
+                        day and night until the fast is broken the next morning. For deeply devoted Shiva bhaktas. Not
+                        recommended for those with health conditions.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Phalahar Vrat</div>
+                    <div class="region-also">Most Common — Fruit fast</div>
+                    <p class="region-desc">No grains, no cooked food, no regular salt. Only fruits, milk, curd, dry
+                        fruits, nuts, and water. Sabudana khichdi, kuttu puri, singhara halwa. This is what most
+                        devotees observe and is a complete and valid fast.</p>
+                </div>
+                <div class="region-card">
+                    <div class="region-name">Partial Fast</div>
+                    <div class="region-also">For health conditions</div>
+                    <p class="region-desc">Eating once at noon, only sattvic pure food without onion, garlic, or
+                        non-vegetarian items. For those unable to fast fully due to health. The intent and devotion
+                        matter more than the degree of fasting.</p>
+                </div>
+            </div>
+            <div class="about-block" style="margin-top:14px;">
+                <p><strong>Fast foods:</strong> Sabudana Khichdi · Kuttu ki Puri · Singhare ka Halwa · Makhana Kheer ·
+                    Aloo Jeera · all fruits · Thandai (cold milk drink with almonds, fennel, cardamom, rose petals).
+                    <strong>Only sendha namak (rock salt)</strong> — never regular salt during the fast.</p>
+            </div>
+        </div>
+
+        <!-- ── JAGRAN — STAYING AWAKE ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🌙</span> Jagran — The Night Vigil</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>The most essential practice of Maha Shivratri is <strong>not sleeping through the night</strong> —
+                    Jagran (wakeful vigil). Sleeping on Shivratri night is considered a significant loss of spiritual
+                    opportunity. Between the four Prahar pujas, fill the night with:</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-badge">✦ Between Prahars</div>
+                    <div class="step-title">Kirtan &amp; Shiva Bhajans</div>
+                    <p class="step-desc">Sing Shiva bhajans — "Bam Bam Bhole," "Shiv Shambo," "Har Har Mahadev," "Om Jai
+                        Shiv Omkara" — with family or listening to recordings. Devotional music keeps the mind awake and
+                        focused. The sound of Shiva's name in the darkness of the night is itself a complete spiritual
+                        practice.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Between Prahars</div>
+                    <div class="step-title">Shiva Purana Reading</div>
+                    <p class="step-desc">Read or listen to stories from the Shiva Purana — the sacred text containing
+                        Shiva's stories, philosophy, and teachings. These stories are deeply engaging and spiritually
+                        nourishing. Shiva Tandava Stotram and Shiva Panchakshara Stotram are also powerful to recite
+                        through the night.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Between Prahars</div>
+                    <div class="step-title">Meditation — Spine Erect, Eyes Closed</div>
+                    <p class="step-desc">Sit with eyes closed, spine completely erect, and repeat "Om Namah Shivaya"
+                        internally with each breath. Inhale "Om Namah," exhale "Shivaya." Even 30 minutes between
+                        Prahars is a profound practice. This is the yogic dimension of Shivratri — the vertical spine,
+                        the upright position, the stillness that Shiva himself embodies.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-badge">✦ Optional</div>
+                    <div class="step-title">Visit the Temple for Each Prahar</div>
+                    <p class="step-desc">Many devotees go to the temple for each of the four Prahar pujas — this keeps
+                        them moving, engaged, and in the company of other devotees through the night. Major Shiva
+                        temples remain open all night on Maha Shivratri specifically. The atmosphere of a Shiva temple
+                        at 3 AM on Shivratri night is something that cannot be described — only experienced.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── JYOTIRLINGA TEMPLES ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🕌</span> The 12 Jyotirlinga Temples</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="about-block">
+                <p>Visiting any Jyotirlinga on Shivratri carries supreme spiritual merit. Even if you cannot go in
+                    person, streaming the live puja from these temples online is deeply meaningful.</p>
+            </div>
+            <div class="jyotir-grid">
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Somnath</div>
+                    <div class="jyotir-loc">Gujarat · On the Arabian Sea</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Mallikarjuna</div>
+                    <div class="jyotir-loc">Srisailam, Andhra Pradesh</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Mahakaleshwar</div>
+                    <div class="jyotir-loc">Ujjain, Madhya Pradesh</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Omkareshwar</div>
+                    <div class="jyotir-loc">Madhya Pradesh · Island temple</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Kedarnath</div>
+                    <div class="jyotir-loc">Uttarakhand · 3583m altitude</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Bhimashankar</div>
+                    <div class="jyotir-loc">Maharashtra · Western Ghats</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Kashi Vishwanath</div>
+                    <div class="jyotir-loc">Varanasi, Uttar Pradesh</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Tryambakeshwar</div>
+                    <div class="jyotir-loc">Nashik, Maharashtra</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Vaidyanath</div>
+                    <div class="jyotir-loc">Deoghar, Jharkhand</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Nageshwar</div>
+                    <div class="jyotir-loc">Gujarat · Dwarka coast</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Rameshwaram</div>
+                    <div class="jyotir-loc">Tamil Nadu · Island temple</div>
+                </div>
+                <div class="jyotir-chip">
+                    <div class="jyotir-name">Grishneshwar</div>
+                    <div class="jyotir-loc">Aurangabad, Maharashtra</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── WHAT YOU NEED ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🛒</span> What You Need</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="items-grid">
+                <div class="item-chip"><span class="ic-dot"></span>Bilva leaves (large quantity — 108+)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Shivalinga (crystal or black stone)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Milk, curd, ghee, honey (Abhishekam)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Gangajal (Ganga water)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Vibhuti / sacred ash (Tripundra)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Chandan / sandalwood paste</div>
+                <div class="item-chip"><span class="ic-dot"></span>Dhatura fruit &amp; flower</div>
+                <div class="item-chip"><span class="ic-dot"></span>White flowers (Akanda, jasmine)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Rudraksha mala (for chanting)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Ghee diyas (multiple — for all night)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Sandalwood / chandan incense</div>
+                <div class="item-chip"><span class="ic-dot"></span>Nandi idol (small, to place facing Shivalinga)</div>
+                <div class="item-chip"><span class="ic-dot"></span>Camphor (for Aarti)</div>
+                <div class="item-chip"><span class="ic-dot"></span>White clothes — white is Shiva's color</div>
+            </div>
+        </div>
+
+        <!-- ── GALLERY ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🖼️</span> In Pictures</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="gallery-grid">
+                <div class="g-item g-wide" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Maha_Shivratri_Abhishekam_Shivalinga.jpg/1280px-Maha_Shivratri_Abhishekam_Shivalinga.jpg"
+                        alt="Maha Shivratri Abhishekam milk poured over Shivalinga"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🔱</span><span>Abhishekam</span></div>'">
+                    <div class="g-label">Abhishekam — milk poured over the Shivalinga in a thin, steady, reverent stream
+                    </div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Bilva_leaves_Shiva_offering.jpg/640px-Bilva_leaves_Shiva_offering.jpg"
+                        alt="Bilva leaves Bel patra Shiva offering"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🍃</span><span>Bilva Leaves</span></div>'">
+                    <div class="g-label">Bilva leaves — three leaflets, smooth side down, each placed with "Om Namah
+                        Shivaya"</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Maha_Shivratri_Varanasi_Ghat_Night.jpg/640px-Maha_Shivratri_Varanasi_Ghat_Night.jpg"
+                        alt="Maha Shivratri Varanasi Ghat night lamps"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🪔</span><span>Varanasi Night</span></div>'">
+                    <div class="g-label">Shivratri night at the Varanasi Ghats — the entire city of Kashi awake with
+                        Shiva</div>
+                </div>
+                <div class="g-item" onclick="openLb(this)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Kashi_Vishwanath_Temple_Varanasi.jpg/640px-Kashi_Vishwanath_Temple_Varanasi.jpg"
+                        alt="Kashi Vishwanath Temple Varanasi Jyotirlinga"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'g-ph\'><span class=\'ph-e\'>🕌</span><span>Kashi Vishwanath</span></div>'">
+                    <div class="g-label">Kashi Vishwanath — the most sacred Jyotirlinga, in the eternal city of Varanasi
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── VIDEOS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🎬</span> Videos</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="video-grid">
+                <a class="v-card" href="https://www.youtube.com/watch?v=3B0OBn8wvMo" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/3B0OBn8wvMo/maxresdefault.jpg"
+                            alt="Maha Shivratri puja complete four prahar vidhi"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🔱</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Puja Guide</p>
+                        <p class="v-title">Maha Shivratri Puja — Four Prahar Vidhi</p>
+                        <p class="v-sub">Complete ritual guide for all four Prahars</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=x2vRlKBfHNs" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/x2vRlKBfHNs/maxresdefault.jpg"
+                            alt="Shiva Tandava Stotram Ravana recitation"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">⚡</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Stotram</p>
+                        <p class="v-title">Shiva Tandava Stotram — Full</p>
+                        <p class="v-sub">Ravana's hymn to Shiva's cosmic dance</p>
+                    </div>
+                </a>
+                <a class="v-card" href="https://www.youtube.com/watch?v=WF0oBdMhN8A" target="_blank" rel="noopener">
+                    <div class="v-thumb">
+                        <img src="https://img.youtube.com/vi/WF0oBdMhN8A/maxresdefault.jpg"
+                            alt="Mahakaleshwar Ujjain Bhasma Aarti Shivratri"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:8px 8px 0 0;">
+                        <div class="g-ph" style="height:100%;display:none"><span class="ph-e">🕌</span><span>Watch on
+                                YouTube</span></div>
+                        <div class="play-ring"></div>
+                    </div>
+                    <div class="v-info">
+                        <p class="v-tag">Temple</p>
+                        <p class="v-title">Mahakaleshwar Bhasma Aarti — Shivratri</p>
+                        <p class="v-sub">The ash-worship Aarti at Ujjain's Jyotirlinga</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── PRAYERS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">🙏</span> Key Mantras — Chant Through the Night</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="mantra-list">
+                <div class="mantra-card">
+                    <span class="mantra-icon">🔱</span>
+                    <div>
+                        <div class="mantra-label">Panchakshara — The Primary Shiva Mantra (108× per Prahar)</div>
+                        <div class="mantra-text">"Om Namah Shivaya"</div>
+                        <div class="mantra-meaning">"Na Ma Shi Va Ya" — five syllables, five elements: Na = Earth, Ma =
+                            Water, Shi = Fire, Va = Air, Ya = Space. Chanting this mantra is chanting the entire
+                            universe back to its source. The most powerful Shiva mantra in existence. Chant continuously
+                            through the night on your Rudraksha mala.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🌙</span>
+                    <div>
+                        <div class="mantra-label">Maha Mrityunjaya — The Death-Conquering Mantra (108× per Prahar)</div>
+                        <div class="mantra-text">"Om Tryambakam Yajamahe, Sugandhim Pushtivardhanam — Urvarukamiva
+                            Bandhanan, Mrityor Mukshiya Maamritat"</div>
+                        <div class="mantra-meaning">We worship the three-eyed Shiva who nourishes all beings. Just as
+                            the cucumber is liberated from its vine, may He liberate us from death and grant us
+                            immortality. For healing, protection, longevity, and liberation. Chanting 108 times per
+                            Prahar — 432 times total — is an extraordinary act of devotion.</div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">🍃</span>
+                    <div>
+                        <div class="mantra-label">Bilva Offering Mantra — Said with Each Leaf Placed</div>
+                        <div class="mantra-text">"Tridalam Trigunaakaram Trinetram Cha Triyayudham — Trijanma Papa
+                            Samharam Eka Bilwam Shivarpanam"</div>
+                        <div class="mantra-meaning">This three-leafed Bilva, with three qualities, representing the
+                            three eyes and three weapons of Shiva, destroys the sins of three lifetimes — I offer this
+                            one Bilva leaf to Shiva. Said every single time a Bilva leaf is placed on the Shivalinga.
+                        </div>
+                    </div>
+                </div>
+                <div class="mantra-card">
+                    <span class="mantra-icon">✨</span>
+                    <div>
+                        <div class="mantra-label">Shiva Panchakshara Stotram — First Verse (Adi Shankaracharya)</div>
+                        <div class="mantra-text">"Nagendra Haraya Trilochanaya, Bhasmanaga Bhushanaya Maheshwaraya —
+                            Nityaya Shudhaya Digambaraya, Tasmai Nakaaraya Namah Shivaya"</div>
+                        <div class="mantra-meaning">One verse for each of the five syllables of "Namah Shivaya." Each
+                            verse is a complete meditation on one aspect of Shiva's infinite nature — the wearer of
+                            serpents, the three-eyed, the one adorned with sacred ash, the ever-pure, the sky-clad one.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── DO'S & DON'TS ── -->
+        <div class="content-section">
+            <div class="sec-head">
+                <h2><span class="sec-emoji">📌</span> Do's &amp; Don'ts</h2>
+                <div class="sec-divider"></div>
+            </div>
+            <div class="dos-grid">
+                <div class="dos-col do-col">
+                    <h3>✓ Do's</h3>
+                    <ul>
+                        <li>Observe the fast — at minimum Phalahar (fruit fast)</li>
+                        <li>Apply vibhuti in three horizontal lines on the forehead</li>
+                        <li>Perform all four Prahar pujas through the night — this is the essence</li>
+                        <li>Offer Bilva leaves at each Prahar — 108+ total through the night</li>
+                        <li>Perform Abhishekam with the correct substance for each Prahar</li>
+                        <li>Chant Om Namah Shivaya continuously — use your Rudraksha mala</li>
+                        <li>Chant Maha Mrityunjaya Mantra at least 108 times</li>
+                        <li>Stay awake all night — Jagran is the defining practice</li>
+                        <li>Visit the Shiva temple for at least one or two of the Prahar pujas</li>
+                        <li>Break the fast gently the next morning after a final puja</li>
+                    </ul>
+                </div>
+                <div class="dos-col dont-col">
+                    <h3>✕ Don'ts</h3>
+                    <ul>
+                        <li>Do not sleep on Shivratri night — even a short nap breaks the spiritual continuity</li>
+                        <li>Do not offer Tulsi leaves to the Shivalinga — Tulsi is specifically Vishnu's, not Shiva's
+                        </li>
+                        <li>Do not offer Ketaki flower (screwpine) — cursed by Shiva for false witness</li>
+                        <li>Do not use broken or damaged Bilva leaves</li>
+                        <li>Never eat Dhatura — it is poisonous and offered only to Shiva</li>
+                        <li>Do not eat grains, regular salt, onion, garlic, or non-vegetarian food during the fast</li>
+                        <li>Do not rush through any Prahar puja — each deserves full time and devotion</li>
+                        <li>Do not skip the Abhishekam — it is the heart of the puja, not optional</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── CLOSING ── -->
+        <div class="closing">
+            <p class="closing-text">
+                Four times through the night, you bow. Four times the Shivalinga is bathed — in milk, curd, ghee, honey.
+                Four times you offer what you have, to the one who needs nothing.
+                <em>And in the space between the last chant and the first light of dawn — that is where Shiva
+                    lives.</em>
+            </p>
+            <p class="closing-sub">🔱 &nbsp; Om Namah Shivaya &nbsp; 🌙</p>
+        </div>
+
+    </div><!-- /page-body -->
+
+    <script>
+        /* ══════════════════════════════════════
+           PARTICLE CANVAS
+        ══════════════════════════════════════ */
+        (function () {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles;
+
+            const COLORS = ['#4c1d95', '#a78bfa', '#c4b5fd', '#e2e8f0', '#ffffff', '#7c3aed', '#6d28d9'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function initParticles() {
+                particles = Array.from({ length: 40 }, () => ({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: -(Math.random() * 0.4 + 0.1),
+                    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+                    alpha: Math.random() * 0.5 + 0.1,
+                    life: Math.random()
+                }));
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life += 0.002;
+                    if (p.y < -10 || p.life > 1) {
+                        p.x = Math.random() * W;
+                        p.y = H + 10;
+                        p.life = 0;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha * Math.sin(p.life * Math.PI);
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            resize();
+            initParticles();
+            draw();
+        })();
+
+        /* ══════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════ */
+        (function () {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(
+                '.about-block, .significance-block, .region-card, .step-card, ' +
+                '.item-chip, .g-item, .v-card, .mantra-card, .dos-col, .closing, .sec-divider'
+            ).forEach(el => obs.observe(el));
+        })();
+
+        /* ── Stagger delays on repeated elements ── */
+        ['.region-card', '.step-card', '.item-chip', '.g-item', '.v-card', '.mantra-card']
+            .forEach(sel => {
+                document.querySelectorAll(sel).forEach((el, i) => {
+                    el.style.transitionDelay = `${i * 0.07}s`;
+                });
+            });
+
+        /* ══════════════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════════════ */
+        function openLb(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            document.getElementById('lb-img').src = img.src;
+            document.getElementById('lb').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+            document.getElementById('lb').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+        /* ══════════════════════════════════════
+           ANIMATED TEXT — letter-by-letter on hero title
+        ══════════════════════════════════════ */
+        (function () {
+            // Split hero title into character spans for a staggered reveal
+            const title = document.querySelector('.hero-title');
+            if (!title) return;
+            // Only animate plain text nodes
+            title.childNodes.forEach(node => {
+                if (node.nodeType === 3) { // text node
+                    const text = node.textContent;
+                    const frag = document.createDocumentFragment();
+                    [...text].forEach((ch, i) => {
+                        const sp = document.createElement('span');
+                        sp.textContent = ch;
+                        sp.style.cssText = `
+              display:inline-block;
+              opacity:0;
+              transform:translateY(18px);
+              animation: slideUp 0.5s ${0.28 + i * 0.04}s cubic-bezier(0.4,0,0.2,1) both;
+            `;
+                        frag.appendChild(sp);
+                    });
+                    node.replaceWith(frag);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ramadan — The Holy Month of Fasting, Prayer & Reflection</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --moon: #c8d8f0;
+            --moon-glow: #7ba7d4;
+            --emerald: #2ecc8a;
+            --emerald-lt: #7fffd4;
+            --gold: #d4af5a;
+            --cream: #f0eee8;
+            --bg: #03050f;
+            --surface: #07091a;
+            --card-bg: #0b0e22;
+            --muted: #5a6080;
+            --glow-moon: rgba(200, 216, 240, 0.18);
+            --glow-em: rgba(46, 204, 138, 0.15);
+            --ff-d: 'Cormorant Garamond', serif;
+            --ff-b: 'Crimson Pro', serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--cream);
+            font-family: var(--ff-b);
+            overflow-x: hidden;
+        }
+
+        /* CANVAS */
+        #particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── ANNOUNCE BANNER ── */
+        .festival-announce {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            background: linear-gradient(90deg, #03050f 0%, #080c22 45%, #03050f 100%);
+            border-bottom: 1px solid rgba(200, 216, 240, 0.22);
+        }
+
+        .announce-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.55rem 2.5rem;
+            gap: 1rem;
+        }
+
+        .announce-icon {
+            font-size: 1.1rem;
+            animation: moonGlowPulse 5s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes moonGlowPulse {
+
+            0%,
+            100% {
+                filter: brightness(1) drop-shadow(0 0 5px rgba(200, 216, 240, 0.3));
+            }
+
+            50% {
+                filter: brightness(1.5) drop-shadow(0 0 14px rgba(200, 216, 240, 0.75));
+            }
+        }
+
+        .announce-text {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .announce-name {
+            font-family: var(--ff-d);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--moon);
+            letter-spacing: 0.04em;
+            animation: nameGlowMoon 4s ease-in-out infinite;
+        }
+
+        @keyframes nameGlowMoon {
+
+            0%,
+            100% {
+                text-shadow: 0 0 10px rgba(200, 216, 240, 0.3);
+            }
+
+            50% {
+                text-shadow: 0 0 24px rgba(200, 216, 240, 0.75), 0 0 50px rgba(200, 216, 240, 0.2);
+            }
+        }
+
+        .announce-sep {
+            color: rgba(200, 216, 240, 0.3);
+            font-size: 0.8rem;
+        }
+
+        .announce-desc {
+            font-family: var(--ff-b);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+        }
+
+        .announce-date {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: var(--moon-glow);
+            border: 1px solid rgba(200, 216, 240, 0.28);
+            padding: 0.25rem 0.8rem;
+            border-radius: 20px;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .announce-ticker {
+            display: flex;
+            overflow: hidden;
+            border-top: 1px solid rgba(200, 216, 240, 0.1);
+            padding: 0.28rem 0;
+            background: rgba(200, 216, 240, 0.025);
+        }
+
+        .announce-ticker span {
+            display: inline-block;
+            white-space: nowrap;
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            color: rgba(200, 216, 240, 0.45);
+            animation: tickerScroll 28s linear infinite;
+            padding-right: 2rem;
+        }
+
+        @keyframes tickerScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 88px;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.2rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(3, 5, 15, 0.94) 0%, transparent 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--moon-glow);
+            font-family: var(--ff-b);
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            opacity: 0.75;
+            transition: opacity 0.25s, gap 0.25s;
+        }
+
+        .nav-back:hover {
+            opacity: 1;
+            gap: 0.85rem;
+        }
+
+        .nav-label {
+            font-family: var(--ff-d);
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            color: var(--cream);
+            opacity: 0.5;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 640px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 65% 50% at 50% 22%, rgba(200, 216, 240, 0.1) 0%, transparent 65%),
+                radial-gradient(ellipse 35% 35% at 20% 75%, rgba(46, 204, 138, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 35% 35% at 80% 65%, rgba(212, 175, 90, 0.05) 0%, transparent 60%),
+                linear-gradient(180deg, #06091e 0%, #03050f 70%);
+        }
+
+        /* Star field */
+        .stars {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            animation: starTwinkle var(--dur, 3s) ease-in-out infinite;
+            animation-delay: var(--del, 0s);
+        }
+
+        @keyframes starTwinkle {
+
+            0%,
+            100% {
+                opacity: var(--min-op, 0.2);
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: var(--max-op, 0.9);
+                transform: scale(1.5);
+            }
+        }
+
+        /* Crescent moon */
+        .crescent-wrap {
+            position: absolute;
+            top: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            pointer-events: none;
+            animation: crescentFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes crescentFloat {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-14px);
+            }
+        }
+
+        .crescent {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: transparent;
+            box-shadow: 20px -10px 0 10px rgba(200, 216, 240, 0.12);
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            filter: drop-shadow(0 0 30px rgba(200, 216, 240, 0.35));
+        }
+
+        .crescent-glow {
+            position: absolute;
+            inset: -40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200, 216, 240, 0.08), transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 1.5rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.34em;
+            text-transform: uppercase;
+            color: var(--emerald-lt);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 1s var(--ease) 0.2s forwards;
+        }
+
+        .hero-title {
+            font-family: var(--ff-d);
+            font-size: clamp(4rem, 10vw, 9rem);
+            font-weight: 700;
+            line-height: 0.88;
+            letter-spacing: -0.01em;
+            color: var(--cream);
+            opacity: 0;
+            animation: fadeUp 1.1s var(--ease) 0.4s forwards;
+        }
+
+        .hero-title .line-arabic {
+            display: block;
+            font-style: italic;
+            color: var(--moon);
+            font-size: 0.55em;
+            margin-top: 0.12em;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-subtitle {
+            font-family: var(--ff-d);
+            font-style: italic;
+            font-size: clamp(1rem, 2.2vw, 1.45rem);
+            color: var(--muted);
+            margin: 1.4rem 0 2.2rem;
+            opacity: 0;
+            animation: fadeUp 1s var(--ease) 0.65s forwards;
+        }
+
+        .hero-pills {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 1s var(--ease) 0.85s forwards;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1px solid rgba(200, 216, 240, 0.28);
+            border-radius: 40px;
+            padding: 0.45rem 1.2rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            color: var(--moon);
+            background: rgba(200, 216, 240, 0.05);
+        }
+
+        .pill.em-pill {
+            border-color: rgba(46, 204, 138, 0.32);
+            color: var(--emerald-lt);
+            background: rgba(46, 204, 138, 0.05);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--muted);
+            opacity: 0;
+            animation: fadeIn 1s var(--ease) 1.5s forwards;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--moon-glow), transparent);
+            animation: scrollDrop 2.2s ease-in-out infinite;
+        }
+
+        @keyframes scrollDrop {
+            0% {
+                transform: scaleY(0);
+                transform-origin: top;
+                opacity: 0;
+            }
+
+            50% {
+                transform: scaleY(1);
+                transform-origin: top;
+                opacity: 1;
+            }
+
+            100% {
+                transform: scaleY(0);
+                transform-origin: bottom;
+                opacity: 0;
+            }
+        }
+
+        /* ── LAYOUT ── */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--moon-glow);
+            margin-bottom: 0.75rem;
+            font-family: var(--ff-b);
+        }
+
+        .section-label.em {
+            color: var(--emerald-lt);
+        }
+
+        .section-title {
+            font-family: var(--ff-d);
+            font-size: clamp(1.9rem, 4.5vw, 3.1rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--cream);
+            margin-bottom: 1.2rem;
+        }
+
+        .divider-moon {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.8rem 0;
+            color: var(--moon-glow);
+            font-size: 0.9rem;
+            opacity: 0.4;
+        }
+
+        .divider-moon::before,
+        .divider-moon::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--moon-glow), transparent);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .rd1 {
+            transition-delay: 0.1s;
+        }
+
+        .rd2 {
+            transition-delay: 0.2s;
+        }
+
+        .rd3 {
+            transition-delay: 0.3s;
+        }
+
+        .rd4 {
+            transition-delay: 0.4s;
+        }
+
+        .rd5 {
+            transition-delay: 0.5s;
+        }
+
+        .rd6 {
+            transition-delay: 0.6s;
+        }
+
+        /* ── MEANING SECTION ── */
+        .meaning-section {
+            padding: 6rem 0;
+        }
+
+        .meaning-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .meaning-text p {
+            font-size: 1.08rem;
+            line-height: 1.9;
+            color: rgba(240, 238, 232, 0.68);
+            margin-bottom: 1.1rem;
+        }
+
+        .meaning-text p:first-of-type::first-letter {
+            font-family: var(--ff-d);
+            font-size: 4.2rem;
+            font-weight: 700;
+            color: var(--moon);
+            float: left;
+            line-height: 0.72;
+            margin: 0.1em 0.12em 0 0;
+        }
+
+        .meaning-text strong {
+            color: var(--moon);
+            font-weight: 500;
+        }
+
+        .meaning-text em {
+            color: var(--emerald-lt);
+            font-style: italic;
+        }
+
+        .pillars-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pillar-card {
+            background: rgba(200, 216, 240, 0.04);
+            border: 1px solid rgba(200, 216, 240, 0.12);
+            border-radius: 14px;
+            padding: 1.3rem 1.5rem;
+            transition: background 0.3s, border-color 0.3s, transform 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .pillar-card:hover {
+            background: rgba(200, 216, 240, 0.07);
+            border-color: rgba(200, 216, 240, 0.3);
+            transform: translateX(6px);
+        }
+
+        .pillar-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .pillar-title {
+            font-family: var(--ff-d);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--moon);
+            margin-bottom: 0.2rem;
+        }
+
+        .pillar-body {
+            font-size: 0.87rem;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        /* ── QUOTE BAND ── */
+        .quote-band {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #060917 0%, #0c1128 50%, #060917 100%);
+            border-top: 1px solid rgba(200, 216, 240, 0.08);
+            border-bottom: 1px solid rgba(200, 216, 240, 0.08);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-band::before {
+            content: '🌙';
+            position: absolute;
+            font-size: 10rem;
+            opacity: 0.03;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .quote-text {
+            font-family: var(--ff-d);
+            font-style: italic;
+            font-size: clamp(1.35rem, 3.2vw, 2.2rem);
+            line-height: 1.6;
+            color: var(--cream);
+            max-width: 800px;
+            margin: 0 auto 1.2rem;
+            position: relative;
+        }
+
+        .quote-text::before {
+            content: '\201C';
+            font-size: 5rem;
+            color: var(--moon-glow);
+            opacity: 0.3;
+            line-height: 0;
+            vertical-align: -1.5rem;
+            margin-right: 0.15rem;
+        }
+
+        .quote-ref {
+            font-family: var(--ff-d);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--emerald);
+            display: block;
+            margin-top: 0.6rem;
+        }
+
+        .quote-attr {
+            font-size: 0.76rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--moon-glow);
+            opacity: 0.6;
+        }
+
+        /* ── DAILY RHYTHM TIMELINE ── */
+        .rhythm-section {
+            padding: 7rem 0;
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 3.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 28px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--moon-glow), rgba(200, 216, 240, 0.08) 90%, transparent);
+        }
+
+        .tl-item {
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.6rem;
+            align-items: start;
+        }
+
+        .tl-dot {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(200, 216, 240, 0.06);
+            border: 1px solid rgba(200, 216, 240, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .tl-item:hover .tl-dot {
+            background: rgba(200, 216, 240, 0.12);
+            border-color: var(--moon);
+            box-shadow: 0 0 20px rgba(200, 216, 240, 0.22);
+        }
+
+        .tl-body {
+            padding-top: 0.55rem;
+        }
+
+        .tl-time {
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--emerald-lt);
+            margin-bottom: 0.3rem;
+        }
+
+        .tl-title {
+            font-family: var(--ff-d);
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .tl-desc {
+            font-size: 0.97rem;
+            line-height: 1.78;
+            color: rgba(240, 238, 232, 0.6);
+        }
+
+        .tl-desc strong {
+            color: var(--moon);
+            font-weight: 500;
+        }
+
+        .tl-desc em {
+            color: var(--emerald-lt);
+        }
+
+        .tl-callout {
+            margin-top: 0.85rem;
+            padding: 0.85rem 1.2rem;
+            background: rgba(200, 216, 240, 0.05);
+            border-left: 2px solid var(--moon-glow);
+            border-radius: 0 8px 8px 0;
+            font-family: var(--ff-d);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--moon);
+        }
+
+        .tl-callout .meaning {
+            font-size: 0.82rem;
+            color: var(--muted);
+            font-style: normal;
+            margin-top: 0.3rem;
+        }
+
+        .tl-callout.em-callout {
+            background: rgba(46, 204, 138, 0.05);
+            border-left-color: var(--emerald);
+            color: var(--emerald-lt);
+        }
+
+        /* ── PRAYER STEPS ── */
+        .prayer-section {
+            padding: 7rem 0;
+            background: linear-gradient(180deg, var(--bg) 0%, #060c20 50%, var(--bg) 100%);
+        }
+
+        .prayer-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.4rem;
+            margin-top: 3rem;
+        }
+
+        .prayer-step {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(200, 216, 240, 0.1);
+            border-radius: 14px;
+            padding: 1.6rem;
+            transition: background 0.3s, border-color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prayer-step::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at top left, rgba(200, 216, 240, 0.07), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .prayer-step:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(200, 216, 240, 0.28);
+            transform: translateY(-4px);
+        }
+
+        .prayer-step:hover::before {
+            opacity: 1;
+        }
+
+        .step-num {
+            font-family: var(--ff-d);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--moon);
+            opacity: 0.15;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .step-title {
+            font-family: var(--ff-d);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--moon);
+            margin-bottom: 0.4rem;
+        }
+
+        .step-arabic {
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--moon-glow);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-body {
+            font-size: 0.9rem;
+            line-height: 1.65;
+            color: var(--muted);
+        }
+
+        /* ── LAYLAT UL QADR ── */
+        .layla-section {
+            padding: 7rem 0;
+            background: linear-gradient(180deg, #04061a 0%, #07092a 40%, #04061a 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .layla-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200, 216, 240, 0.07) 0%, transparent 70%);
+            pointer-events: none;
+            animation: laylaBreath 6s ease-in-out infinite;
+        }
+
+        @keyframes laylaBreath {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .layla-content {
+            position: relative;
+            z-index: 1;
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .layla-badge {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 90, 0.35);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            background: rgba(212, 175, 90, 0.06);
+        }
+
+        .layla-verse {
+            font-family: var(--ff-d);
+            font-style: italic;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            line-height: 1.65;
+            color: var(--cream);
+            margin-bottom: 0.8rem;
+        }
+
+        .layla-ref {
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .layla-body {
+            font-size: 1rem;
+            line-height: 1.85;
+            color: rgba(240, 238, 232, 0.6);
+            margin-bottom: 1.5rem;
+        }
+
+        .layla-dua {
+            background: rgba(212, 175, 90, 0.05);
+            border: 1px solid rgba(212, 175, 90, 0.22);
+            border-radius: 14px;
+            padding: 1.8rem 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .layla-dua p.dua-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+        }
+
+        .layla-dua p.dua-text {
+            font-family: var(--ff-d);
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+        }
+
+        .layla-dua p.dua-meaning {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        /* ── GALLERY ── */
+        .gallery-section {
+            padding: 7rem 0;
+            background: var(--surface);
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 260px 220px;
+            gap: 10px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            position: relative;
+            cursor: zoom-in;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: 1/7;
+            grid-row: 1;
+        }
+
+        .gallery-item:nth-child(2) {
+            grid-column: 7/10;
+            grid-row: 1;
+        }
+
+        .gallery-item:nth-child(3) {
+            grid-column: 10/13;
+            grid-row: 1/3;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: 1/5;
+            grid-row: 2;
+        }
+
+        .gallery-item:nth-child(5) {
+            grid-column: 5/10;
+            grid-row: 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.55s var(--ease), filter 0.4s;
+            filter: brightness(0.8) saturate(0.8);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: brightness(1) saturate(1.1);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(3, 5, 15, 0.6) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0.8rem;
+            left: 1rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(240, 238, 232, 0.7);
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ── VIDEO ── */
+        .video-section {
+            padding: 7rem 0;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .video-card {
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid rgba(200, 216, 240, 0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .video-card:hover {
+            border-color: rgba(200, 216, 240, 0.28);
+            box-shadow: 0 8px 40px rgba(200, 216, 240, 0.06);
+        }
+
+        .video-thumb {
+            position: relative;
+            padding-bottom: 56.25%;
+            background: #07091a;
+        }
+
+        .video-thumb iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 1.2rem 1.4rem;
+        }
+
+        .video-title {
+            font-family: var(--ff-d);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 0.3rem;
+        }
+
+        .video-desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* ── EXEMPTIONS ── */
+        .exempt-section {
+            padding: 6rem 0;
+            background: var(--surface);
+        }
+
+        .exempt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.3rem;
+            margin-top: 3rem;
+        }
+
+        .exempt-card {
+            background: rgba(46, 204, 138, 0.03);
+            border: 1px solid rgba(46, 204, 138, 0.14);
+            border-radius: 14px;
+            padding: 1.5rem;
+            transition: background 0.3s, border-color 0.3s, transform 0.3s;
+        }
+
+        .exempt-card:hover {
+            background: rgba(46, 204, 138, 0.07);
+            border-color: rgba(46, 204, 138, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .exempt-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .exempt-title {
+            font-family: var(--ff-d);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--emerald-lt);
+            margin-bottom: 0.4rem;
+        }
+
+        .exempt-body {
+            font-size: 0.87rem;
+            line-height: 1.65;
+            color: var(--muted);
+        }
+
+        /* ── DUAS SECTION ── */
+        .duas-section {
+            padding: 7rem 0;
+            text-align: center;
+        }
+
+        .dua-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .dua-card {
+            background: rgba(200, 216, 240, 0.03);
+            border: 1px solid rgba(200, 216, 240, 0.15);
+            border-radius: 14px;
+            padding: 2rem 1.8rem;
+            text-align: center;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .dua-card:hover {
+            border-color: rgba(200, 216, 240, 0.38);
+            background: rgba(200, 216, 240, 0.06);
+        }
+
+        .dua-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--moon-glow);
+            margin-bottom: 0.5rem;
+        }
+
+        .dua-text {
+            font-family: var(--ff-d);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--moon);
+            line-height: 1.65;
+            margin-bottom: 0.7rem;
+        }
+
+        .dua-meaning {
+            font-size: 0.87rem;
+            line-height: 1.65;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        /* ── DO'S AND DON'TS ── */
+        .dosdonts-section {
+            padding: 7rem 0;
+            background: linear-gradient(180deg, var(--bg) 0%, #06091e 50%, var(--bg) 100%);
+        }
+
+        .dosdonts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .dosdonts-col {
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(200, 216, 240, 0.1);
+        }
+
+        .dosdonts-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.2rem 1.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dos-header {
+            background: linear-gradient(90deg, rgba(46, 204, 138, 0.12) 0%, rgba(46, 204, 138, 0.03) 100%);
+        }
+
+        .donts-header {
+            background: linear-gradient(90deg, rgba(220, 60, 60, 0.12) 0%, rgba(220, 60, 60, 0.03) 100%);
+        }
+
+        .dosdonts-header-icon {
+            font-size: 1.3rem;
+            font-weight: 700;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-family: monospace;
+        }
+
+        .dos-header .dosdonts-header-icon {
+            background: rgba(46, 204, 138, 0.15);
+            color: #6ee87a;
+            border: 1px solid rgba(46, 204, 138, 0.3);
+        }
+
+        .donts-header .dosdonts-header-icon {
+            background: rgba(220, 60, 60, 0.15);
+            color: #f08080;
+            border: 1px solid rgba(220, 60, 60, 0.3);
+        }
+
+        .dosdonts-header-title {
+            font-family: var(--ff-d);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--cream);
+            letter-spacing: 0.03em;
+        }
+
+        .dosdonts-list {
+            list-style: none;
+            padding: 0.5rem 0;
+        }
+
+        .dd-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 1.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: background 0.25s;
+            align-items: flex-start;
+        }
+
+        .dd-item:last-child {
+            border-bottom: none;
+        }
+
+        .do-item:hover {
+            background: rgba(46, 204, 138, 0.04);
+        }
+
+        .dont-item:hover {
+            background: rgba(220, 60, 60, 0.04);
+        }
+
+        .dd-check,
+        .dd-cross {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+            width: 28px;
+            text-align: center;
+        }
+
+        .dd-title {
+            font-family: var(--ff-d);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .do-item .dd-title {
+            color: #8ef598;
+        }
+
+        .dont-item .dd-title {
+            color: #f09090;
+        }
+
+        .dd-body {
+            font-size: 0.87rem;
+            line-height: 1.65;
+            color: rgba(240, 238, 232, 0.5);
+        }
+
+        /* ── FOOTER CTA ── */
+        .footer-cta {
+            padding: 6rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(200, 216, 240, 0.08);
+        }
+
+        .footer-cta p {
+            color: var(--muted);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-moon {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--moon-glow);
+            color: #03050f;
+            font-family: var(--ff-b);
+            font-weight: 500;
+            font-size: 0.83rem;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 0.9rem 2.2rem;
+            border-radius: 40px;
+            transition: background 0.25s, box-shadow 0.25s, transform 0.25s;
+        }
+
+        .btn-moon:hover {
+            background: var(--moon);
+            box-shadow: 0 0 30px rgba(200, 216, 240, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* ── KEYFRAMES ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .glow-moon {
+            animation: moonTitleGlow 5s ease-in-out infinite;
+        }
+
+        @keyframes moonTitleGlow {
+
+            0%,
+            100% {
+                text-shadow: 0 0 30px rgba(200, 216, 240, 0.2);
+            }
+
+            50% {
+                text-shadow: 0 0 60px rgba(200, 216, 240, 0.55), 0 0 120px rgba(200, 216, 240, 0.12);
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:900px) {
+            .meaning-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+
+            .gallery-item {
+                grid-column: auto !important;
+                grid-row: auto !important;
+                height: 210px;
+            }
+
+            .video-grid,
+            .dosdonts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 24px;
+            }
+
+            .announce-desc {
+                display: none;
+            }
+
+            .announce-inner {
+                padding: 0.5rem 1.2rem;
+            }
+        }
+
+        @media(max-width:600px) {
+            nav {
+                padding: 1rem 1.2rem;
+            }
+
+            .container {
+                padding: 0 1.2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item {
+                height: 230px;
+            }
+
+            .announce-sep,
+            .announce-desc {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles"></canvas>
+
+    <!-- ── FESTIVAL BANNER ── -->
+    <div class="festival-announce">
+        <div class="announce-inner">
+            <span class="announce-icon">🌙</span>
+            <span class="announce-text">
+                <span class="announce-name">Ramadan</span>
+                <span class="announce-sep">—</span>
+                <span class="announce-desc">The Holy Month of Fasting, Prayer &amp; Reflection</span>
+            </span>
+            <span class="announce-date">📅 Feb 18, 2026</span>
+        </div>
+        <div class="announce-ticker">
+            <span>🌙 Sawm — Sacred Fast &nbsp;·&nbsp; 📖 Quran Revealed &nbsp;·&nbsp; ⭐ Laylat ul-Qadr &nbsp;·&nbsp; 🤲
+                Taraweeh Prayers &nbsp;·&nbsp; 🌴 Dates at Iftar &nbsp;·&nbsp; 💰 Zakat ul-Fitr &nbsp;·&nbsp; 🎉 Eid
+                ul-Fitr &nbsp;·&nbsp; 🌙 Sawm — Sacred Fast &nbsp;·&nbsp; 📖 Quran Revealed &nbsp;·&nbsp; ⭐ Laylat
+                ul-Qadr &nbsp;·&nbsp; 🤲 Taraweeh Prayers &nbsp;·&nbsp; </span>
+            <span>🌙 Sawm — Sacred Fast &nbsp;·&nbsp; 📖 Quran Revealed &nbsp;·&nbsp; ⭐ Laylat ul-Qadr &nbsp;·&nbsp; 🤲
+                Taraweeh Prayers &nbsp;·&nbsp; 🌴 Dates at Iftar &nbsp;·&nbsp; 💰 Zakat ul-Fitr &nbsp;·&nbsp; 🎉 Eid
+                ul-Fitr &nbsp;·&nbsp; 🌙 Sawm — Sacred Fast &nbsp;·&nbsp; 📖 Quran Revealed &nbsp;·&nbsp; ⭐ Laylat
+                ul-Qadr &nbsp;·&nbsp; 🤲 Taraweeh Prayers &nbsp;·&nbsp; </span>
+        </div>
+    </div>
+
+    <!-- ── NAV ── -->
+    <nav>
+        <a class="nav-back" href="festival-card.html">← All Festivals</a>
+        <span class="nav-label">Ramadan</span>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="stars" id="starField"></div>
+            <div class="crescent-wrap">
+                <div class="crescent-glow"></div>
+                <div class="crescent"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">✦ 9th Month of the Islamic Lunar Calendar ✦</p>
+            <h1 class="hero-title glow-moon">
+                <span>Ramadan</span>
+                <span class="line-arabic">رمضان المبارك</span>
+            </h1>
+            <p class="hero-subtitle">The Holy Month of Fasting, Prayer, Reflection &amp; Community</p>
+            <div class="hero-pills">
+                <span class="pill">🌙 Sawm — Sacred Fast</span>
+                <span class="pill">📖 Quran Revealed</span>
+                <span class="pill em-pill">⭐ Laylat ul-Qadr</span>
+                <span class="pill em-pill">🎉 Eid ul-Fitr</span>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="scroll-line"></div><span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- ── MEANING ── -->
+    <section class="meaning-section">
+        <div class="container">
+            <div class="meaning-grid">
+                <div class="meaning-text reveal">
+                    <p class="section-label">✦ What &amp; Why</p>
+                    <h2 class="section-title">The Month the Quran Descended</h2>
+                    <div class="divider-moon">🌙</div>
+                    <p>
+                        Ramadan is the holiest month in Islam — the month in which the <strong>Holy Quran was first
+                            revealed to Prophet Muhammad (PBUH)</strong> by Allah through the Angel Jibreel (Gabriel).
+                        This revelation began on a night called <em>Laylat ul-Qadr</em> (the Night of Power), believed
+                        to fall in the last 10 odd nights of Ramadan.
+                    </p>
+                    <p>
+                        <strong>Sawm</strong> — fasting — is one of the Five Pillars of Islam, obligatory for every
+                        adult Muslim who is physically capable. But Ramadan goes far beyond abstaining from food. It is
+                        a month of <em>Taqwa</em> (God-consciousness), <em>Sabr</em> (patience), <em>Shukr</em>
+                        (gratitude), intense Quran recitation, repentance, and profound generosity.
+                    </p>
+                    <p>
+                        It is believed that during Ramadan, the <strong>gates of Heaven are opened, the gates of Hell
+                            are closed, and the Shayateen (devils) are chained</strong> — making it the greatest month
+                        for spiritual growth in the entire year.
+                    </p>
+                </div>
+                <div class="pillars-list reveal rd2">
+                    <div class="pillar-card">
+                        <span class="pillar-icon">🕌</span>
+                        <div>
+                            <p class="pillar-title">Taqwa — God-Consciousness</p>
+                            <p class="pillar-body">Being constantly aware of Allah in every moment — in speech, thought,
+                                deed, and silence. Ramadan sharpens this awareness like no other month.</p>
+                        </div>
+                    </div>
+                    <div class="pillar-card">
+                        <span class="pillar-icon">🤲</span>
+                        <div>
+                            <p class="pillar-title">Sabr — Patience &amp; Self-Discipline</p>
+                            <p class="pillar-body">Hunger, thirst, fatigue — all endured willingly for Allah. Ramadan is
+                                the greatest annual training in the mastery of the self.</p>
+                        </div>
+                    </div>
+                    <div class="pillar-card">
+                        <span class="pillar-icon">💰</span>
+                        <div>
+                            <p class="pillar-title">Zakat &amp; Sadaqah — Giving</p>
+                            <p class="pillar-body">Charity is multiplied in reward during Ramadan. Feeding the poor,
+                                sponsoring Iftars, and paying Zakat ul-Fitr are central obligations of the month.</p>
+                        </div>
+                    </div>
+                    <div class="pillar-card">
+                        <span class="pillar-icon">📖</span>
+                        <div>
+                            <p class="pillar-title">Quran — Deep Connection</p>
+                            <p class="pillar-body">The tradition is to complete the entire Quran once during Ramadan —
+                                one Juz (section) per day over 30 days — in Arabic and in translation.</p>
+                        </div>
+                    </div>
+                    <div class="pillar-card">
+                        <span class="pillar-icon">🌙</span>
+                        <div>
+                            <p class="pillar-title">Tawbah — Repentance</p>
+                            <p class="pillar-body">The month is an annual spiritual reset — seeking sincere forgiveness
+                                for all past sins and committing to a better self going forward.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── QUOTE ── -->
+    <div class="quote-band">
+        <div class="container">
+            <p class="quote-text reveal">
+                The month of Ramadan is that in which was revealed the Quran — a guidance for mankind, and clear proofs
+                of the guidance, and the criterion. So whoever witnesses the month, let him fast it.
+                <span class="quote-ref">— Surah Al-Baqarah 2:185</span>
+            </p>
+            <p class="quote-attr reveal rd1">— The Holy Quran</p>
+        </div>
+    </div>
+
+    <!-- ── DAILY RHYTHM ── -->
+    <section class="rhythm-section">
+        <div class="container">
+            <div class="reveal" style="text-align:center">
+                <p class="section-label">✦ The Sacred Daily Cycle</p>
+                <h2 class="section-title">A Day in Ramadan — From Suhoor to Isha</h2>
+            </div>
+            <div class="timeline">
+
+                <div class="tl-item reveal rd1">
+                    <div class="tl-dot">🌑</div>
+                    <div class="tl-body">
+                        <p class="tl-time">Before Fajr — Pre-Dawn</p>
+                        <h3 class="tl-title">Suhoor — The Blessed Pre-Dawn Meal</h3>
+                        <p class="tl-desc">
+                            Eaten before the Fajr Adhan (call to prayer), after which the fast officially begins. The
+                            Prophet (PBUH) said: <em>"Take Suhoor, for in Suhoor there is blessing."</em> Eating Suhoor
+                            with the sincere intention of fasting for Allah is itself an act of worship. Choose
+                            slow-energy foods: dates, oats, eggs, yogurt, nuts, whole grains, and <strong>plenty of
+                                water.</strong>
+                        </p>
+                        <div class="tl-callout">
+                            "Wa bisawmi ghadinn nawaiytu min shahri Ramadan"
+                            <p class="meaning">Meaning: "I intend to fast tomorrow for the month of Ramadan." — Make
+                                this Niyyah (intention) before each fast.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tl-item reveal rd2">
+                    <div class="tl-dot">🌅</div>
+                    <div class="tl-body">
+                        <p class="tl-time">At True Dawn</p>
+                        <h3 class="tl-title">Fajr Prayer — 2 Rakats</h3>
+                        <p class="tl-desc">
+                            The first of five obligatory daily prayers. Perform <strong>Wudu</strong> (ritual ablution —
+                            washing hands, mouth, nose, face, arms, head, ears, and feet in sequence) then stand on the
+                            prayer mat facing Qibla (direction of Mecca). Fajr consists of 2 Rakats. Begin with
+                            <em>Allahu Akbar</em>, recite Surah Al-Fatiha followed by a short Surah in each Rakat,
+                            perform Ruku (bowing), Sujood (prostration), and close with Tasleem — turning right then
+                            left saying <em>As-salamu 'alaykum wa rahmatullah.</em>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="tl-item reveal rd3">
+                    <div class="tl-dot">☀️</div>
+                    <div class="tl-body">
+                        <p class="tl-time">Through the Fasting Day</p>
+                        <h3 class="tl-title">Quran, Dhikr &amp; Guarding Character</h3>
+                        <p class="tl-desc">
+                            Read one <strong>Juz of Quran</strong> daily to complete the full text over 30 days.
+                            Throughout the day, keep the tongue moist with dhikr (remembrance of Allah):
+                            <em>Subhanallah, Alhamdulillah, Allahu Akbar, La ilaha illallah, Astaghfirullah.</em>
+                            Perform <strong>Dhuhr (4 Rakats)</strong> at noon and <strong>Asr (4 Rakats)</strong> in the
+                            afternoon. Guard your character — no lying, backbiting, arguments, or foul language. The
+                            Prophet (PBUH) said fasting without guarding the tongue misses the point entirely.
+                        </p>
+                        <div class="tl-callout em-callout">
+                            Rakats per prayer: Fajr = 2 · Dhuhr = 4 · Asr = 4 · Maghrib = 3 · Isha = 4
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tl-item reveal rd4">
+                    <div class="tl-dot">🌇</div>
+                    <div class="tl-body">
+                        <p class="tl-time">At Sunset — The Most Awaited Moment</p>
+                        <h3 class="tl-title">Maghrib — Iftar, Breaking the Fast</h3>
+                        <p class="tl-desc">
+                            The fast breaks at the Maghrib Adhan. The Sunnah: break first with a <strong>fresh date and
+                                water.</strong> Then pray Maghrib (3 Rakats) before the full meal. Share the Iftar with
+                            family, neighbors, and the poor. The Prophet (PBUH) said: <em>"Whoever feeds a fasting
+                                person will have a reward equal to his."</em> Traditional Iftar: dates, fruit chaat,
+                            samosas, haleem, sherbets, biryani, kebabs, and falooda.
+                        </p>
+                        <div class="tl-callout">
+                            "Allahumma inni laka sumtu wa bika amantu wa 'alayka tawakkaltu wa 'ala rizqika aftartu"
+                            <p class="meaning">Meaning: "O Allah, I fasted for You, I believe in You, I put my trust in
+                                You, and I break my fast with Your provision."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tl-item reveal rd5">
+                    <div class="tl-dot">🌌</div>
+                    <div class="tl-body">
+                        <p class="tl-time">Night — After Isha</p>
+                        <h3 class="tl-title">Taraweeh — The Special Night Prayer of Ramadan</h3>
+                        <p class="tl-desc">
+                            After Isha (4 Rakats), <strong>Taraweeh</strong> — 8 or 20 voluntary extra Rakats performed
+                            only in Ramadan — is prayed at the mosque. A Hafiz (one who has memorized the entire Quran)
+                            leads the congregation, reciting portions each night so the full Quran is completed over 30
+                            nights. Listening to the entire Quran recited in Taraweeh is a profound experience. The
+                            Prophet (PBUH) said: <em>"Whoever prays during the nights of Ramadan with faith and seeking
+                                reward, his previous sins will be forgiven."</em>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PRAYER STEPS ── -->
+    <section class="prayer-section">
+        <div class="container">
+            <div class="reveal" style="text-align:center">
+                <p class="section-label em">✦ How to Pray</p>
+                <h2 class="section-title">The Steps of Salah</h2>
+            </div>
+            <div class="prayer-steps">
+                <div class="prayer-step reveal rd1">
+                    <p class="step-num">01</p>
+                    <p class="step-title">Wudu — Ritual Purification</p>
+                    <p class="step-arabic">Washing hands · mouth · nose · face · arms · head · ears · feet</p>
+                    <p class="step-body">Begin with Bismillah and intention. Wash each limb in sequence, right before
+                        left, three times each. Wudu is broken by using the bathroom, passing gas, bleeding, or sleep —
+                        must be renewed before prayer.</p>
+                </div>
+                <div class="prayer-step reveal rd2">
+                    <p class="step-num">02</p>
+                    <p class="step-title">Takbir — Opening the Prayer</p>
+                    <p class="step-arabic">"Allahu Akbar" — Allah is the Greatest</p>
+                    <p class="step-body">Raise both hands to ear level, palms forward, and say Allahu Akbar. You have
+                        entered a sacred state. Do not speak, look around, or break concentration from this point until
+                        Tasleem.</p>
+                </div>
+                <div class="prayer-step reveal rd3">
+                    <p class="step-num">03</p>
+                    <p class="step-title">Qiyam — Surah Al-Fatiha</p>
+                    <p class="step-arabic">Right hand over left on chest. Recite Thana, then Al-Fatiha, then a short
+                        Surah.</p>
+                    <p class="step-body">Al-Fatiha is the cornerstone — recited 17 times daily across all prayers. Surah
+                        Al-Ikhlas is the most commonly recited short Surah for beginners. Say Ameen after Al-Fatiha.</p>
+                </div>
+                <div class="prayer-step reveal rd4">
+                    <p class="step-num">04</p>
+                    <p class="step-title">Ruku — The Bow</p>
+                    <p class="step-arabic">"Subhana Rabbiyal Azeem" — Glory to my Lord the Most Great</p>
+                    <p class="step-body">Bow at the waist, hands on knees, back flat, head level with back. Recite 3
+                        times. Rise saying Sami Allahu liman hamidah, then Rabbana lakal hamd.</p>
+                </div>
+                <div class="prayer-step reveal rd5">
+                    <p class="step-num">05</p>
+                    <p class="step-title">Sujood — The Prostration</p>
+                    <p class="step-arabic">"Subhana Rabbiyal A'la" — Glory to my Lord the Most High</p>
+                    <p class="step-body">The closest a human is to Allah. Forehead, nose, both palms, both knees, and
+                        toes all touch the ground. Recite 3 times. Make personal dua here — this is the most powerful
+                        position in prayer.</p>
+                </div>
+                <div class="prayer-step reveal rd6">
+                    <p class="step-num">06</p>
+                    <p class="step-title">Tasleem — Closing the Prayer</p>
+                    <p class="step-arabic">"As-salamu 'alaykum wa rahmatullah"</p>
+                    <p class="step-body">After the final Tashahhud and Darood Ibrahim, turn your face to the right and
+                        recite, then to the left. The prayer is complete. Now make personal dua — speak to Allah in any
+                        language from your heart.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── LAYLAT UL QADR ── -->
+    <section class="layla-section">
+        <div class="layla-glow"></div>
+        <div class="layla-content">
+            <div class="reveal">
+                <p class="layla-badge">✦ The Most Powerful Night of the Year ✦</p>
+                <h2 class="section-title" style="color:var(--moon);">Laylat ul-Qadr — The Night of Power</h2>
+                <p class="layla-verse">"The Night of Power is better than a thousand months."</p>
+                <p class="layla-ref">— Surah Al-Qadr 97:3</p>
+                <p class="layla-body">
+                    Worship on this single night equals the reward of over <strong style="color:var(--moon)">83 years of
+                        continuous worship.</strong> It falls on one of the odd nights of the last 10 days of Ramadan —
+                    the 21st, 23rd, 25th, 27th, or 29th — with the 27th most commonly believed, though the exact night
+                    is intentionally hidden so that Muslims worship intensely across all of them. The Prophet (PBUH)
+                    would stay awake the entire night in prayer, Quran recitation, and dua. Consider performing <strong
+                        style="color:var(--moon)">I'tikaf</strong> — spiritual seclusion in the mosque — for the last 10
+                    days.
+                </p>
+                <div class="layla-dua">
+                    <p class="dua-label">The Dua of Laylat ul-Qadr — taught by the Prophet (PBUH)</p>
+                    <p class="dua-text">"Allahumma innaka 'afuwwun tuhibbul 'afwa fa'fu 'anni"</p>
+                    <p class="dua-meaning">"O Allah, You are the Pardoner and You love to pardon, so pardon me." —
+                        Repeat abundantly on every odd night of the last 10 days.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── GALLERY ── -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-header reveal">
+                <p class="section-label">✦ In Images</p>
+                <h2 class="section-title">The Spirit of Ramadan</h2>
+            </div>
+            <div class="gallery-grid reveal">
+                <div class="gallery-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Ramadan_2009_-_Al_Ansar_Mosque.jpg/800px-Ramadan_2009_-_Al_Ansar_Mosque.jpg"
+                        alt="Mosque at Ramadan"
+                        onerror="this.style.background='linear-gradient(135deg,#04061a,#0a1035)';this.removeAttribute('src')" />
+                    <span class="gallery-caption">Mosque Night Prayers</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Dates_on_a_plate.jpg/400px-Dates_on_a_plate.jpg"
+                        alt="Dates for Iftar"
+                        onerror="this.style.background='linear-gradient(135deg,#1a0a00,#3a2000)';this.removeAttribute('src')" />
+                    <span class="gallery-caption">Dates — Sunnah Iftar</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Prayer_beads.jpg/400px-Prayer_beads.jpg"
+                        alt="Tasbih prayer beads"
+                        onerror="this.style.background='linear-gradient(135deg,#0a0a1a,#1a1a35)';this.removeAttribute('src')" />
+                    <span class="gallery-caption">Tasbih — Dhikr Beads</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Quran_kareem.jpg/400px-Quran_kareem.jpg"
+                        alt="Holy Quran"
+                        onerror="this.style.background='linear-gradient(135deg,#051205,#0a2a10)';this.removeAttribute('src')" />
+                    <span class="gallery-caption">The Holy Quran</span>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Iftar_spread.jpg/800px-Iftar_spread.jpg"
+                        alt="Iftar spread"
+                        onerror="this.style.background='linear-gradient(135deg,#1a0800,#3a1800)';this.removeAttribute('src')" />
+                    <span class="gallery-caption">Community Iftar</span>
+                </div>
+            </div>
+            <p style="text-align:center;margin-top:1.2rem;font-size:0.76rem;color:var(--muted);letter-spacing:0.1em;">
+                Replace gallery images with your own Ramadan photographs
+            </p>
+        </div>
+    </section>
+
+    <!-- ── VIDEOS ── -->
+    <section class="video-section">
+        <div class="container">
+            <div class="reveal" style="text-align:center">
+                <p class="section-label">✦ Watch &amp; Learn</p>
+                <h2 class="section-title">Ramadan in Motion</h2>
+            </div>
+            <div class="video-grid">
+                <div class="video-card reveal rd1">
+                    <div class="video-thumb">
+                        <iframe src="https://www.youtube.com/embed/placeholder1" title="How to Pray Salah"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-title">How to Perform Salah — Beginner's Complete Guide</p>
+                        <p class="video-desc">Step-by-step Wudu and all 5 daily prayers explained with Arabic and
+                            transliteration</p>
+                    </div>
+                </div>
+                <div class="video-card reveal rd2">
+                    <div class="video-thumb">
+                        <iframe src="https://www.youtube.com/embed/placeholder2" title="The Beauty of Ramadan"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-title">The Spirit of Ramadan — A Visual Journey</p>
+                        <p class="video-desc">Mosques, Iftars, Taraweeh nights, and the global Muslim community during
+                            the holy month</p>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align:center;margin-top:1.5rem;font-size:0.76rem;color:var(--muted);letter-spacing:0.1em;">
+                Replace YouTube embed src values with your chosen video URLs
+            </p>
+        </div>
+    </section>
+
+    <!-- ── WHO IS EXEMPT ── -->
+    <section class="exempt-section">
+        <div class="container">
+            <div class="reveal" style="text-align:center">
+                <p class="section-label em">✦ Islam Is Mercy</p>
+                <h2 class="section-title">Who Is Exempt from Fasting?</h2>
+            </div>
+            <div class="exempt-grid">
+                <div class="exempt-card reveal rd1">
+                    <div class="exempt-icon">🧒</div>
+                    <p class="exempt-title">Children</p>
+                    <p class="exempt-body">Below the age of puberty. Fasting is not obligatory, but gentle encouragement
+                        as they grow is recommended.</p>
+                </div>
+                <div class="exempt-card reveal rd2">
+                    <div class="exempt-icon">🤒</div>
+                    <p class="exempt-title">The Ill</p>
+                    <p class="exempt-body">Those whose health would be seriously worsened by fasting. Must make up
+                        (Qada) missed fasts after Ramadan when recovered.</p>
+                </div>
+                <div class="exempt-card reveal rd3">
+                    <div class="exempt-icon">🤰</div>
+                    <p class="exempt-title">Pregnant Women</p>
+                    <p class="exempt-body">If fasting would harm the mother or baby. Must make up fasts or pay Fidyah
+                        (feeding one poor person per missed day).</p>
+                </div>
+                <div class="exempt-card reveal rd4">
+                    <div class="exempt-icon">🤱</div>
+                    <p class="exempt-title">Breastfeeding Mothers</p>
+                    <p class="exempt-body">If fasting would harm milk supply or the infant. Same Qada or Fidyah as above
+                        applies.</p>
+                </div>
+                <div class="exempt-card reveal rd5">
+                    <div class="exempt-icon">✈️</div>
+                    <p class="exempt-title">Travelers</p>
+                    <p class="exempt-body">Those on a journey may break the fast and make it up later after returning.
+                    </p>
+                </div>
+                <div class="exempt-card reveal rd6">
+                    <div class="exempt-icon">👵</div>
+                    <p class="exempt-title">The Elderly &amp; Chronically Ill</p>
+                    <p class="exempt-body">Permanently unable to fast. Pay Fidyah instead of Qada for each missed day.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── DUAS ── -->
+    <section class="duas-section">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">✦ Sacred Supplications</p>
+                <h2 class="section-title">Essential Duas of Ramadan</h2>
+            </div>
+            <div class="dua-cards">
+                <div class="dua-card reveal rd1">
+                    <p class="dua-label">Iftar Dua — At the Moment of Breaking Fast</p>
+                    <p class="dua-text">Allahumma inni laka sumtu wa bika amantu wa 'alayka tawakkaltu wa 'ala rizqika
+                        aftartu</p>
+                    <p class="dua-meaning">"O Allah, I fasted for You, I believe in You, I put my trust in You, and I
+                        break my fast with Your provision."</p>
+                </div>
+                <div class="dua-card reveal rd2">
+                    <p class="dua-label">Laylat ul-Qadr Dua — Repeat Every Odd Night</p>
+                    <p class="dua-text">Allahumma innaka 'afuwwun tuhibbul 'afwa fa'fu 'anni</p>
+                    <p class="dua-meaning">"O Allah, You are the Pardoner and You love to pardon, so pardon me." — The
+                        specific dua the Prophet (PBUH) taught for the Night of Power.</p>
+                </div>
+                <div class="dua-card reveal rd3">
+                    <p class="dua-label">Dua for Entering the Mosque</p>
+                    <p class="dua-text">Allahumma iftah li abwaba rahmatik</p>
+                    <p class="dua-meaning">"O Allah, open for me the gates of Your mercy." — Said upon entering the
+                        masjid every time during Ramadan and beyond.</p>
+                </div>
+                <div class="dua-card reveal rd4">
+                    <p class="dua-label">Dua for Forgiveness — Say Abundantly</p>
+                    <p class="dua-text">Astaghfirullaha Rabbi min kulli zambin wa atubu ilayh</p>
+                    <p class="dua-meaning">"I seek forgiveness from Allah, my Lord, for all my sins and I turn to Him in
+                        repentance." — The most important Ramadan habit outside of prayer.</p>
+                </div>
+                <div class="dua-card reveal rd5">
+                    <p class="dua-label">Niyyah — Daily Fasting Intention</p>
+                    <p class="dua-text">Wa bisawmi ghadinn nawaiytu min shahri Ramadan</p>
+                    <p class="dua-meaning">"I intend to fast tomorrow for the month of Ramadan." — Made each night or at
+                        Suhoor. The intention is in the heart; saying it aloud is permissible.</p>
+                </div>
+                <div class="dua-card reveal rd6">
+                    <p class="dua-label">Eid Greeting</p>
+                    <p class="dua-text">Taqabbal Allahu minna wa minkum</p>
+                    <p class="dua-meaning">"May Allah accept from us and from you." — The traditional Eid greeting
+                        exchanged after the Eid prayer, affirming that all the worship of Ramadan is offered to Allah
+                        alone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── DO'S AND DON'TS ── -->
+    <section class="dosdonts-section">
+        <div class="container">
+            <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+                <p class="section-label">✦ Sacred Guidelines</p>
+                <h2 class="section-title">Do's &amp; Don'ts of Ramadan</h2>
+            </div>
+            <div class="dosdonts-grid">
+
+                <div class="dosdonts-col reveal rd1">
+                    <div class="dosdonts-header dos-header">
+                        <span class="dosdonts-header-icon">✓</span>
+                        <h3 class="dosdonts-header-title">Do's</h3>
+                    </div>
+                    <ul class="dosdonts-list">
+                        <li class="dd-item do-item">
+                            <span class="dd-check">🌙</span>
+                            <div>
+                                <p class="dd-title">Make sincere Niyyah every day before Fajr</p>
+                                <p class="dd-body">Intention is the foundation of every act of worship in Islam. A
+                                    Ramadan fast without intention is not valid. Make it in your heart each night or at
+                                    Suhoor.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item do-item">
+                            <span class="dd-check">🌑</span>
+                            <div>
+                                <p class="dd-title">Eat Suhoor — never skip it</p>
+                                <p class="dd-body">The Prophet (PBUH) specifically said there is barakah (blessing) in
+                                    Suhoor. It sustains you through the fast and is itself a worshipful act done with
+                                    intention.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item do-item">
+                            <span class="dd-check">🌴</span>
+                            <div>
+                                <p class="dd-title">Break fast with dates and water — follow the Sunnah</p>
+                                <p class="dd-body">This is the way of the Prophet (PBUH). A single date and sip of water
+                                    before Maghrib prayer is the Sunnah. Pray Maghrib before the full Iftar meal.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item do-item">
+                            <span class="dd-check">🕌</span>
+                            <div>
+                                <p class="dd-title">Pray all 5 daily prayers on time, every day</p>
+                                <p class="dd-body">Salah is the pillar of the religion. Missing prayers during Ramadan
+                                    defeats its purpose. Fajr, Dhuhr, Asr, Maghrib, and Isha — all five, every day, on
+                                    time.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item do-item">
+                            <span class="dd-check">🤲</span>
+                            <div>
+                                <p class="dd-title">Attend Taraweeh prayers at the mosque</p>
+                                <p class="dd-body">Taraweeh is one of the most spiritually beautiful experiences of
+                                    Ramadan. Hearing the entire Quran recited over 30 nights in congregation is
+                                    irreplaceable.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item do-item">
+                            <span class="dd-check">📖</span>
+                            <div>
+                                <p class="dd-title">Read at least one Juz of Quran daily</p>
+                                <p class="dd-body">The Quran and Ramadan are inseparable. One Juz per day completes the
+                                    full Quran in 30 days. Read in Arabic and follow with translation to understand the
+                                    meaning.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item do-item">
+                            <span class="dd-check">💰</span>
+                            <div>
+                                <p class="dd-title">Give generously in charity — Zakat and Sadaqah</p>
+                                <p class="dd-body">Rewards for charity are multiplied in Ramadan. Feed the poor, sponsor
+                                    Iftars, pay Zakat ul-Fitr before Eid. The Prophet was described as "more generous
+                                    than the blowing wind" during this month.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item do-item">
+                            <span class="dd-check">⭐</span>
+                            <div>
+                                <p class="dd-title">Intensify worship in the last 10 nights</p>
+                                <p class="dd-body">Seek Laylat ul-Qadr on all odd nights (21st, 23rd, 25th, 27th, 29th).
+                                    Stay awake in prayer, Quran, and dua. The reward of one night equals 83+ years of
+                                    worship.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item do-item">
+                            <span class="dd-check">💳</span>
+                            <div>
+                                <p class="dd-title">Pay Zakat ul-Fitr before the Eid prayer</p>
+                                <p class="dd-body">Obligatory for every household member — ensures even the poor can
+                                    celebrate Eid with food. Approximately the cost of one meal per person. Pay before
+                                    the Eid Salah begins.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="dosdonts-col reveal rd2">
+                    <div class="dosdonts-header donts-header">
+                        <span class="dosdonts-header-icon">✗</span>
+                        <h3 class="dosdonts-header-title">Don'ts</h3>
+                    </div>
+                    <ul class="dosdonts-list">
+                        <li class="dd-item dont-item">
+                            <span class="dd-cross">🚫</span>
+                            <div>
+                                <p class="dd-title">Do not eat, drink, or smoke from Fajr to Maghrib</p>
+                                <p class="dd-body">This is the fast — total abstention from all food, drink (including
+                                    water), and smoking from the Fajr Adhan to the Maghrib Adhan. Intentional breaking
+                                    requires Kaffarah (expiation).</p>
+                            </div>
+                        </li>
+                        <li class="dd-item dont-item">
+                            <span class="dd-cross">😴</span>
+                            <div>
+                                <p class="dd-title">Do not waste the day in excessive sleep or entertainment</p>
+                                <p class="dd-body">Ramadan hours are finite and irreplaceable. Every hour spent sleeping
+                                    through the day or in mindless entertainment is an hour of multiplied reward lost
+                                    forever.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item dont-item">
+                            <span class="dd-cross">🗣️</span>
+                            <div>
+                                <p class="dd-title">Do not lie, argue, backbite, or use foul language</p>
+                                <p class="dd-body">The Prophet (PBUH) said Allah has no need for the person's hunger if
+                                    they cannot give up false speech. Fasting the tongue and character is as essential
+                                    as fasting the stomach.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item dont-item">
+                            <span class="dd-cross">🕌</span>
+                            <div>
+                                <p class="dd-title">Do not miss any of the 5 daily prayers</p>
+                                <p class="dd-body">Missing obligatory prayer in the holiest month is a severe loss. If
+                                    you miss a prayer due to sleep or forgetfulness, make it up immediately when you
+                                    remember — there is no excuse to abandon it.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item dont-item">
+                            <span class="dd-cross">🌙</span>
+                            <div>
+                                <p class="dd-title">Do not fast on Eid day — it is Haram</p>
+                                <p class="dd-body">Fasting on Eid ul-Fitr (the day immediately after Ramadan) is
+                                    explicitly forbidden in Islam. Eat before the Eid prayer. It is a day of celebration
+                                    and gratitude, not fasting.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item dont-item">
+                            <span class="dd-cross">🍽️</span>
+                            <div>
+                                <p class="dd-title">Do not be wasteful with food at Iftar</p>
+                                <p class="dd-body">Ramadan is a month of gratitude and empathy for the hungry. Piling up
+                                    excessive food while millions go without is a contradiction of everything the fast
+                                    is meant to teach.</p>
+                            </div>
+                        </li>
+                        <li class="dd-item dont-item">
+                            <span class="dd-cross">📱</span>
+                            <div>
+                                <p class="dd-title">Do not neglect Taraweeh or the last 10 nights</p>
+                                <p class="dd-body">Missing Taraweeh or sleeping through the last 10 nights is one of the
+                                    greatest regrets a person can have about Ramadan. These nights will not return for a
+                                    full year — and you may not be here for them.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER CTA ── -->
+    <section class="footer-cta">
+        <div class="container">
+            <p class="section-label reveal">✦ Continue Exploring</p>
+            <h2 class="section-title reveal">Discover More Sacred Festivals</h2>
+            <p class="reveal">Every faith carries its own way of reaching the divine — through fasting, fire, flower,
+                and song.</p>
+            <a class="btn-moon reveal" href="festival-card.html">← Back to All Festivals</a>
+        </div>
+    </section>
+
+    <script>
+        /* ── Star field ── */
+        (function () {
+            const sf = document.getElementById('starField');
+            if (!sf) return;
+            for (let i = 0; i < 180; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                const sz = Math.random() * 2.2 + 0.4;
+                const x = Math.random() * 100, y = Math.random() * 100;
+                const dur = (Math.random() * 4 + 2).toFixed(1) + 's';
+                const del = (Math.random() * 5).toFixed(1) + 's';
+                const minOp = (Math.random() * 0.15 + 0.05).toFixed(2);
+                const maxOp = (Math.random() * 0.6 + 0.3).toFixed(2);
+                s.style.cssText = `width:${sz}px;height:${sz}px;left:${x}%;top:${y}%;--dur:${dur};--del:${del};--min-op:${minOp};--max-op:${maxOp};`;
+                sf.appendChild(s);
+            }
+        })();
+
+        /* ── Particle system — silver moon sparks + emerald notes ── */
+        (function () {
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d');
+            let W, H;
+            function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+            resize(); window.addEventListener('resize', resize);
+
+            function P() { this.reset(true); }
+            P.prototype.reset = function (init) {
+                this.x = Math.random() * W;
+                this.y = init ? Math.random() * H : H + 15;
+                this.r = Math.random() * 1.8 + 0.4;
+                this.vy = -(Math.random() * 0.45 + 0.12);
+                this.vx = (Math.random() - 0.5) * 0.28;
+                this.opacity = Math.random() * 0.45 + 0.1;
+                this.decay = 0.0009 + Math.random() * 0.0008;
+                this.hue = Math.random() > 0.7 ? 150 : 220; /* emerald or silver-blue */
+                this.sat = Math.random() > 0.7 ? 70 : 20;
+            };
+            P.prototype.update = function () {
+                this.y += this.vy; this.x += this.vx; this.opacity -= this.decay;
+                if (this.opacity <= 0 || this.y < -15) this.reset(false);
+            };
+            P.prototype.draw = function () {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${this.hue},${this.sat}%,72%,${this.opacity})`;
+                ctx.fill();
+            };
+
+            const particles = [];
+            for (let i = 0; i < 80; i++)particles.push(new P());
+
+            (function loop() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(loop);
+            })();
+        })();
+
+        /* ── Scroll reveal ── */
+        (function () {
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        })();
+    </script>
+</body>
+
+</html>
